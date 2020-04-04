@@ -1,12 +1,12 @@
 import React from 'react';
-import Menu from './components/Start Page/Menu/Menu'
 import Content from './components/Start Page/Content/Content'
 import Slider from './components/Start Page/Slider/Slider'
+import Pannel from './components/Start Page/Pannel/Pannel';
 
 const App = () => {
   return (
 	  <div className='app'>
-		  <Menu/>
+		  <Pannel/>
 		  <Content/>
 		  <Slider/>
 	  </div>

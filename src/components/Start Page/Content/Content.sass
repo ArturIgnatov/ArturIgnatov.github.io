@@ -1,0 +1,59 @@
+@import ../../../variables
+
+.content
+	width: 50%
+	padding: 40px 64px
+	min-width: 400px
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+.content__header
+	display: flex
+	justify-content: space-between
+	align-items: center
+	a
+		color: $GREEN
+		font-size: 30px
+		font-weight: 700
+	span
+		font-size: 14px
+		color: $GRAY
+		font-weight: 400
+		display: flex
+		align-items: center
+		svg
+			width: 15px
+			margin-right: 5px
+.content__desription
+	display: flex
+	flex-direction: column
+	line-height: 1
+	margin-bottom: 68px
+	h1
+		font-size: 70px
+		color: $BLACK
+		font-weight: 700
+	h2
+		font-size: 70px
+		color: $GREEN
+		font-weight: 700
+	>span
+		font-size: 26px
+		color: $GRAY
+		font-weight: 300
+		margin: 30px 0 60px
+	button
+		align-self: flex-start
+		@include mainbtn ($GREEN, #039F67, 65px)
+		
+.content__footer
+	display: flex
+	justify-content: space-between
+	font-size: 13px
+	span
+		color: $GRAY
+	a
+		color: $BLACK
+		transition: 0.2s linear
+		&:hover
+			color: $GREEN

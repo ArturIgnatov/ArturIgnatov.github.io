@@ -3,7 +3,9 @@ import './Slider.sass'
 
 const Slider = () => {
 	return (
-		<h1>Slider</h1>
+		<div className='slider'>
+			<h1>Slider</h1>
+		</div>
 	)
 }
 

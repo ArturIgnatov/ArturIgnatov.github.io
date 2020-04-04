@@ -1,0 +1,27 @@
+$GREEN: #0EC261
+$BLACK: #121212
+$GRAY: #999
+$LGRAY: #EEE
+
+@mixin mainbtn ($color1, $color2, $padding)
+	background: linear-gradient( to right, $color1 , $color2)
+	padding: 10px 0
+	font-weight: 400
+	font-size: 16px
+	line-height: 21px
+	color: #fff
+	text-decoration: none
+	border-radius: 5px
+	border: none
+	cursor: pointer
+	span
+		background: rgba( 0, 0 , 0 , 0 )
+		padding: 10px $padding
+		border-radius: inherit
+		transition: background .2s linear
+	&:hover span
+		background: rgba( 0, 0 ,0 , .2)
+	&:focus
+		outline: none
+		span
+			background: rgba( 0, 0 ,0 , .4)
