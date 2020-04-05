@@ -1,6 +1,6 @@
 import Slider from './Slider'
 import { connect } from 'react-redux';
-import { nextSlideAC, prevSlideAC } from '../../../redux/sliders-reduser';
+import { nextSlideAC, prevSlideAC, currentSlideAC } from '../../../redux/sliders-reduser';
 
 
 let mapStateToProps = (state) => {
@@ -10,11 +10,14 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToprops = (dispatch) => {
 	return{
-		next: (slideId) => {
-			dispatch(nextSlideAC(slideId))
+		next: () => {
+			dispatch(nextSlideAC())
 		},
-		prev: (slideId) => {
-			dispatch(prevSlideAC(slideId))
+		prev: () => {
+			dispatch(prevSlideAC())
+		},
+		current: (slideId) => {
+			dispatch(currentSlideAC(slideId))
 		}
 	}
 }

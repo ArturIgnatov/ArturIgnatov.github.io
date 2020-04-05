@@ -3,8 +3,8 @@ import './Pannel.sass'
 
 const Lang = () => {
 	return (
-		<div className='menu__item'>
-			<div className='menu__lang'>
+		<div className='pannel__item'>
+			<div className='pannel__lang'>
 				<span>Eng</span>
 			</div>
 		</div>

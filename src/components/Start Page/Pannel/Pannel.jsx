@@ -5,7 +5,7 @@ import Lang from './Lang'
 
 const Pannel = () => {
 	return (
-		<div className='menu'>
+		<div className='pannel'>
 			<Burger/>
 			<Lang/>
 		</div>
