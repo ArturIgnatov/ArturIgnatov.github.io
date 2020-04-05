@@ -29,7 +29,6 @@ const slidersReducer = (state = initialState, action) => {
 				...state,
 				currentId: state.currentId === state.slides.length - 1 ? state.currentId = 0 : state.currentId + 1  
 			}
-			debugger
 		case PREV:
 			return {
 				...state,

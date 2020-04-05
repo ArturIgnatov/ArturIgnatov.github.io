@@ -2,7 +2,6 @@ import React from 'react'
 import './Slider.sass'
 
 const Slider = (props) => {
-	console.log(props);
 	let id = props.slider.currentId
 	let slide = props.slider.slides[id]
 
@@ -19,10 +18,10 @@ const Slider = (props) => {
 
 	return (
 		<div className='slider'>
-			<a className='slider__prev' onClick={() => { props.prev() }}><span>‹</span></a>
-			<a className='slider__next' onClick={() => { props.next() }}><span>›</span></a>
+			<a href="/#" className='slider__prev' onClick={() => { props.prev() }}><span>‹</span></a>
+			<a href="/#" className='slider__next' onClick={() => { props.next() }}><span>›</span></a>
 			<div className='slider__item'>
-				<img src={slide.img} />
+				<img src={slide.img} alt=''/>
 				<div className='slide__description'>
 					<h2>{slide.title}</h2>
 					<span>{slide.subtitle}</span>
