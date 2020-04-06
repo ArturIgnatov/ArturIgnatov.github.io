@@ -5,11 +5,11 @@ import OrderMenu from './Menu/OrderMenu'
 import OrderContent from './Content/OrderContent'
 import OrderResult from './Result/OrderResult'
 
-const OrderPage = () => {
+const OrderPage = (props) => {
 	return (
 		<div className='order-page'>
 			<HeaderContent/>
-			<OrderMenu/>
+			<OrderMenu menu={props.orderPage.menu}/>
 			<div className='order-page__mein'>
 				<OrderContent />
 				<OrderResult />

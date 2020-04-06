@@ -2,14 +2,28 @@ import React from 'react'
 import './OrderMenu.sass'
 import { NavLink } from 'react-router-dom';
 
-const OrderMenu = () => {
+const OrderMenu = (props) => {
+	
+	const navLink = props.menu.map((el, i)=>{
+		if(el.id === 1){
+			return(
+				<NavLink key={i} exact to={el.path}>{el.title}</NavLink>
+			)
+		}
+		else if (!el.isActive){
+			return (
+				<NavLink className='disabled' key={i} to={el.path}>{el.title}</NavLink>
+			)
+		}
+		return(
+			<NavLink  key={i} to={el.path}>{el.title}</NavLink>
+		)
+	}) 
+	
 	return (
 		<div className='order-page__menu'>
 			<nav>
-				<NavLink exact to={'/orderpage'}>Местоположение</NavLink>
-				<NavLink to={'/orderpage/model'}>Модель</NavLink>
-				<NavLink to={'/orderpage/more'}>Дополнительно</NavLink>
-				<NavLink to={'/orderpage/total'}>Итого</NavLink>
+				{navLink}
 			</nav>
 		</div>
 	)

@@ -6,16 +6,22 @@ import sonata from '../assets/images/car/sonata.png';
 
 let initialState = {
 	menu:[
-		{ id: 1, title: 'Местоположение', isActive: true},
-		{ id: 2, title: 'Модель', isActive: false},
-		{ id: 3, title: 'Дополнительно', isActive: false },
-		{ id: 4, title: 'Итого', isActive: false },
+		{ id: 1, title: 'Местоположение', path:'/orderpage', isActive: true},
+		{ id: 2, title: 'Модель', path: '/orderpage/model', isActive: true},
+		{ id: 3, title: 'Дополнительно', path: '/orderpage/more', isActive: false },
+		{ id: 4, title: 'Итого', path: '/orderpage/total', isActive: false },
+	],
+	city:[
+		{ id: 1, cityName: 'Ульяновск', poits: [{ id: 1, pointName: 'Пункт №1', adress: 'ул.Макарова 37' }, { id: 2, pointName: 'Пункт №2', adress: 'ул.Ленина 4а' }]},
+		{ id: 2, cityName: 'Пенза', poits: [{ id: 1, pointName: 'Пункт №1', adress: 'ул."Энгельса 134' }, { id: 2, pointName: 'Пункт №2', adress: 'ул.Гоголя 3в' }]},
+		{ id: 3, cityName: 'Саранск' },
+		{ id: 4, cityName: 'Тольятти' }
 	],
 	cars:[
-		{ id: 1, model: 'ELANTRA', price: 12000, img: elantra, checked: true},
-		{ id: 2, model: 'i30 N', price: 10000, img: i30, checked: false},
-		{ id: 3, model: 'CRETA', price: 12000, img: creta, checked: false},
-		{ id: 4, model: 'SONATA', price: 10000, img: sonata, checked: false}
+		{ id: 1, model: 'ELANTRA', price: '12 000- 25 000', img: elantra, checked: false},
+		{ id: 2, model: 'i30 N', price: '10 000- 22 000', img: i30, checked: false},
+		{ id: 3, model: 'CRETA', price: '12 000- 25 000', img: creta, checked: false},
+		{ id: 4, model: 'SONATA', price: '10 000- 22 000', img: sonata, checked: false}
 	],
 	colors:[
 		{ id: 1, title: 'Любой', checked: false},
