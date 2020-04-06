@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import './Content.sass'
 import HeaderContent from './HeaderContent'
-const Content = () => {
+const Content = (props) => {	
 	return(
 		<main className='content'>
 			<HeaderContent/>

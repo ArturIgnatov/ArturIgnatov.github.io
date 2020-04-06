@@ -2,11 +2,12 @@ import React from 'react'
 import './Slider.sass'
 
 const Slider = (props) => {
+
 	let id = props.slider.currentId
 	let slide = props.slider.slides[id]
 
 	const dots = props.slider.dots.map((el, i) => {
-		if (el.active === true ) {
+		if (el.id === id) {
 			return (
 				<span key={el.id} className='slider-dots__item active' onClick={() => { props.current(i) }}></span>
 			)

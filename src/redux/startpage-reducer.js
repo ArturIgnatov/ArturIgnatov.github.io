@@ -6,6 +6,8 @@ import slideFour from '../assets/images/slider/4-min.png';
 const NEXT = 'NEXT';
 const PREV = 'PREV';
 const CURRENT = 'CURRENT'
+const OPEN_MODAL = 'OPEN_MODAL'
+const CLOSE_MODAL = 'CLOSE_MODAL'
 
 let initialState = {
 	slides: [
@@ -15,14 +17,21 @@ let initialState = {
 		{ id: 4, img: slideFour, title: 'Обслуживание', subtitle: 'Автомобиль проходит еженедельное ТО' }
 	],
 	dots:[
-		{ id: 1, active: true },
-		{ id: 2, active: false },
-		{ id: 3, active: false },
-		{ id: 4, active: false },
+		{ id: 0 },
+		{ id: 1 },
+		{ id: 2 },
+		{ id: 3 },
 	],
-	currentId: 0
+	menu:[
+		{ id: 0, title: 'Парковка' },
+		{ id: 1, title: 'Страховка' },
+		{ id: 2, title: 'Бензин' },
+		{ id: 3, title: 'Обслуживание' }
+	],
+	currentId: 0,
+	modalActive: false 
 }
-const slidersReducer = (state = initialState, action) => {
+const StartPageReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case NEXT:
 			return {
@@ -47,14 +56,26 @@ const slidersReducer = (state = initialState, action) => {
 				}),
 				currentId: action.slideId
 			}
+		case OPEN_MODAL:
+			return {
+				...state,
+				modalActive: true
+			}
+		case CLOSE_MODAL:
+			return {
+				...state,
+				modalActive: false
+			}
 		default:
 			return state;
 	}
 };
 
 
-export const prevSlideAC = () => ({ type: PREV})
-export const nextSlideAC = () => ({ type: NEXT})
-export const currentSlideAC =(slideId) => ({type: CURRENT, slideId})  
+export const prevSlideAC = () => ({ type: PREV })
+export const nextSlideAC = () => ({ type: NEXT })
+export const openModal = () => ({ type: OPEN_MODAL })
+export const closeModal = () => ({ type: CLOSE_MODAL })
+export const currentSlideAC =(slideId) => ({ type: CURRENT, slideId })  
 
-export default slidersReducer;
+export default StartPageReducer;

@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from "redux";
-import slidersReducer from "./sliders-reduser";
+import StartPageReducer from "./startpage-reducer";
 
 
 let reducers = combineReducers ({
-	slides: slidersReducer
+	startPage: StartPageReducer
 });
 
 

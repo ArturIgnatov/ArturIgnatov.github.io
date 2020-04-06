@@ -1,12 +1,23 @@
 import React from 'react'
 import Content from './Content/Content';
-import SliderContainer from './Slider/SliderContainer';
+import Modal from './Modal/Modal';
+import Slider from './Slider/Slider';
 
-const StartPage = () => {
+const StartPage = (props) => {
+
+	if (props.startPage.modalActive) {
+		return (
+			<div className='start-page'>
+				<Modal close={props.closeModal} current={props.current} startPage={props.startPage}/>
+				<Content />
+				<Slider slider={props.startPage} prev={props.prev} next={props.next} current={props.current}/>
+			</div>
+		)
+	}
 	return (
 		<div className='start-page'>
-			<Content/>
-			<SliderContainer/>
+			<Content />
+			<Slider slider={props.startPage} prev={props.prev} next={props.next} current={props.current}/> 
 		</div>
 	)
 }
