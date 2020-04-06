@@ -2,10 +2,10 @@ import StartPage from './StartPage';
 import { openModal, closeModal, currentSlideAC, prevSlideAC, nextSlideAC } from '../../redux/startpage-reducer';
 import { connect } from 'react-redux';
 
-let mapStateToProps = (props) => {
+let mapStateToProps = (state) => {
 	
 	return {
-		startPage: props.startPage
+		startPage: state.startPage
 	}
 }
 
