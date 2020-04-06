@@ -1,9 +1,11 @@
 import { createStore, combineReducers } from "redux";
 import StartPageReducer from "./startpage-reducer";
+import OrderPageReducer from "./orderpage-reducer";
 
 
 let reducers = combineReducers ({
-	startPage: StartPageReducer
+	startPage: StartPageReducer,
+	orderPage: OrderPageReducer
 });
 
 
