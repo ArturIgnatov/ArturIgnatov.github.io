@@ -3,7 +3,7 @@
 > Скачать архив и разархивировать его в удобное место  
 >![alt text](https://github.com/ArturIgnatov/ArturIgnatov.github.io/blob/master/load.jpg)  
 
-> Или воспользоваться команднйо строкой и склонировать проект  
+> Или воспользоваться командной строкой и склонировать проект  
 ```
 git clone https://github.com/ArturIgnatov/ArturIgnatov.github.io.git  
 ``` 
@@ -12,7 +12,7 @@ git clone https://github.com/ArturIgnatov/ArturIgnatov.github.io.git
 cd :ваш диск  
 cd \путь до папки с проектом  
 ```  
-> Загрузить все установленные зависимости для проекта!  
+> Обязательно нужно установить все зависимости для проекта!  
 > Наберите в консоле: 
 ```
 npm install  -g
