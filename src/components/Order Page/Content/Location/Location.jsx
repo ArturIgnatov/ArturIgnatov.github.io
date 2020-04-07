@@ -24,7 +24,7 @@ const Location = (props) => {
 	}
 
 	// Рендер списка городов с фильтром
-	const citiName = props.location.city.map( (el, i) => {
+	const citiName = props.location.city.map( (el) => {
 		let cityName = inputText.toUpperCase()
 		if (el.cityName.toUpperCase().indexOf(cityName) !== -1){
 			return(
