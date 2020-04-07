@@ -8,6 +8,30 @@
 	margin-bottom: 50px
 .location__city
 	position: relative
+
+.location__city-list
+	width: 224px
+	height: 106px
+	overflow: auto
+	right: 0
+	background: #ffffff
+	border: 1px solid $LGRAY
+	position: absolute
+	z-index: 10000
+	ul
+		margin: 0
+		padding-left: 5px
+	li
+		font-size: 14px
+		padding: 5px
+		font-weight: 300
+		list-style-type: none
+		color: $GRAY
+		&:hover
+			color: $GREEN
+
+
+
 label
 	font-size: 14px
 	font-weight: 300
@@ -23,12 +47,44 @@ input
 	border-bottom: 1px solid $GRAY
 	&:focus
 		outline: none
-.times
+.svg__wrapper
+	position: absolute
+	cursor: pointer
 	top: 5px
 	right: 5px
-	color: $BLACK
-	position: absolute
-	width: 9px
-	cursor: pointer
+	svg
+		color: $BLACK
+		width: 9px
 iframe
 	margin-top: 20px
+
+::-webkit-scrollbar-button 
+	background-repeat:no-repeat
+	width: 5px
+	height: 0px
+
+
+::-webkit-scrollbar-track 
+	border-right: 1px solid $LGRAY
+	border-left: 1px solid $LGRAY
+
+
+::-webkit-scrollbar-thumb 
+	-webkit-border-radius: 0px
+	border: 1.5px solid #fff
+	border-radius: 6px
+	background-color: $GRAY
+
+
+::-webkit-scrollbar-thumb:hover
+	background-color: $GREEN
+
+
+::-webkit-resizer
+	background-repeat:no-repeat
+	width: 4px
+	height: 0px
+
+
+::-webkit-scrollbar
+	width: 7px;

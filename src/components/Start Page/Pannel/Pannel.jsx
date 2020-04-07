@@ -3,9 +3,7 @@ import './Pannel.sass'
 import Burger from './Burger'
 import Lang from './Lang'
 
-const Pannel = (props) => {
-	console.log(props);
-	
+const Pannel = (props) => {	
 	return (
 		<div className='pannel'>
 			<Burger open={props.openModal}/>

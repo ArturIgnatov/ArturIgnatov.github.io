@@ -11,7 +11,7 @@ const OrderPage = (props) => {
 			<HeaderContent/>
 			<OrderMenu menu={props.orderPage.menu}/>
 			<div className='order-page__mein'>
-				<OrderContent />
+				<OrderContent orderPage={props.orderPage}/>
 				<OrderResult />
 			</div>
 		</div>
