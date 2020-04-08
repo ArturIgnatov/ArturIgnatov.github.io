@@ -10,10 +10,10 @@ const OrderContent = () => {
 	return (
 		<div className='order-page__content'>
 			<Switch>
-				<Route exact path={'/orderpage'} component={LocationContainer} />
-				<Route  path={'/orderpage/model'} component={ModelContainer} />
-				<Route  path={'/orderpage/more'} component={MoreContainer} />
-				<Route  path={'/orderpage/total'} component={TotalContainer} />
+				<Route exact path={'/docs/orderpage'} component={LocationContainer} />
+				<Route path={'/docs/orderpage/model'} component={ModelContainer} />
+				<Route path={'/docs/orderpage/more'} component={MoreContainer} />
+				<Route path={'/docs/orderpage/total'} component={TotalContainer} />
 			</Switch>
 		</div>
 	)

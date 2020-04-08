@@ -7,11 +7,11 @@ const Modal = (props) => {
 	const navItem = props.startPage.menu.map((el, i)=>{
 		if (el.id === props.startPage.currentId) {
 			return (
-				<a key={el.id} onClick={() => { props.current(i) }} href="/#" className='nav__link active' >{el.title}</a>
+				<a key={el.id} onClick={() => { props.current(i) }}  className='nav__link active' >{el.title}</a>
 			)
 		}
 		return (
-			<a key={el.id} onClick={() => { props.current(i) }} href="/#" className='nav__link' >{el.title}</a>
+			<a key={el.id} onClick={() => { props.current(i) }}  className='nav__link' >{el.title}</a>
 		)
 	})
 	return (

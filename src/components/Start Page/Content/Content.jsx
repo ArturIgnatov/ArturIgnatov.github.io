@@ -10,7 +10,7 @@ const Content = (props) => {
 				<h1>Каршеринг</h1>
 				<h2>Need for Drive</h2>
 				<span>Поминутная аренда авто твоего города</span>
-				<NavLink to='/orderpage'><button><span>Забронировать</span></button></NavLink>
+				<NavLink to='/docs/orderpage'><button><span>Забронировать</span></button></NavLink>
 			</div>
 			<div className='content__footer'>
 				<span>© 2016-2020 «Need for drive»</span>

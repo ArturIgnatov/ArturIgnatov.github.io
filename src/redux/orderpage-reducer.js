@@ -15,10 +15,10 @@ let SELECT_COLOR = "SELECT_COLOR"
 
 let initialState = {
 	menu:[
-		{ id: 1, title: 'Местоположение', path:'/orderpage', isActive: true},
-		{ id: 2, title: 'Модель', path: '/orderpage/model', isActive: true},
-		{ id: 3, title: 'Дополнительно', path: '/orderpage/more', isActive: true },
-		{ id: 4, title: 'Итого', path: '/orderpage/total', isActive: false },
+		{ id: 1, title: 'Местоположение', path:'/docs/orderpage', isActive: true},
+		{ id: 2, title: 'Модель', path: '/docs/orderpage/model', isActive: true},
+		{ id: 3, title: 'Дополнительно', path: '/docs/orderpage/more', isActive: true },
+		{ id: 4, title: 'Итого', path: '/docs/orderpage/total', isActive: false },
 	],
 	location:{
 		city:[

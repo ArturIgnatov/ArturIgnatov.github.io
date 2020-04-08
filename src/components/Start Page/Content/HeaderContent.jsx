@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 const HeaderContent = () => {
 	return (
 		<div className='content__header'>
-			<NavLink to='/' className='' >Need for Drive</NavLink>
+			<NavLink to='/docs/' className='' >Need for Drive</NavLink>
 			<span className='location'>
 				<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" className="svg-inline--fa fa-map-marker-alt fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
 					<path fill="currentColor"
