@@ -35,7 +35,7 @@ const Location = (props) => {
 
 	return (
 		<div className='location'>
-			<div className='location__info'>
+			<div className='location__info style-input'>
 				<label className='location__city' >
 					Город
 					<input type="text" ref={cityValue} onChange={updateCityValue} value={inputText} onClick={() => { props.toggleCityBox() }}/>
@@ -54,7 +54,7 @@ const Location = (props) => {
 					:
 					<div></div> }
 				</label>
-				<label className='location__point'>
+				<label className='location__point input'>
 					Пункт выдачи
 					<input type="text" placeholder='Начните вводить пункт'/>
 				</label>

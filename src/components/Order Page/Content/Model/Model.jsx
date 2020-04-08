@@ -3,10 +3,18 @@ import './Model.sass'
 
 
 const Model = (props) => {
-	console.log(props);
 
 // Рендер радио
-	const checkBoxItem = props.filterCar.map((el) => {
+	const radioFilterCarItem = props.filterCar.map((el) => {
+		if (el.checked) {
+			return(
+				<label key={el.id}>
+					<input className="check" type="radio" name="model" checked={el.checked} onChange={() => { props.handlerRadio(el.id) }} />
+					<span className="fakecheck"></span>
+					<span className='active'>{el.title}</span>
+				</label>
+			)
+		}
 		return (
 			<label key={el.id}>
 				<input className="check" type="radio" name="model" checked={el.checked} onChange={() => { props.handlerRadio(el.id) }} />
@@ -51,8 +59,8 @@ const Model = (props) => {
 	
 	return (
 		<div className='model'>
-			<div className='model__filter'>
-				{checkBoxItem}
+			<div className='model__filter style-radio'>
+				{radioFilterCarItem}
 			</div>
 			<div className='model__view'>
 				{carsItem}

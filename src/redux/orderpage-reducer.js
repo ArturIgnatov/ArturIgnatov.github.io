@@ -11,11 +11,13 @@ let TOGGLE_CITY_BOX = 'TOGGLE_CITY_BOX'
 let SELECT_CARS = 'SELECT_CARS'
 let FILTER_CAR = 'FILTER_CAR'
 
+let SELECT_COLOR = "SELECT_COLOR"
+
 let initialState = {
 	menu:[
 		{ id: 1, title: 'Местоположение', path:'/orderpage', isActive: true},
 		{ id: 2, title: 'Модель', path: '/orderpage/model', isActive: true},
-		{ id: 3, title: 'Дополнительно', path: '/orderpage/more', isActive: false },
+		{ id: 3, title: 'Дополнительно', path: '/orderpage/more', isActive: true },
 		{ id: 4, title: 'Итого', path: '/orderpage/total', isActive: false },
 	],
 	location:{
@@ -44,7 +46,7 @@ let initialState = {
 	colors:[
 		{ id: 1, title: 'Любой', checked: false},
 		{ id: 2, title: 'Красный', checked: false},
-		{ id: 3, title: 'Голубой', checked: true}
+		{ id: 3, title: 'Голубой', checked: false}
 	],
 	date:[
 		{with: '', by: ''}
@@ -62,6 +64,7 @@ let initialState = {
 		sity: '',
 		point:'',
 		car:'',
+		colorCar:'',
 		dataThis: '',
 		dataBy: '',
 	},
@@ -115,6 +118,17 @@ const OrderPageReducer = (state = initialState, action) => {
 					return { ...el, checked: false }
 				})
 			}
+		case SELECT_COLOR:
+			return{
+				...state,
+				colors: state.colors.map(el =>{
+					if (el.id === action.id) {
+						return {...el, checked: true}
+					}
+					return { ...el, checked: false}
+				}),
+				preorder: {...state.preorder, colorCar:  action.city}
+			}
 		default:
 			return state
 	}
@@ -129,6 +143,7 @@ export const toggleCityBox = () => ({ type: TOGGLE_CITY_BOX })
 // Диспатчи для models
 export const selectCars = (carId, carModel) => ({ type: SELECT_CARS, id: carId, model: carModel })
 // Диспатчи для filterCar 
-export const handlerFilterCarRadio = (idCheck) => ({ type: FILTER_CAR, id: idCheck})
+export const handlerFilterCarRadio = (idRadio) => ({ type: FILTER_CAR, id: idRadio})
+export const selectColorCarRadio = (idRadio, title) => ({ type: SELECT_COLOR, id: idRadio, city: title })
 
 export default OrderPageReducer;
