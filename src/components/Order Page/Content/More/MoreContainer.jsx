@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import More from './More';
-import { selectColorCarRadio } from '../../../../redux/orderpage-reducer';
+import { selectColorCarRadio, changeDateByValue, changeDateWithValue } from '../../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
@@ -14,6 +14,12 @@ let mapDispatchToProps = (dispatch) => {
 	return {
 		selectColor: (idRadio, title) => {
 			dispatch(selectColorCarRadio(idRadio, title))
+		},
+		changeDateValue: (newDate) => {
+			dispatch(changeDateWithValue (newDate))
+		},
+		cangeDateByValue: (newDate) => {
+			dispatch(changeDateByValue (newDate))
 		}
 	}
 }

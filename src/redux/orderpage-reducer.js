@@ -11,7 +11,10 @@ let TOGGLE_CITY_BOX = 'TOGGLE_CITY_BOX'
 let SELECT_CARS = 'SELECT_CARS'
 let FILTER_CAR = 'FILTER_CAR'
 
-let SELECT_COLOR = "SELECT_COLOR"
+let SELECT_COLOR = 'SELECT_COLOR'
+
+let CHANGE_DATE_WITH = 'CHANGE_DATE_WITH'
+let CHANHE_DATE_BY = 'CHANHE_DATE_BY'
 
 let initialState = {
 	menu:[
@@ -33,10 +36,10 @@ let initialState = {
 		cityBoxVisible: false
 	},
 	cars:[
-		{ id: 1, model: 'ELANTRA', price: 12000, subtitle: '12 000- 25 000', img: elantra, selected: false},
-		{ id: 2, model: 'i30 N', price: 7000, subtitle: '10 000- 22 000', img: i30, selected: false},
-		{ id: 3, model: 'CRETA', price: 12000, subtitle: '12 000- 25 000', img: creta, selected: false},
-		{ id: 4, model: 'SONATA', price: 7000, subtitle: '10 000- 22 000', img: sonata, selected: false}
+		{ id: 1, number: 'K 387 MH 73', mark: 'Hyndai', model: 'ELANTRA', price: 12000, subtitle: '12 000- 25 000', img: elantra, selected: false},
+		{ id: 2, number: 'Н 432 СА 73', mark: 'Hyndai', model: 'i30 N', price: 7000, subtitle: '10 000- 22 000', img: i30, selected: false},
+		{ id: 3, number: 'Л 924 МР 73', mark: 'Hyndai', model: 'CRETA', price: 12000, subtitle: '12 000- 25 000', img: creta, selected: false},
+		{ id: 4, number: 'K 282 КС 73', mark: 'Hyndai', model: 'SONATA', price: 7000, subtitle: '10 000- 22 000', img: sonata, selected: false}
 	],
 	filterCar:[
 		{ id: 1, title: 'Все модели', checked: true },
@@ -48,9 +51,11 @@ let initialState = {
 		{ id: 2, title: 'Красный', checked: false},
 		{ id: 3, title: 'Голубой', checked: false}
 	],
-	date:[
-		{with: '', by: ''}
-	],
+	date:{
+		min: new Date().toISOString().slice(0, 16),
+		with: new Date().toISOString().slice(0, 16),
+		by: ''
+	},
 	rate:[
 		{ id: 1, title: 'Поминутно', price: 7, checked: false },
 		{ id: 2, title: 'На сутки', price: 1999, checked: true },
@@ -65,7 +70,7 @@ let initialState = {
 		point:'',
 		car:'',
 		colorCar:'',
-		dataThis: '',
+		dataThis: new Date().toISOString().slice(0, 16),
 		dataBy: '',
 	},
 	order:[],
@@ -129,6 +134,18 @@ const OrderPageReducer = (state = initialState, action) => {
 				}),
 				preorder: {...state.preorder, colorCar:  action.city}
 			}
+		case CHANGE_DATE_WITH:
+			return {
+				...state,
+				date: {...state.date, with: action.date},
+				preorder: { ...state.preorder, dataThis: action.date }
+			}
+		case CHANHE_DATE_BY:
+			return {
+				...state,
+				date: { ...state.date, by: action.date },
+				preorder: { ...state.preorder, dataBy: action.date }
+			}
 		default:
 			return state
 	}
@@ -145,5 +162,13 @@ export const selectCars = (carId, carModel) => ({ type: SELECT_CARS, id: carId, 
 // Диспатчи для filterCar 
 export const handlerFilterCarRadio = (idRadio) => ({ type: FILTER_CAR, id: idRadio})
 export const selectColorCarRadio = (idRadio, title) => ({ type: SELECT_COLOR, id: idRadio, city: title })
+
+// Дипатчи для дополнительно
+
+export const changeDateWithValue = (newDate) => ({ type: CHANGE_DATE_WITH, date: newDate})
+export const changeDateByValue = (newDate) => ({ type: CHANHE_DATE_BY, date: newDate})
+
+
+
 
 export default OrderPageReducer;

@@ -7,15 +7,6 @@ const Location = (props) => {
 	console.log(props);
 	// Текст импута
 	let inputText = props.location.cityText;
-	
-	// let changedCity = ''
-
-	// const ttt = props.location.city.forEach( (el) => {
-	// 	if (el.chenged) {
-	// 		return props.location.cityText = el.cityName
-	// 	}
-	// })	
-	// Инпут город
 	let cityValue = React.createRef()
 
 	let updateCityValue = () => {

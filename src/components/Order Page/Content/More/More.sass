@@ -1,3 +1,4 @@
+@import ../../../../variables
 .more
 	span
 		display: block
@@ -5,7 +6,7 @@
 		font-weight: 300
 		margin-bottom: 20px
 .more__colors
-		display: flex
+	display: flex
 .more__date
 	width: 252px
 	display: flex
@@ -13,3 +14,41 @@
 	align-items: flex-end
 	position: relative
 	margin-bottom: 20px
+
+.more__services
+	display: inline-block
+	span
+		color: $GRAY
+		&.active
+			color: $BLACK
+	label
+		font-size: 14px
+		font-weight: 300
+		display: flex
+	input
+		display: none
+		&:checked + .fake::before
+			opacity: 1
+	.fake
+		width: 14px
+		height: 14px
+		border: 1px solid #999999
+		margin-right: 10px
+		position: relative
+		z-index: 10
+		&.active
+			color: $GRAY
+	.fake::before
+		content: " "
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		display: block
+		width: 14px
+		z-index: 100
+		height: 14px
+		background: url(../../../../assets/images/svg/check.png)
+		border: 2px solid $GREEN
+		opacity: 0
+		transition: all linear .1s
