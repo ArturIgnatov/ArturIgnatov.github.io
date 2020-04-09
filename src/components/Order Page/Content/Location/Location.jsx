@@ -4,7 +4,6 @@ import './Location.sass'
 
 
 const Location = (props) => {
-	console.log(props);
 	// Текст импута
 	let inputText = props.location.cityText;
 	let cityValue = React.createRef()

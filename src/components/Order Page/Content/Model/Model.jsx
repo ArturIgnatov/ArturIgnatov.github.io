@@ -35,8 +35,6 @@ const Model = (props) => {
 		}
 		return props.cars[i].price
 	})
-	console.log(filterCars);
-
 	// Рендер отфильтрованных машин
 	const carsItem = filterCars.map((el, i) => {
 		if (el.selected) {

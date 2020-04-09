@@ -1,0 +1,25 @@
+@import ../../../../variables
+
+.total__order
+	display: flex
+	justify-content: space-between
+	align-items: flex-start
+
+.total__description
+	div
+		margin-bottom: 7px
+		font-size: 14px
+		font-weight: 500
+		&:first-child
+			font-size: 18px
+			font-weight: 400
+		&:nth-child(2)
+			display: inline-block
+			padding: 4px 6px
+			border-radius: 5px
+			border: 1px solid $GRAY
+			font-weight: 400
+		&:last-child
+			margin-bottom: 0
+		span
+			font-weight: 300
