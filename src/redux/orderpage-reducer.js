@@ -19,7 +19,7 @@ let SELECT_COLOR = 'SELECT_COLOR'
 let CHANGE_DATE_WITH = 'CHANGE_DATE_WITH'
 let CHANHE_DATE_BY = 'CHANHE_DATE_BY'
 let SELECT_RATE = 'SELECT_RATE'
-let SELECT_CERVICE = 'SELECT_CERVICE'
+let SELECT_SERVICE = 'SELECT_SERVICE'
 
 let UPDATE_TIME = 'UPDATE_TIME'
 
@@ -168,7 +168,7 @@ const OrderPageReducer = (state = initialState, action) => {
 					return {...el, checked: false}
 				})
 			}
-		case SELECT_CERVICE:
+		case SELECT_SERVICE:
 			return{
 				...state,
 				services: state.services.map (el => {
@@ -212,7 +212,7 @@ export const selectColorCarRadio = (idRadio, title) => ({ type: SELECT_COLOR, id
 export const changeDateWithValue = (newDate) => ({ type: CHANGE_DATE_WITH, date: newDate})
 export const changeDateByValue = (newDate) => ({ type: CHANHE_DATE_BY, date: newDate})
 export const selectRateRadio = (idRadio, title) => ({ type: SELECT_RATE, id: idRadio, city: title })
-export const selectServicesCheckbox = (idCheckbox, title) => ({ type: SELECT_CERVICE, id: idCheckbox, city: title })
+export const selectServicesCheckbox = (idCheckbox, title) => ({ type: SELECT_SERVICE, id: idCheckbox, city: title })
 
 
 export const updateTime = (newTime) => ({type: UPDATE_TIME, date: newTime})

@@ -7,8 +7,8 @@ const Content = (props) => {
 		<main className='content'>
 			<HeaderContent/>
 			<div className='content__desription'>
-				<h1>Каршеринг</h1>
-				<h2>Need for Drive</h2>
+				<h2>Каршеринг</h2>
+				<h1>Need for Drive</h1>
 				<span>Поминутная аренда авто твоего города</span>
 				<NavLink to='/docs/orderpage'><button><span>Забронировать</span></button></NavLink>
 			</div>

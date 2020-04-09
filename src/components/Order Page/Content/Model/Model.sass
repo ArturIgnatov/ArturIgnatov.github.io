@@ -1,7 +1,8 @@
 @import ../../../../variables
 
 .model
-
+	animation-name: show
+	animation-duration: .7s
 .model__view
 	display: flex
 	justify-content: space-between
@@ -76,3 +77,12 @@
 		border: 1px solid $GRAY
 	&.active
 		border: 1px solid $GREEN
+
+@keyframes show
+	0%
+		opacity: .5
+		transform: translateX(-40px)
+	50%
+		transform: translateX(10px)
+	100%
+		opacity: 1

@@ -47,7 +47,7 @@ const Model = (props) => {
 			)
 		}
 		return(
-			<div key={i} className='model__item' onClick={() => { props.selectCars(el.id, el.model) }}>
+			<div key={i} className='model__item ' onClick={() => { props.selectCars(el.id, el.model) }}>
 				<span>{el.model}</span>
 				<span>{el.subtitle}</span>
 				<img src={el.img} alt="" />
@@ -60,7 +60,7 @@ const Model = (props) => {
 			<div className='model__filter style-radio'>
 				{radioFilterCarItem}
 			</div>
-			<div className='model__view'>
+			<div className='model__view show'>
 				{carsItem}
 			</div>
 		</div>
