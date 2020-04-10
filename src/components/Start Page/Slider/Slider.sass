@@ -43,8 +43,14 @@
 		letter-spacing: 1px
 	button
 		align-self: flex-start
-		@include mainbtn ($GREEN, #039F67, 30px)
-
+		width: 164px
+		@include mainbtn (#13493F, #0C7B1B)
+		&.blue
+			@include mainbtn (#132949, #0C7B67)
+		&.red
+			@include mainbtn (#493013, #7B0C3B)
+		&.purple
+			@include mainbtn (#281349, #720C7B)
 .slider__prev, .slider__next
 	color: #fff
 	font-size: 30px

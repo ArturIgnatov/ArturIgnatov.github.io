@@ -11,10 +11,10 @@ const CLOSE_MODAL = 'CLOSE_MODAL'
 
 let initialState = {
 	slides: [
-		{ id: 1, img: slideOne, title: 'Бесплатный парковка', subtitle: 'Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах.' },
-		{ id: 2, img: slideTwo, title: 'Страховка', subtitle: 'Полная страховка страховка автомобиля' },
-		{ id: 3, img: slideThree, title: 'Бензин', subtitle: 'Полный бак на любой заправке города за наш счёт' },
-		{ id: 4, img: slideFour, title: 'Обслуживание', subtitle: 'Автомобиль проходит еженедельное ТО' }
+		{ id: 1, colorBtn: 'green' , img: slideOne, title: 'Бесплатный парковка', subtitle: 'Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах.' },
+		{ id: 2, colorBtn: 'blue', img: slideTwo, title: 'Страховка', subtitle: 'Полная страховка страховка автомобиля'},
+		{ id: 3, colorBtn: 'red', img: slideThree, title: 'Бензин', subtitle: 'Полный бак на любой заправке города за наш счёт'},
+		{ id: 4, colorBtn: 'purple', img: slideFour, title: 'Обслуживание', subtitle: 'Автомобиль проходит еженедельное ТО'}
 	],
 	dots:[
 		{ id: 0 },

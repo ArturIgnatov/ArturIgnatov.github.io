@@ -23,7 +23,10 @@ let SELECT_SERVICE = 'SELECT_SERVICE'
 
 let UPDATE_TIME = 'UPDATE_TIME'
 
-let dateNow = moment().format().slice(0, 16)
+
+ let newDate = 	moment().format().slice(0, 16)
+
+
 
 let initialState = {
 	menu:[
@@ -61,8 +64,8 @@ let initialState = {
 		{ id: 3, title: 'Голубой', checked: false}
 	],
 	date:{
-		min: dateNow,
-		with: dateNow,
+		min: newDate,
+		with: newDate,
 		by: ''
 	},
 	rate:[
@@ -79,7 +82,7 @@ let initialState = {
 		point:'',
 		car:'',
 		colorCar:'',
-		dataThis: dateNow,
+		dataThis: moment().format().slice(0, 16),
 		dataBy: '',
 		rate: '',
 		services:[],
@@ -149,7 +152,7 @@ const OrderPageReducer = (state = initialState, action) => {
 		case CHANGE_DATE_WITH:
 			return {
 				...state,
-				date: {...state.date, with: action.date},
+				date: { ...state.date, with: action.date},
 				preorder: { ...state.preorder, dataThis: action.date }
 			}
 		case CHANHE_DATE_BY:
@@ -190,7 +193,7 @@ const OrderPageReducer = (state = initialState, action) => {
 		case UPDATE_TIME:
 			return{
 				...state,
-				date: { ...state.date, with: action.date}
+				date: { ...state.date, with: moment().format().slice(0, 16)}
 			}
 		default:
 			return state
@@ -215,5 +218,5 @@ export const selectRateRadio = (idRadio, title) => ({ type: SELECT_RATE, id: idR
 export const selectServicesCheckbox = (idCheckbox, title) => ({ type: SELECT_SERVICE, id: idCheckbox, city: title })
 
 
-export const updateTime = (newTime) => ({type: UPDATE_TIME, date: newTime})
+export const updateTime = (newTime) => ({type: UPDATE_TIME})
 export default OrderPageReducer;

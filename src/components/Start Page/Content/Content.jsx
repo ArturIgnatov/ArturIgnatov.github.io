@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import './Content.sass'
 import HeaderContent from './HeaderContent'
 const Content = (props) => {	
+
 	return(
 		<main className='content'>
 			<HeaderContent/>
@@ -10,7 +11,7 @@ const Content = (props) => {
 				<h2>Каршеринг</h2>
 				<h1>Need for Drive</h1>
 				<span>Поминутная аренда авто твоего города</span>
-				<NavLink to='/docs/orderpage'><button><span>Забронировать</span></button></NavLink>
+				<NavLink to='/docs/orderpage'><button>Забронировать</button></NavLink>
 			</div>
 			<div className='content__footer'>
 				<span>© 2016-2020 «Need for drive»</span>

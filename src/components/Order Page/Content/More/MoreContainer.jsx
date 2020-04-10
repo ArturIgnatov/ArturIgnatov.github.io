@@ -27,8 +27,8 @@ let mapDispatchToProps = (dispatch) => {
 		checkedService: (idCheckbox, title) => {
 			dispatch(selectServicesCheckbox(idCheckbox, title))
 		},
-		update: (newTime) => {
-			dispatch(updateTime(newTime))
+		update: () => {
+			dispatch(updateTime())
 		},
 	}
 }

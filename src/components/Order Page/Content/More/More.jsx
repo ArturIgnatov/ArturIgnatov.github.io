@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './More.sass'
 import moment from 'moment'
 
 const More = (props) => {
+		
+	// let timewith = props.date.with
+	// let timeBy = props.date.by
+	// let tr = new Date(timewith)
+	// let tt = new Date(timeBy)
+
+	// let diff = tt - tr
+	// let mill = diff
+	// let sec = mill / 1000
+	// let min = sec / 60
+	// let hour = min / 60
+	// let day = hour / 24 
+
+	// let hr1 = Math.floor(Math.floor(day) * 24)
+	// let hr2 =  Math.floor(hour) - hr1
+
+	// let sec1 = Math.floor(Math.floor(hour) * 60)
+	// let sec2 = Math.floor(min) - sec1
+	// console.log(Math.floor(day), hr2, sec2);
+
+
 	// Рендер радиокнопок выбора цвета
 	const radioFilterColorItem = props.colors.map( el => {
 		if (el.checked) {
@@ -78,21 +99,18 @@ const More = (props) => {
 		props.cangeDateByValue(newDate)
 	}
 	// Обновление даты 
-	let tickTime = () => {
-		let newTime = moment().format().slice(0, 16)
-		props.update(newTime)
-		clearInterval(s)
-	}
+	
 
-	let s = setInterval(() => {
-		tickTime()
-	}, 1000);
+	// const [date, setDate] = useState(moment().format().slice(0, 19))
 
+	// let s = setInterval(() => {
+	// 	setDate(moment().format().slice(0, 19))
+	// 	clearInterval(s)
+	// 	console.log('ye');
+	// }, 1000);
 
 	return (
 		<div className='more'>
-
-
 			<span>Цвет</span>
 			<div className='more__colors style-radio'>
 				{radioFilterColorItem}
@@ -103,7 +121,7 @@ const More = (props) => {
 			<div className='more__date style-input'>
 				<label className='more__datewhis' >
 					С
-					<input type="datetime-local" ref={dateWhis} value={valueDateWhis} onChange={updateDateWhis} min={valueDateWhis}/>
+					<input type="datetime-local" value={valueDateWhis} ref={dateWhis} onChange={updateDateWhis} min={valueDateWhis}/>
 				</label>
 				<label className='more__dateby'>
 					По

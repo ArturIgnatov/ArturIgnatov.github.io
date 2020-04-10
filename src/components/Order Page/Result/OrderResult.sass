@@ -1,12 +1,24 @@
 @import ../../../variables
 
 .order-page__result
-	width: 30%
-	padding: 30px 0 0 30px
-	background: $LGRAY
+	width: 25%
+	padding: 10px 0 0 60px
+	display: flex
+	flex-direction: column
 	animation-name: show2
-	animation-duration: .7s
-
+	animation-duration: .7s 
+	h2
+		text-align: right
+		font-weight: 500
+		font-size: 18px
+		margin-bottom: 30px
+	p
+		padding: 15px 0
+	button
+		width: 100%
+		@include mainbtn ($GREEN, #039F67)
+		animation-name: show2
+		animation-duration: 1s
 @keyframes show2
 	0%
 		opacity: .5
@@ -15,3 +27,20 @@
 		transform: translateX(-10px)
 	100%
 		opacity: 1
+
+.relust__item
+	display: flex
+	justify-content: space-between
+	font-size: 14px
+	align-items: flex-end
+	margin-bottom: 15px
+	span
+		&:first-child
+			color: $BLACK
+			width: inherit
+			font-weight: 300
+		&:last-child
+			width: 35%
+			color: $GRAY
+			font-weight: 300
+			text-align: right

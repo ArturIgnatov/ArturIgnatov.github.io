@@ -42,6 +42,8 @@
 		text-decoration: none
 		transition: color .2s linear
 		cursor: pointer
+		animation-name: ttr
+		animation-duration: .9s
 		&:hover
 			color: $GREEN
 		&.active
@@ -53,3 +55,12 @@
 	top: 30px
 	left: 11.5px
 	cursor: pointer
+	animation-name: ttr
+	animation-duration: .9s
+
+@keyframes ttr
+	0%
+		opacity: .5
+		transform: rotate3d(90,0,0,90deg);
+	100%
+		opacity: 1
