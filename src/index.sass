@@ -1,5 +1,72 @@
 @import ./variables.sass
 
+@font-face
+	font-family: Roboto
+	src: url(./assets/fonts/Roboto-Regular.eot)
+	src: local('☺'), url(./assets/fonts/Roboto-Regular.woff) format('woff'), url('./assets/fonts/Roboto-Regular.ttf') format('truetype')
+	font-weight: 400
+	font-style: normal
+@font-face
+	font-family: Roboto
+	src: url(./assets/fonts/Roboto-Bold.eot)
+	src: local('☺'), url(./assets/fonts/Roboto-Bold.woff) format('woff'), url('./assets/fonts/Roboto-Bold.ttf') format('truetype')
+	font-weight: 700
+	font-style: normal
+
+@font-face
+	font-family: Roboto
+	src: url(./assets/fonts/Roboto-Light.eot)
+	src: local('☺'), url(./assets/fonts/Roboto-Light.woff) format('woff'), url('./assets/fonts/Roboto-Light.ttf') format('truetype')
+	font-weight: 300
+	font-style: normal
+
+@font-face
+	font-family: Roboto
+	src: url(./assets/fonts/Roboto-Medium.eot)
+	src: local('☺'), url(./assets/fonts/Roboto-Medium.woff) format('woff'), url(./assets/fonts/Roboto-Medium.ttf) format('truetype')
+	font-weight: 500
+	font-style: normal
+
+@font-face
+	font-family: Helvetica
+	src: url(./assets/fonts/HelveticaRegular.eot)
+	src: local('☺'), url(./assets/fonts/HelveticaRegular.woff) format('woff'), url(./assets/fonts/HelveticaRegular.ttf) format('truetype')
+	font-weight: 400
+	font-style: normal
+
+@font-face
+	font-family: Helvetica
+	src: url(./assets/fonts/HelveticaBold.eot)
+	src: local('☺'), url(./assets/fonts/HelveticaBold.woff) format('woff'), url(./assets/fonts/HelveticaBold.ttf) format('truetype')
+	font-weight: 700
+	font-style: normal
+
+@mixin mainbtn ($color1, $color2, $padding)
+	align-self: flex-start
+	left: 0
+	bottom: 0
+	background: linear-gradient( to right, $color1 , $color2)
+	padding: 8px 0
+	font-weight: 400
+	font-size: 16px
+	line-height: 21px
+	color: #fff
+	text-decoration: none
+	border-radius: 7px
+	border: none
+	cursor: url(..//img/cursor/Pointer.png), auto
+	span
+		background: rgba( 0, 0 , 0 , 0 )
+		padding: 10px $padding
+		border-radius: inherit
+		transition: background .2s linear
+	&:hover span
+		background: rgba( 0, 0 ,0 , .2)
+	&:focus
+		outline: none
+		span
+			background: rgba( 0, 0 ,0 , .4)
+
 h1, h2, h3, h4, h5, h6
 	margin: 0
 	padding: 0
@@ -36,56 +103,3 @@ a
 	height: 100vh
 	overflow: auto
 	padding: 40px 0
-
-@font-face
-	font-family: Roboto
-	src: url(./assets/fonts/Roboto-Regular.eot)
-	src: local('☺'), url(./assets/fonts/Roboto-Regular.woff) format('woff'), url('./assets/fonts/Roboto-Regular.ttf') format('truetype')
-	font-weight: 400
-	font-style: normal
-@font-face
-	font-family: Roboto
-	src: url(./assets/fonts/Roboto-Bold.eot)
-	src: local('☺'), url(./assets/fonts/Roboto-Bold.woff) format('woff'), url('./assets/fonts/Roboto-Bold.ttf') format('truetype')
-	font-weight: 700
-	font-style: normal
-
-@font-face
-	font-family: Roboto
-	src: url(./assets/fonts/Roboto-Light.eot)
-	src: local('☺'), url(./assets/fonts/Roboto-Light.woff) format('woff'), url('./assets/fonts/Roboto-Light.ttf') format('truetype')
-	font-weight: 300
-	font-style: normal
-
-@font-face
-	font-family: Roboto
-	src: url(./assets/fonts/Roboto-Medium.eot)
-	src: local('☺'), url(./assets/fonts/Roboto-Medium.woff) format('woff'), url(./assets/fonts/Roboto-Medium.ttf) format('truetype')
-	font-weight: 500
-	font-style: normal
-
-@mixin mainbtn ($color1, $color2, $padding)
-	align-self: flex-start
-	left: 0
-	bottom: 0
-	background: linear-gradient( to right, $color1 , $color2)
-	padding: 8px 0
-	font-weight: 400
-	font-size: 16px
-	line-height: 21px
-	color: #fff
-	text-decoration: none
-	border-radius: 7px
-	border: none
-	cursor: url(..//img/cursor/Pointer.png), auto
-	span
-		background: rgba( 0, 0 , 0 , 0 )
-		padding: 10px $padding
-		border-radius: inherit
-		transition: background .2s linear
-	&:hover span
-		background: rgba( 0, 0 ,0 , .2)
-	&:focus
-		outline: none
-		span
-			background: rgba( 0, 0 ,0 , .4)

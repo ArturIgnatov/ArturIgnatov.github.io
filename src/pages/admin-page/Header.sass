@@ -1,0 +1,48 @@
+@import ../../variables
+
+.admin-page__header
+	width: 100%
+	min-height: 67px
+	height: 69px 
+	background: #ffffff
+	box-shadow: 0 0 4px rgba(151, 151, 151, 0.3), 0 0 30px rgba(151, 151, 151, .2), 0 0 75px rgba(151, 151, 151, .1)
+	position: relative
+	display: flex
+	justify-content: space-between
+	input
+		width: 80%
+		padding: 30px 50px
+		font-family: Helvetica
+		color: #767F9D
+		border: 0
+		background: url(../../assets/images/svg/search.svg)
+		background-position: 25px
+		background-repeat: no-repeat
+		&::placeholder
+			color: #767F9D
+			font-size: 13px
+.bell
+	width: 5%
+	border-left: 1px solid rgba(151, 151, 151, 0.3)
+	display: flex
+	justify-content: center
+	align-items: center
+.users-menu
+	width: 15%
+	border-left: 1px solid rgba(151, 151, 151, 0.3)
+	display: flex
+	justify-content: space-around
+	align-items: center
+
+.users-menu__item
+	display: flex
+	align-items: center
+	span
+		font-family: Helvetica
+		color: #5A6169
+		font-size: 15px
+	img
+		border-radius: 50%
+		object-fit: cover
+		margin-right: 10px
+		cursor: pointer

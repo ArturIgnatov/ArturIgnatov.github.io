@@ -1,0 +1,47 @@
+@import ../../variables
+
+.admin-page__menu
+	background: #fff
+	width: 15%
+	min-width: 285px
+	height: 100vh
+	box-shadow: 0 0 4px rgba(151, 151, 151, 0.3), 10px 0 40px rgba(151, 151, 151, .2), 0 0 75px rgba(151, 151, 151, .1)
+	position: relative
+	z-index: 1000
+.admin-page__logo
+	font-family: Helvetica
+	display: flex
+	font-size: 16px
+	align-items: center
+	height: 67px
+	padding-left: 50px
+	img
+		width: 21px
+		margin-right: 5px
+.admin-page__nav
+	display: flex
+	flex-direction: column
+	.link
+		display: flex
+		align-items: center
+		width: 100%
+		height: 50px
+		border-top: 1px solid rgba(151, 151, 151, 0.3)
+		padding-left: 45px
+		color: $GRAPH
+		font-size: 15px
+		transition: 0.2s linear
+		position: relative
+		svg
+			position: absolute
+			left: 20px
+			fill: #CACEDB
+			transition: 0.2s linear
+		&:last-child
+			border-bottom: 1px solid rgba(151, 151, 151, 0.3)
+
+		&:hover, &.active
+			color: $BLUE
+			border-left: 5px solid $BLUE
+			svg
+				fill: $BLUE
