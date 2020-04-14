@@ -6,6 +6,7 @@ import moment from 'moment'
 
 // Type for location
 let CHANGE_CITY_TEXT = 'CHANGE_CITY_TEXT'
+let CHANGE_POINT_TEXT = 'CHANGE_POINT_TEXT'
 let SELECT_CITY = 'SELECT_CITY'
 let CLEAR_INPUT = 'CLEAR_INPUT'
 let TOGGLE_CITY_BOX = 'TOGGLE_CITY_BOX'
@@ -23,6 +24,8 @@ let SELECT_SERVICE = 'SELECT_SERVICE'
 
 let UPDATE_TIME = 'UPDATE_TIME'
 
+let CHANGE_STEP = 'CHANGE_STEP'
+let CURREN_STEP = 'CURREN_STEP'
 
  let newDate = 	moment().format().slice(0, 16)
 
@@ -31,10 +34,11 @@ let UPDATE_TIME = 'UPDATE_TIME'
 let initialState = {
 	menu:[
 		{ id: 1, title: 'Местоположение', path:'/docs/orderpage', isActive: true},
-		{ id: 2, title: 'Модель', path: '/docs/orderpage/model', isActive: true},
-		{ id: 3, title: 'Дополнительно', path: '/docs/orderpage/more', isActive: true },
-		{ id: 4, title: 'Итого', path: '/docs/orderpage/total', isActive: true },
+		{ id: 2, title: 'Модель', path: '/docs/orderpage/model', isActive: false},
+		{ id: 3, title: 'Дополнительно', path: '/docs/orderpage/more', isActive: false },
+		{ id: 4, title: 'Итого', path: '/docs/orderpage/total', isActive: false },
 	],
+	step: 1,
 	location:{
 		city:[
 			{ id: 1, cityName: 'Ульяновск', poits: [{ id: 1, pointName: 'Пункт №1', adress: 'ул.Макарова 37' }, { id: 2, pointName: 'Пункт №2', adress: 'ул.Ленина 4а' }] },
@@ -45,6 +49,7 @@ let initialState = {
 			{ id: 6, cityName: 'Тольятти' }
 		],
 		cityText: '',
+		pointText: '',
 		cityBoxVisible: false
 	},
 	cars:[
@@ -98,7 +103,7 @@ const OrderPageReducer = (state = initialState, action) => {
 			return {
 				...state,
 				location: { ...state.location, cityText: action.text, cityBoxVisible: true},
-				preorder: { ...state.preorder, sity: action.text }
+				preorder: { ...state.preorder, sity: action.text },
 			}
 		case SELECT_CITY:
 			return {
@@ -111,6 +116,12 @@ const OrderPageReducer = (state = initialState, action) => {
 				...state,
 				location: { ...state.location, cityText: '' },
 				preorder: { ...state.preorder, sity: action.text }
+			}
+		case CHANGE_POINT_TEXT:
+			return {
+				...state,
+				location: { ...state.location, pointText: action.text},
+				preorder: { ...state.preorder, point: action.text },
 			}
 		case TOGGLE_CITY_BOX:
 			return {
@@ -169,7 +180,8 @@ const OrderPageReducer = (state = initialState, action) => {
 						return {...el, checked: true}
 					}
 					return {...el, checked: false}
-				})
+				}),
+				preorder: {...state.preorder, rate: state.rate[action.id - 1].title}
 			}
 		case SELECT_SERVICE:
 			return{
@@ -195,16 +207,42 @@ const OrderPageReducer = (state = initialState, action) => {
 				...state,
 				date: { ...state.date, with: moment().format().slice(0, 16)}
 			}
+		case CHANGE_STEP:
+			return{
+				...state,
+				step: state.step === 5 - 1 ? state.step = 0 : state.step + 1, 
+				menu: state.menu.map(el => {
+					if (el.id === state.step + 1) {
+						return{...el, isActive: true}
+					}
+					return{...el}
+				})
+			}
+		case CURREN_STEP:
+			return{
+				...state,
+				step: action.number + 1,
+				menu: state.menu.map(el => {
+					if (el.id === state.step + 4) {
+						return { ...el, isActive: true }
+					}
+					return { ...el, isActive: false }
+				})
+			}
 		default:
 			return state
 	}
 };
+
+export const currentStep = (number) => ({ type: CURREN_STEP, number }) 
 
 // Диспачи для location
 export const changeTextValue = (newText) => ({ type: CHANGE_CITY_TEXT, text: newText })
 export const selectSity = (cityName) => ({ type: SELECT_CITY, text: cityName })
 export const clearInput = () => ({ type: CLEAR_INPUT })
 export const toggleCityBox = () => ({ type: TOGGLE_CITY_BOX })
+export const updateTextPoint = (newText) => ({ type: CHANGE_POINT_TEXT, text: newText })
+
 
 // Диспатчи для models
 export const selectCars = (carId, carModel) => ({ type: SELECT_CARS, id: carId, model: carModel })
@@ -219,4 +257,7 @@ export const selectServicesCheckbox = (idCheckbox, title) => ({ type: SELECT_SER
 
 
 export const updateTime = (newTime) => ({type: UPDATE_TIME})
+
+
+export const changeStep = (idBtn) => ({ type: CHANGE_STEP, id: idBtn})
 export default OrderPageReducer;

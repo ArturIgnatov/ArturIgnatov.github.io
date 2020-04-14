@@ -3,26 +3,6 @@ import './More.sass'
 
 const More = (props) => {
 		
-	// let timewith = props.date.with
-	// let timeBy = props.date.by
-	// let tr = new Date(timewith)
-	// let tt = new Date(timeBy)
-
-	// let diff = tt - tr
-	// let mill = diff
-	// let sec = mill / 1000
-	// let min = sec / 60
-	// let hour = min / 60
-	// let day = hour / 24 
-
-	// let hr1 = Math.floor(Math.floor(day) * 24)
-	// let hr2 =  Math.floor(hour) - hr1
-
-	// let sec1 = Math.floor(Math.floor(hour) * 60)
-	// let sec2 = Math.floor(min) - sec1
-	// console.log(Math.floor(day), hr2, sec2);
-
-
 	// Рендер радиокнопок выбора цвета
 	const radioFilterColorItem = props.colors.map( el => {
 		if (el.checked) {

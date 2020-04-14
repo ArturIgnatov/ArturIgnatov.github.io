@@ -4,7 +4,7 @@ import './Location.sass'
 
 
 const Location = (props) => {
-	// Текст импута
+	// Текст импута городов
 	let inputText = props.location.cityText;
 	let cityValue = React.createRef()
 
@@ -22,6 +22,14 @@ const Location = (props) => {
 			)
 		}
 	})
+	// Текст импута пункта выдачи
+	// let inputPointText = props.location.pointText
+	let pointValue = React.createRef()
+
+	let updatePointValue = () => {
+		let newText = pointValue.current.value
+		props.updateTextPoint(newText)
+	}
 
 	return (
 		<div className='location'>
@@ -46,7 +54,7 @@ const Location = (props) => {
 				</label>
 				<label className='location__point input'>
 					Пункт выдачи
-					<input type="text" placeholder='Начните вводить пункт'/>
+					<input type="text" ref={pointValue} onChange={updatePointValue} value={props.location.pointText} placeholder='Начните вводить пункт'/>
 				</label>
 			</div>
 			<div className='location__map'>

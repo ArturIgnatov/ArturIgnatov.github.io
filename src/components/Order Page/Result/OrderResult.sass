@@ -19,6 +19,13 @@
 		@include mainbtn ($GREEN, #039F67)
 		animation-name: show2
 		animation-duration: 1s
+		&.disabled-btn
+			background: $LGRAY
+			color: #ffffff
+			cursor: default
+			&:hover
+				box-shadow: none
+
 @keyframes show2
 	0%
 		opacity: .5
