@@ -34,28 +34,28 @@ const Menu = (props) => {
 					Заказы
 				</NavLink>
 
-				<a className='link' href="">
+				<a className='link' href="/">
 					<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path  d="M6.17647 8.11538H2.5V3.5H6.17647V8.11538ZM6.17647 13.5H2.5V8.88461H6.17647V13.5ZM6.91174 13.5H10.5882V8.88461H6.91174V13.5ZM15 13.5H11.3235V8.88461H15V13.5ZM6.91174 8.11538H10.5882V3.5H6.91174V8.11538ZM11.3235 8.11538V3.5H15V8.11538H11.3235Z" />
 					</svg>
 					Menu 4
 				</a>
 
-				<a className='link' href="">
+				<a className='link' href="/">
 					<svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path  d="M10.8949 2H2.60538C1.99749 2 1.50012 2.5 1.50012 3.11111V4.77778H12.0001V3.11111C12.0001 2.5 11.5028 2 10.8949 2ZM10.8947 12H9.23682V5.88889H12V10.8889C12 11.5 11.5026 12 10.8947 12ZM8.13157 5.9H5.36841V12H8.13157V5.9ZM2.60526 12C1.99737 12 1.5 11.5 1.5 10.8889V5.88889H4.26316V12H2.60526Z" />
 					</svg>
 					Menu 5
 				</a>
 
-				<a className='link' href="">
+				<a className='link' href="/">
 					<svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M9.875 3.125C9.875 4.85156 8.47656 6.25 6.75 6.25C5.02344 6.25 3.625 4.85156 3.625 3.125C3.625 1.39844 5.02344 0 6.75 0C8.47656 0 9.875 1.39844 9.875 3.125ZM0.5 10.9375C0.5 8.85938 4.66406 7.8125 6.75 7.8125C8.83594 7.8125 13 8.85938 13 10.9375V12.5H0.5V10.9375Z" />
 					</svg>
 					Menu 6
 				</a>
 
-				<a className='link' href="">
+				<a className='link' href="/">
 					<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path  d="M7.25 1.5C4.076 1.5 1.5 4.076 1.5 7.25C1.5 10.424 4.076 13 7.25 13C10.424 13 13 10.424 13 7.25C13 4.076 10.424 1.5 7.25 1.5ZM7.82505 10.125H6.67505V8.97501H7.82505V10.125ZM6.67505 7.825H7.82505V4.375H6.67505V7.825Z" />
 					</svg>

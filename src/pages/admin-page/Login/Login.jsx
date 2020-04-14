@@ -23,7 +23,7 @@ const Login = (props) => {
 							<input type='password' name="login" required="" />
 						</div>
 						<div className='submit'>
-							<a href="">Запросить доступ</a>
+							<span >Запросить доступ</span>
 							<input type="submit" name="" value="Войти"></input>
 						</div>
 					</form>

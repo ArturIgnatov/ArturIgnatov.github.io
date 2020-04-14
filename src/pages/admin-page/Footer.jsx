@@ -8,7 +8,7 @@ const Footer = (props) => {
 		<div className='admin-page__footer'>
 			<div>
 				<NavLink to='/docs/' className='' >Главная страница</NavLink>
-				<a href="">Ссылка</a>
+				<a href="/#">Ссылка</a>
 			</div>
 			<span>Copyright © 2020 Simbirsoft</span>
 		</div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Slider.sass'
 
 const Slider = (props) => {
@@ -19,8 +19,8 @@ const Slider = (props) => {
 
 	return (
 		<div className='slider'>
-			<a className='slider__prev' onClick={() => { props.prev() }}><span>‹</span></a>
-			<a className='slider__next' onClick={() => { props.next() }}><span>›</span></a>
+			<span className='slider__prev' onClick={() => { props.prev() }}>‹</span>
+			<span className='slider__next' onClick={() => { props.next() }}>›</span>
 			<div className='slider__item'>
 				<img src={slide.img} alt=''/>
 				<div className='slide__description'>

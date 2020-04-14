@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './More.sass'
-import moment from 'moment'
 
 const More = (props) => {
 		
