@@ -1,6 +1,5 @@
 import React from 'react'
 import './OrderResult.sass'
-import { NavLink } from 'react-router-dom';
 
 const OrderButton = (props) => {
 	console.log(props);

@@ -1,31 +1,35 @@
 {
   "files": {
-    "main.css": "./static/css/main.e8a15354.chunk.css",
-    "main.js": "./static/js/main.67ed7565.chunk.js",
-    "main.js.map": "./static/js/main.67ed7565.chunk.js.map",
+    "main.css": "./static/css/main.e49f42ca.chunk.css",
+    "main.js": "./static/js/main.df277609.chunk.js",
+    "main.js.map": "./static/js/main.df277609.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.31ed9739.js",
     "runtime-main.js.map": "./static/js/runtime-main.31ed9739.js.map",
-    "static/js/2.2f02a917.chunk.js": "./static/js/2.2f02a917.chunk.js",
-    "static/js/2.2f02a917.chunk.js.map": "./static/js/2.2f02a917.chunk.js.map",
+    "static/js/2.dac45cdf.chunk.js": "./static/js/2.dac45cdf.chunk.js",
+    "static/js/2.dac45cdf.chunk.js.map": "./static/js/2.dac45cdf.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.ddc57ac6d1a7291964d4253c80f3790a.js": "./precache-manifest.ddc57ac6d1a7291964d4253c80f3790a.js",
+    "precache-manifest.50753590c50febc46a0638aacf315918.js": "./precache-manifest.50753590c50febc46a0638aacf315918.js",
     "service-worker.js": "./service-worker.js",
-    "static/css/main.e8a15354.chunk.css.map": "./static/css/main.e8a15354.chunk.css.map",
-    "static/js/2.2f02a917.chunk.js.LICENSE.txt": "./static/js/2.2f02a917.chunk.js.LICENSE.txt",
+    "static/css/main.e49f42ca.chunk.css.map": "./static/css/main.e49f42ca.chunk.css.map",
+    "static/js/2.dac45cdf.chunk.js.LICENSE.txt": "./static/js/2.dac45cdf.chunk.js.LICENSE.txt",
     "static/media/1-min.png": "./static/media/1-min.770c9197.png",
     "static/media/2-min.png": "./static/media/2-min.7a0718a5.png",
     "static/media/3-min.png": "./static/media/3-min.38960155.png",
     "static/media/4-min.png": "./static/media/4-min.69447c52.png",
     "static/media/index.sass": "./static/media/Roboto-Regular.9df83d9c.woff",
+    "static/media/More.sass": "./static/media/check.ee33b0c5.svg",
     "static/media/creta.png": "./static/media/creta.1e2fee76.png",
+    "static/media/dropdown.svg": "./static/media/dropdown.fd959826.svg",
     "static/media/elantra.png": "./static/media/elantra.58e1a40d.png",
     "static/media/i30n.png": "./static/media/i30n.444f21ad.png",
+    "static/media/logo.svg": "./static/media/logo.880ebea1.svg",
+    "static/media/Header.sass": "./static/media/search.dbc597a8.svg",
     "static/media/sonata.png": "./static/media/sonata.1e63c325.png"
   },
   "entrypoints": [
     "static/js/runtime-main.31ed9739.js",
-    "static/js/2.2f02a917.chunk.js",
-    "static/css/main.e8a15354.chunk.css",
-    "static/js/main.67ed7565.chunk.js"
+    "static/js/2.dac45cdf.chunk.js",
+    "static/css/main.e49f42ca.chunk.css",
+    "static/js/main.df277609.chunk.js"
   ]
 }

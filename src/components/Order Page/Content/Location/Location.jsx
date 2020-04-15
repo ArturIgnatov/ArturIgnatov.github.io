@@ -21,6 +21,9 @@ const Location = (props) => {
 				<li key={el.id} onClick={() => { props.select(el.cityName) }}>{el.cityName}</li>
 			)
 		}
+		return (
+			null
+		)
 	})
 	// Текст импута пункта выдачи
 	let pointText = props.location.pointText;
@@ -40,6 +43,9 @@ const Location = (props) => {
 				<li key={el.id} onClick={() => {props.selectPoint(el.adress)}}> {el.adress} </li>
 			)	
 		}
+		return (
+			null
+		)
 	})
 
 	console.log(pointNameItem);

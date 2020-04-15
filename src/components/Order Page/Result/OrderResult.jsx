@@ -1,6 +1,5 @@
 import React from 'react'
 import './OrderResult.sass'
-import OrderButton from './OrderButton'
 import { NavLink } from 'react-router-dom'
 
 const OrderResult = (props) => {
@@ -78,6 +77,9 @@ const OrderResult = (props) => {
 								</div>
 							)
 						}
+						return(
+							null
+						)
 
 					})
 				}
@@ -90,6 +92,9 @@ const OrderResult = (props) => {
 								</div>
 							)
 						}
+						return (
+							null
+						)
 					})
 				}
 				{	
@@ -109,6 +114,9 @@ const OrderResult = (props) => {
 								</div>
 							)
 						}
+						return (
+							null
+						)
 					})
 				}
 				{
@@ -120,6 +128,9 @@ const OrderResult = (props) => {
 								</div>
 							)
 						}
+						return (
+							null
+						)
 					})
 				}
 				<p>Цена <span>16 000₽</span></p>
