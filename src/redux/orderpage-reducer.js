@@ -8,8 +8,11 @@ import moment from 'moment'
 let CHANGE_CITY_TEXT = 'CHANGE_CITY_TEXT'
 let CHANGE_POINT_TEXT = 'CHANGE_POINT_TEXT'
 let SELECT_CITY = 'SELECT_CITY'
+let SELECT_POINT ='SELECT_POINT'
 let CLEAR_INPUT = 'CLEAR_INPUT'
+let CLEAR_INPUT_POINT = 'CLEAR_INPUT_POINT'
 let TOGGLE_CITY_BOX = 'TOGGLE_CITY_BOX'
+let TOGGLE_POINT_BOX = 'TOGGLE_POINT_BOX'
 
 // Type for car
 let SELECT_CARS = 'SELECT_CARS'
@@ -41,16 +44,25 @@ let initialState = {
 	step: 1,
 	location:{
 		city:[
-			{ id: 1, cityName: 'Ульяновск', poits: [{ id: 1, pointName: 'Пункт №1', adress: 'ул.Макарова 37' }, { id: 2, pointName: 'Пункт №2', adress: 'ул.Ленина 4а' }] },
-			{ id: 2, cityName: 'Пенза', poits: [{ id: 1, pointName: 'Пункт №1', adress: 'ул."Энгельса 134' }, { id: 2, pointName: 'Пункт №2', adress: 'ул.Гоголя 3в' }] },
+			{ id: 1, cityName: 'Ульяновск'},
+			{ id: 2, cityName: 'Пенза'},
 			{ id: 3, cityName: 'Саранск' },
 			{ id: 4, cityName: 'Самара' },
 			{ id: 5, cityName: 'Уфа' },
 			{ id: 6, cityName: 'Тольятти' }
 		],
+		points:[
+			{ id: 1, cityName: 'Ульяновск', adress: 'ул.Макарова 37' }, 
+			{ id: 2, cityName: 'Ульяновск', adress: 'ул.Ленина 4а' },
+			{ id: 3, cityName: 'Пенза', adress: 'ул.Энгельса 134' },
+			{ id: 4, cityName: 'Пенза', adress: 'ул.Гоголя 3в' },
+			{ id: 3, cityName: 'Саранск', adress: 'ул. Титова 137 ' },
+			{ id: 4, cityName: 'Саранск', adress: 'ул.Гагарина 98' }
+		],
 		cityText: '',
 		pointText: '',
-		cityBoxVisible: false
+		cityBoxVisible: false,
+		pointBoxVisible: false
 	},
 	cars:[
 		{ id: 1, number: 'K 387 MH 73', mark: 'Hyndai', model: 'ELANTRA', price: 12000, subtitle: '12 000- 25 000', img: elantra, selected: false},
@@ -102,31 +114,48 @@ const OrderPageReducer = (state = initialState, action) => {
 		case CHANGE_CITY_TEXT:
 			return {
 				...state,
-				location: { ...state.location, cityText: action.text, cityBoxVisible: true},
+				location: { ...state.location, cityText: action.text, cityBoxVisible: true, pointBoxVisible: false, pointText: ''},
 				preorder: { ...state.preorder, sity: action.text },
 			}
 		case SELECT_CITY:
 			return {
 				...state,
-				location: { ...state.location, cityText: action.text},
+				location: { ...state.location, cityText: action.text, pointText: ''},
 				preorder: { ...state.preorder, sity: action.text }
+			}
+		case SELECT_POINT:
+			return{
+				...state,
+				location: { ...state.location, pointText: action.text },
+				preorder: { ...state.preorder, point: action.text }
 			}
 		case CLEAR_INPUT:
 			return {
 				...state,
-				location: { ...state.location, cityText: '' },
+				location: { ...state.location, cityText: '',  pointText: ''},
 				preorder: { ...state.preorder, sity: action.text }
+			}
+		case CLEAR_INPUT_POINT:
+			return{
+				...state,
+				location: { ...state.location, pointText: '', },
+				preorder: { ...state.preorder, point: action.text }
 			}
 		case CHANGE_POINT_TEXT:
 			return {
 				...state,
-				location: { ...state.location, pointText: action.text},
+				location: { ...state.location, pointText: action.text, pointBoxVisible: true},
 				preorder: { ...state.preorder, point: action.text },
 			}
 		case TOGGLE_CITY_BOX:
 			return {
 				...state,
-				location: { ...state.location, cityBoxVisible: state.location.cityBoxVisible === true ? false : true},
+				location: { ...state.location, cityBoxVisible: state.location.cityBoxVisible === true ? false : true, pointBoxVisible: false},
+			}
+		case TOGGLE_POINT_BOX:
+			return {
+				...state,
+				location: { ...state.location, pointBoxVisible: state.location.pointBoxVisible === true ? false : true },
 			}
 		case SELECT_CARS:
 			return {
@@ -242,6 +271,9 @@ export const selectSity = (cityName) => ({ type: SELECT_CITY, text: cityName })
 export const clearInput = () => ({ type: CLEAR_INPUT })
 export const toggleCityBox = () => ({ type: TOGGLE_CITY_BOX })
 export const updateTextPoint = (newText) => ({ type: CHANGE_POINT_TEXT, text: newText })
+export const togglePointBox = () => ({ type: TOGGLE_POINT_BOX })
+export const clearInputPoint = () => ({ type: CLEAR_INPUT_POINT })
+export const selectPoint = (adress) => ({ type: SELECT_POINT, text: adress })
 
 
 // Диспатчи для models
