@@ -30,7 +30,13 @@ let UPDATE_TIME = 'UPDATE_TIME'
 let CHANGE_STEP = 'CHANGE_STEP'
 let CURREN_STEP = 'CURREN_STEP'
 
- let newDate = 	moment().format().slice(0, 16)
+let TO_ORDER = 'TO_ORDER'
+let RPLACE_ORDER = 'RPLACE_ORDER'
+let CLOSE_MODAL = 'CLOSE_MODAL'
+let CONFIRM_ORDER = 'CONFIRM_ORDER'
+
+
+let newDate = moment().format().slice(0, 16)
 
 
 
@@ -102,12 +108,14 @@ let initialState = {
 		dataThis: moment().format().slice(0, 16),
 		dataBy: '',
 		rate: '',
-		services:'',
+		services:[],
 		test: new Date().toLocaleTimeString()
 	},
 	order:[],
 	currentId: 0,
 	totalPrice: 0,
+	isModal: false,
+	order: ''
 }
 const OrderPageReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -240,15 +248,39 @@ const OrderPageReducer = (state = initialState, action) => {
 				})
 			}
 		case CURREN_STEP:
+			debugger;
 			return{
 				...state,
 				step: action.number + 1,
 				menu: state.menu.map(el => {
-					if (el.id === state.step + 4) {
-						return { ...el, isActive: true }
+					if (el.id > action.number + 1) {
+						return { ...el, isActive: false }
 					}
-					return { ...el, isActive: false }
+					return { ...el}
 				})
+			}
+		case TO_ORDER:
+			return{
+				...state,
+				isModal: !state.isModal
+			}
+		case CLOSE_MODAL:
+			return{
+				...state,
+				isModal: false
+			}
+		case CONFIRM_ORDER:
+			return {
+				...state,
+				isModal: false,
+				step: state.step + 1,
+				order: {...state.preorder}
+			}
+		case RPLACE_ORDER:
+			return{
+				...state,
+				step: state.step - 1,
+				order: ''
 			}
 		default:
 			return state
@@ -283,5 +315,11 @@ export const selectServicesCheckbox = (idCheckbox, title) => ({ type: SELECT_SER
 export const updateTime = (newTime) => ({type: UPDATE_TIME})
 
 
-export const changeStep = (idBtn) => ({ type: CHANGE_STEP, id: idBtn})
+export const changeStep = (idBtn) => ({ type: CHANGE_STEP, id: idBtn })
+
+export const toOrder = () => ({ type: TO_ORDER })
+export const closeModal = () => ({ type: CLOSE_MODAL })
+export const confirmOrder = () => ({ type: CONFIRM_ORDER})
+export const replaceOrder = () => ({ type: RPLACE_ORDER})
+
 export default OrderPageReducer;

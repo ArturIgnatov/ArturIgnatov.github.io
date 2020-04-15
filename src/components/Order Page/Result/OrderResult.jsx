@@ -55,7 +55,12 @@ const OrderResult = (props) => {
 		}
 		else if (props.orderPage.step === 4) {
 			return (
-				<button>Заказать</button>
+				<button onClick={() => { props.toOrder() }}>Заказать</button>
+			)
+		}
+		else if (props.orderPage.step === 5 ) {
+			return(
+				<button className='red' onClick={() => { props.replaceOrder() }}>Отменить</button>
 			)
 		}
 	}

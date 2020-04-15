@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import OrderResult from './OrderResult';
-import { changeStep } from '../../../redux/orderpage-reducer';
+import { changeStep, toOrder, replaceOrder } from '../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
@@ -12,6 +12,12 @@ let mapDispatchToProps = (dispatch) => {
 		next: (idBtn) => {
 			dispatch(changeStep(idBtn))
 		},
+		toOrder: () => {
+			dispatch(toOrder())
+		},
+		replaceOrder: () => {
+			dispatch(replaceOrder())
+		}
 	}
 }
 
