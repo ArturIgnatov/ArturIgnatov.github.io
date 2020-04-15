@@ -102,7 +102,7 @@ let initialState = {
 		dataThis: moment().format().slice(0, 16),
 		dataBy: '',
 		rate: '',
-		services:[],
+		services:'',
 		test: new Date().toLocaleTimeString()
 	},
 	order:[],
@@ -221,15 +221,7 @@ const OrderPageReducer = (state = initialState, action) => {
 					}
 					return {...el}
 				}),
-				// preorder: {
-				// 	...state.preorder,
-				// 	services: state.services.map( el => {
-				// 		if (el.checked) {
-				// 			return el.title
-				// 		}
-				// 		return ''
-				// 	})
-				// } 
+				preorder: { ...state.preorder, services: state.services[action.id - 1].checked === true ? '' : [...state.preorder.services , { ...state.services[action.id - 1], checked: true }] }
 			}
 		case UPDATE_TIME:
 			return{

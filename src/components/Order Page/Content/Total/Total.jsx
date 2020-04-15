@@ -4,27 +4,28 @@ import './Total.sass'
 
 const Total = (props) => {
 
-	// let converterDate = (date) => {
-	// 	let year = date.slice(0, 4)
-	// 	let mm = date.slice(5, 7)
-	// 	let dd = date.slice(8, 10)
-	// 	let time = date.slice(11)
-	// 	let newdate = dd + '.' + mm + '.' + year + ' ' + time
-	// 	 return newdate
-	// }
-	// let a = converterDate(props.preorder.dataThis)
-
+	let converterDate = (date) => {
+		let year = date.slice(0, 4)
+		let mm = date.slice(5, 7)
+		let dd = date.slice(8, 10)
+		let time = date.slice(11)
+		let newdate = dd + '.' + mm + '.' + year + ' ' + time
+		 return newdate
+	}
+	let dateOrder = converterDate(props.preorder.dataThis)
+	// const fuel = props.preorder.services.filter(item => item.title == 'Полный бак')
+	
 	
 	return (
 		<div className='total'>
 			<div className='total__order'>
 				<div className='total__description'>
-					<div>Hyndai, i30 N</div>
-					<div>K 761 HA 73</div>
-					<div>Топливо <span>100%</span></div>
-					<div>Доступна с <span>{props.preorder.test}</span></div>
+					<div>{props.preorder.car.mark}, {props.preorder.car.model}</div>
+					<div>{props.preorder.car.number}</div>
+					<div>Топливо<span>100%</span></div>
+					<div>Доступна с <span>{dateOrder}</span></div>
 				</div>
-				<img src={props.car[2].img} alt="" />
+				<img src={props.preorder.car.img} alt="" />
 			</div>
 		</div>
 	)
