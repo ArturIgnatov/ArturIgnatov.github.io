@@ -10,7 +10,7 @@ const Total = (props) => {
 		let dd = date.slice(8, 10)
 		let time = date.slice(11)
 		let newdate = dd + '.' + mm + '.' + year + ' ' + time
-		 return newdate
+		return newdate
 	}
 	let dateOrder = converterDate(props.preorder.dataThis)
 	// const fuel = props.preorder.services.filter(item => item.title == 'Полный бак')

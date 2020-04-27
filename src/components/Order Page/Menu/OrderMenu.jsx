@@ -3,7 +3,6 @@ import './OrderMenu.sass'
 import { NavLink } from 'react-router-dom';
 
 const OrderMenu = (props) => {
-	console.log(props);
 	let orderNumber = 'RU' + Math.floor(Math.random() * 100000000)
 	const navLink = props.menu.map((el, i)=>{
 		if(el.id === 1){

@@ -3,6 +3,7 @@ import i30 from '../assets/images/car/i30n.png';
 import creta from '../assets/images/car/creta.png';
 import sonata from '../assets/images/car/sonata.png';
 import moment from 'moment'
+import { worsAPI } from '../api/api';
 
 // Type for location
 let CHANGE_CITY_TEXT = 'CHANGE_CITY_TEXT'
@@ -20,8 +21,8 @@ let FILTER_CAR = 'FILTER_CAR'
 
 // Type for more
 let SELECT_COLOR = 'SELECT_COLOR'
-let CHANGE_DATE_WITH = 'CHANGE_DATE_WITH'
-let CHANHE_DATE_BY = 'CHANHE_DATE_BY'
+let SET_DATE_FROM = 'SET_DATE_FROM'
+let SET_DATE_TO = 'SET_DATE_TO'
 let SELECT_RATE = 'SELECT_RATE'
 let SELECT_SERVICE = 'SELECT_SERVICE'
 
@@ -35,7 +36,9 @@ let RPLACE_ORDER = 'RPLACE_ORDER'
 let CLOSE_MODAL = 'CLOSE_MODAL'
 let CONFIRM_ORDER = 'CONFIRM_ORDER'
 
-
+let SET_CARS = 'SET_CARS'
+let SET_CITIES = 'SET_CITIES'
+let SET_POINTS =  'SET_POINTS'
 let newDate = moment().format().slice(0, 16)
 
 
@@ -43,39 +46,41 @@ let newDate = moment().format().slice(0, 16)
 let initialState = {
 	menu:[
 		{ id: 1, title: 'Местоположение', path:'/docs/orderpage', isActive: true},
-		{ id: 2, title: 'Модель', path: '/docs/orderpage/model', isActive: false},
-		{ id: 3, title: 'Дополнительно', path: '/docs/orderpage/more', isActive: false },
+		{ id: 2, title: 'Модель', path: '/docs/orderpage/model', isActive: true},
+		{ id: 3, title: 'Дополнительно', path: '/docs/orderpage/more', isActive: true },
 		{ id: 4, title: 'Итого', path: '/docs/orderpage/total', isActive: false },
 	],
-	step: 1,
 	location:{
-		city:[
-			{ id: 1, cityName: 'Ульяновск'},
-			{ id: 2, cityName: 'Пенза'},
-			{ id: 3, cityName: 'Саранск' },
-			{ id: 4, cityName: 'Самара' },
-			{ id: 5, cityName: 'Уфа' },
-			{ id: 6, cityName: 'Тольятти' }
-		],
-		points:[
-			{ id: 1, cityName: 'Ульяновск', adress: 'ул.Макарова 37' }, 
-			{ id: 2, cityName: 'Ульяновск', adress: 'ул.Ленина 4а' },
-			{ id: 3, cityName: 'Пенза', adress: 'ул.Энгельса 134' },
-			{ id: 4, cityName: 'Пенза', adress: 'ул.Гоголя 3в' },
-			{ id: 3, cityName: 'Саранск', adress: 'ул. Титова 137 ' },
-			{ id: 4, cityName: 'Саранск', adress: 'ул.Гагарина 98' }
-		],
+		cityId:[],
+		pointId:[],
 		cityText: '',
 		pointText: '',
 		cityBoxVisible: false,
-		pointBoxVisible: false
+		pointBoxVisible: false,
 	},
-	cars:[
-		{ id: 1, number: 'K 387 MH 73', mark: 'Hyndai', model: 'ELANTRA', price: 12000, subtitle: '12 000- 25 000', img: elantra, selected: false},
-		{ id: 2, number: 'Н 432 СА 73', mark: 'Hyndai', model: 'i30 N', price: 7000, subtitle: '10 000- 22 000', img: i30, selected: false},
-		{ id: 3, number: 'Л 924 МР 73', mark: 'Hyndai', model: 'CRETA', price: 12000, subtitle: '12 000- 25 000', img: creta, selected: false},
-		{ id: 4, number: 'K 282 КС 73', mark: 'Hyndai', model: 'SONATA', price: 7000, subtitle: '10 000- 22 000', img: sonata, selected: false}
-	],
+	cars: [],
+	// 	{ 
+	// 		categoryId: { 
+	// 			name: 'Эконом', 
+	// 			id: '5e25c98d099b810b946c5d62', 
+	// 			description: ''
+	// 		},
+	// 		colors: ['голубой', 'красный', 'ораньжевый'],
+	// 		createdAt: 1579534861996,
+	// 		updatedAt: 1587655394157,
+	// 		description: '',
+	// 		id: '5e25ca0d099b810b946c5d65',
+	// 		name: 'Hyundai, Elantra',
+	// 		priceMax: 25000,
+	// 		prixeMin: 12000,
+	// 		thumbnail: { 
+	// 			mimetype: 'image/png',
+	// 			originalname: '825e7de08c4523e9a81ebe8d0ad04616.png',
+	// 			path:'/files/5ea1b2e1099b810b946c62e2_825e7de08c4523e9a81ebe8d0ad04616.png', 
+	// 			size: 98851
+	// 		}
+	// 	}
+	// ],
 	filterCar:[
 		{ id: 1, title: 'Все модели', checked: true },
 		{ id: 2, title: 'Эконом', checked: false },
@@ -100,25 +105,42 @@ let initialState = {
 		{ id: 2, title: 'Детское кресло', price: 200, checked: false },
 		{ id: 3, title: 'Правый руль', price: 1600, checked: false }
 	],
-	preorder:{ 
-		sity: '',
-		point:'',
-		car:'',
-		colorCar:'',
-		dataThis: moment().format().slice(0, 16),
-		dataBy: '',
-		rate: '',
-		services:[],
-		test: new Date().toLocaleTimeString()
+	preorder:{
+		orderStatusId: {},
+		cityId: {},
+		pointId: {}, 
+		carId: {},
+		color: '',
+		dateFrom: 0,
+		dateTo: 0,
+		rateId: {},
+		ifFullTank: false,
+		isNeedChildChair: false,
+		isRightWheel: false,
 	},
-	order:[],
 	currentId: 0,
 	totalPrice: 0,
 	isModal: false,
+	step: 1,
 	order: ''
 }
 const OrderPageReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case SET_CARS:
+			return {
+				...state,
+				cars: action.carsArray
+			}
+		case SET_CITIES:
+			return {
+				...state,
+				location: { ...state.location, cityId: action.cityArray}
+			}
+		case SET_POINTS:
+			return{
+				...state,
+				location: {...state.location, pointId: action.pointArray}
+			}
 		case CHANGE_CITY_TEXT:
 			return {
 				...state,
@@ -129,13 +151,18 @@ const OrderPageReducer = (state = initialState, action) => {
 			return {
 				...state,
 				location: { ...state.location, cityText: action.text, pointText: ''},
-				preorder: { ...state.preorder, sity: action.text }
+				preorder: { ...state.preorder, cityId: state.location.cityId.find(el => el.name === action.text)}
 			}
 		case SELECT_POINT:
+			let foundPoint = state.location.pointId.find(el => el.address === action.text)
+			delete foundPoint.cityName
 			return{
 				...state,
 				location: { ...state.location, pointText: action.text },
-				preorder: { ...state.preorder, point: action.text }
+				preorder: { 
+					...state.preorder, 
+					pointId: foundPoint
+				}
 			}
 		case CLEAR_INPUT:
 			return {
@@ -166,15 +193,24 @@ const OrderPageReducer = (state = initialState, action) => {
 				location: { ...state.location, pointBoxVisible: state.location.pointBoxVisible === true ? false : true },
 			}
 		case SELECT_CARS:
+			let foundCar = state.cars.find(el => el.id === action.id)
+			let foundCarChanged = {...foundCar}
+			delete foundCarChanged.selected
+			delete foundCarChanged.createdAt
+			delete foundCarChanged.updatedAt
+			delete foundCarChanged.colors
 			return {
 				...state,
 				cars: state.cars.map(car => {
 					if (car.id === action.id) {
-						return { ...car, selected: state.cars[action.id - 1].selected === true ? false : true}
+						return { ...car, selected: foundCar.selected === true ? false : true}
 					}
 					return {...car, selected: false}
 				}),
-				preorder: { ...state.preorder, car: state.cars[action.id - 1].selected === true ? '' : { ...state.cars[action.id - 1], selected: true }}
+				preorder: { 
+					...state.preorder, 
+					carId: foundCarChanged
+				} 
 			}
 		case FILTER_CAR:
 			return {
@@ -197,17 +233,15 @@ const OrderPageReducer = (state = initialState, action) => {
 				}),
 				preorder: {...state.preorder, colorCar:  action.city}
 			}
-		case CHANGE_DATE_WITH:
+		case SET_DATE_FROM:
 			return {
 				...state,
-				date: { ...state.date, with: action.date},
-				preorder: { ...state.preorder, dataThis: action.date }
+				preorder: { ...state.preorder, dateFrom: action.newDate }
 			}
-		case CHANHE_DATE_BY:
+		case SET_DATE_TO:
 			return {
 				...state,
-				date: { ...state.date, by: action.date },
-				preorder: { ...state.preorder, dataBy: action.date }
+				preorder: { ...state.preorder, dateTo: action.newDate }
 			}
 		case SELECT_RATE:
 			return{
@@ -229,7 +263,13 @@ const OrderPageReducer = (state = initialState, action) => {
 					}
 					return {...el}
 				}),
-				preorder: { ...state.preorder, services: state.services[action.id - 1].checked === true ? '' : [...state.preorder.services , { ...state.services[action.id - 1], checked: true }] }
+				preorder:{
+					...state.preorder,
+					ifFullTank: action.id === 1 ? !state.preorder.ifFullTank : state.preorder.ifFullTank,
+					isNeedChildChair: action.id === 2 ? !state.preorder.isNeedChildChair : state.preorder.isNeedChildChair,
+					isRightWheel: action.id === 3 ? !state.preorder.isRightWheel : state.preorder.isRightWheel
+				}
+				// preorder: { ...state.preorder, services: state.services[action.id - 1].checked === true ? '' : [...state.preorder.services , { ...state.services[action.id - 1], checked: true }] }
 			}
 		case UPDATE_TIME:
 			return{
@@ -248,7 +288,6 @@ const OrderPageReducer = (state = initialState, action) => {
 				})
 			}
 		case CURREN_STEP:
-			debugger;
 			return{
 				...state,
 				step: action.number + 1,
@@ -287,8 +326,12 @@ const OrderPageReducer = (state = initialState, action) => {
 	}
 };
 
-export const currentStep = (number) => ({ type: CURREN_STEP, number }) 
+const setCars = (carsArray) => ({ type: SET_CARS, carsArray})
+const setCity = (cityArray) => ({ type: SET_CITIES, cityArray })
+const setPoints = (pointArray) => ({ type: SET_POINTS, pointArray })
 
+
+export const currentStep = (number) => ({ type: CURREN_STEP, number }) 
 // Диспачи для location
 export const changeTextValue = (newText) => ({ type: CHANGE_CITY_TEXT, text: newText })
 export const selectSity = (cityName) => ({ type: SELECT_CITY, text: cityName })
@@ -306,8 +349,9 @@ export const handlerFilterCarRadio = (idRadio) => ({ type: FILTER_CAR, id: idRad
 
 // Дипатчи для дополнительно
 export const selectColorCarRadio = (idRadio, title) => ({ type: SELECT_COLOR, id: idRadio, city: title })
-export const changeDateWithValue = (newDate) => ({ type: CHANGE_DATE_WITH, date: newDate})
-export const changeDateByValue = (newDate) => ({ type: CHANHE_DATE_BY, date: newDate})
+// Установить дату
+export const setDateFrom = (newDate) => ({ type: SET_DATE_FROM, newDate})
+export const setDateTo = (newDate) => ({ type: SET_DATE_TO, newDate})
 export const selectRateRadio = (idRadio, title) => ({ type: SELECT_RATE, id: idRadio, city: title })
 export const selectServicesCheckbox = (idCheckbox, title) => ({ type: SELECT_SERVICE, id: idCheckbox, city: title })
 
@@ -321,5 +365,51 @@ export const toOrder = () => ({ type: TO_ORDER })
 export const closeModal = () => ({ type: CLOSE_MODAL })
 export const confirmOrder = () => ({ type: CONFIRM_ORDER})
 export const replaceOrder = () => ({ type: RPLACE_ORDER})
+
+
+
+
+export const loadCars = () => {
+	return (dispatch) => {
+		worsAPI.getCars().then(response => {
+			let arrayCars = response.data.data.map( key => {
+				return{
+					...key,
+					selected:false
+				}
+			})
+			dispatch(setCars(arrayCars))
+		})
+	}
+}
+
+export const loadCity = () => {
+	return (dispatch) => {
+		worsAPI.getCity().then(response => {
+			let arrayCity = response.data.data.map( el => {
+				return{
+					id: el.id,
+					name: el.name
+				}
+			})
+			dispatch(setCity(arrayCity))
+		})
+	}
+}
+export const loadPoint = () => {
+	return (dispatch) => {
+		worsAPI.getPoints().then(response => {
+			let pointArray = response.data.data.map(el => {
+				return {
+					id: el.id,
+					cityName: el.cityId.name,
+					address: el.address,
+					name: el.name,
+				}
+			})
+			dispatch(setPoints(pointArray))
+		})
+	}
+}
 
 export default OrderPageReducer;

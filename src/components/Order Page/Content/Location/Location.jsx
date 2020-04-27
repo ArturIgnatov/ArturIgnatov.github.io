@@ -1,5 +1,6 @@
 import React from 'react'
 import './Location.sass'
+import { useEffect } from 'react';
 
 
 
@@ -14,11 +15,11 @@ const Location = (props) => {
 	}
 
 	// Рендер списка городов с фильтром
-	const citiName = props.location.city.map( (el) => {
+	const citiName = props.location.cityId.map( (el) => {
 		let cityName = inputText.toUpperCase()
-		if (el.cityName.toUpperCase().indexOf(cityName) !== -1){
+		if (el.name.toUpperCase().indexOf(cityName) !== -1){
 			return(
-				<li key={el.id} onClick={() => { props.select(el.cityName) }}>{el.cityName}</li>
+				<li key={el.id} onClick={() => { props.select(el.name) }}>{el.name}</li>
 			)
 		}
 		return (
@@ -34,13 +35,13 @@ const Location = (props) => {
 		props.updateTextPoint(newText)
 	}
 	// Рендер пунктов выдачи
-	const pointsName = props.location.points.filter(point => point.cityName === props.location.cityText)
+	const pointsName = props.location.pointId.filter(point => point.cityName === props.location.cityText)
 
 	const pointNameItem = pointsName.map(el => {
 		let pontName = pointText.toUpperCase()
-		if (el.adress.toUpperCase().indexOf(pontName) !== -1) {
+		if (el.address.toUpperCase().indexOf(pontName) !== -1) {
 			return (
-				<li key={el.id} onClick={() => {props.selectPoint(el.adress)}}> {el.adress} </li>
+				<li key={el.id} onClick={() => { props.selectPoint(el.address) }}> {el.address} </li>
 			)	
 		}
 		return (
@@ -48,7 +49,10 @@ const Location = (props) => {
 		)
 	})
 
-	console.log(pointNameItem);
+	useEffect(()=> {
+		props.loadCity()
+		props.loadPoint()
+	}, [])
 	
 
 	return (

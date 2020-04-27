@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import More from './More';
-import { selectColorCarRadio, changeDateByValue, changeDateWithValue, selectRateRadio, selectServicesCheckbox, updateTime} from '../../../../redux/orderpage-reducer';
+import { selectColorCarRadio, selectRateRadio, selectServicesCheckbox, updateTime, setDateFrom, setDateTo} from '../../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
+		cars: state.orderPage.cars,
 		colors: state.orderPage.colors,
-		date: state.orderPage.date,
 		rate: state.orderPage.rate,
 		services: state.orderPage.services
 	}
@@ -14,12 +14,6 @@ let mapDispatchToProps = (dispatch) => {
 	return {
 		selectColor: (idRadio, title) => {
 			dispatch(selectColorCarRadio(idRadio, title))
-		},
-		changeDateValue: (newDate) => {
-			dispatch(changeDateWithValue (newDate))
-		},
-		cangeDateByValue: (newDate) => {
-			dispatch(changeDateByValue (newDate))
 		},
 		selectRate: (idRadio, title) => {
 			dispatch(selectRateRadio(idRadio, title))
@@ -30,6 +24,12 @@ let mapDispatchToProps = (dispatch) => {
 		update: () => {
 			dispatch(updateTime())
 		},
+		setDateFrom: (newDate) => {
+			dispatch(setDateFrom(newDate))
+		},
+		setDateTo: (newDate) => {
+			dispatch(setDateTo(newDate))
+		}
 	}
 }
 

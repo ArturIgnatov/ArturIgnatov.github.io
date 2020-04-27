@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Model from './Model';
-import { selectCars, handlerFilterCarRadio } from '../../../../redux/orderpage-reducer';
+import { selectCars, handlerFilterCarRadio, loadCars } from '../../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
@@ -15,6 +15,9 @@ let mapDispatchToProps = (dispatch) => {
 		},
 		handlerRadio: (idCheck) => {
 			dispatch(handlerFilterCarRadio(idCheck))
+		},
+		loadCars: () => {
+			dispatch( loadCars())
 		}
 	}
 }

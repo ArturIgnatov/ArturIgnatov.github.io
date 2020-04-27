@@ -1,8 +1,21 @@
 import React from 'react'
 import './Model.sass'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 
 const Model = (props) => {
+
+	let [active, handlerActive] = useState('model__item')
+	
+	const selectCars = () => {
+		handlerActive('model__item active')
+	}
+	useEffect(()=> {
+		props.loadCars()
+	}, [])
+// Тест рендер авто
+
 
 // Рендер радио
 	const radioFilterCarItem = props.filterCar.map((el) => {
@@ -26,31 +39,32 @@ const Model = (props) => {
 
 // Рендер машин
 // Фильтрация моделей на основе этого массивы будет мапитсья другой 
-	const filterCars = props.cars.filter((value, i) => {
-		if (props.filterCar[1].checked) {
-			return props.cars[i].price < 10000
-		}
-		else if (props.filterCar[2].checked) {
-			return props.cars[i].price > 10000
-		}
-		return props.cars[i].price
-	})
+	// const filterCars = props.cars.filter((value, i) => {
+	// 	if (props.filterCar[1].checked) {
+	// 		return props.cars[i].price < 10000
+	// 	}
+	// 	else if (props.filterCar[2].checked) {
+	// 		return props.cars[i].price > 10000
+	// 	}
+	// 	return props.cars[i].price
+	// })
 	// Рендер отфильтрованных машин
-	const carsItem = filterCars.map((el, i) => {
+	
+	const carsItem = props.cars.map((el, i) => {
 		if (el.selected) {
 			return(
 				<div key={i} className='model__item active' onClick={() => { props.selectCars(el.id, el.model)}}>
-					<span>{el.model}</span>
-					<span>{el.subtitle}</span>
+					<span>{el.name.slice(8)}</span>
+					<span>{el.priceMax}-{el.prixeMin}</span>
 					<img src={el.img} alt="" />
 				</div>
 			)
 		}
 		return(
 			<div key={i} className='model__item ' onClick={() => { props.selectCars(el.id, el.model) }}>
-				<span>{el.model}</span>
-				<span>{el.subtitle}</span>
-				<img src={el.img} alt="" />
+				<span>{el.name.slice(8)}</span>
+				<span>{el.priceMax}-{el.prixeMin}</span>
+				<img src={el.thumbnail.originalname} alt="" />
 			</div>
 		)
 	})	

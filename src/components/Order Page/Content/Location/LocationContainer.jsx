@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Location from './Location';
-import { changeTextValue, selectSity, clearInput, toggleCityBox, updateTextPoint, togglePointBox, clearInputPoint, selectPoint } from '../../../../redux/orderpage-reducer';
+import { changeTextValue, selectSity, clearInput, toggleCityBox, updateTextPoint, togglePointBox, clearInputPoint, selectPoint, loadCity, loadPoint } from '../../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
@@ -32,7 +32,14 @@ let mapDispatchToProps = (dispatch) => {
 		},
 		togglePointBox: () => {
 			dispatch(togglePointBox())
+		},
+		loadCity: () => { 
+			dispatch(loadCity())
+		},
+		loadPoint: () => {
+			dispatch(loadPoint())
 		}
+
 	}
 }
 

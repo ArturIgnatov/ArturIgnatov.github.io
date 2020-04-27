@@ -4,6 +4,11 @@ import { NavLink } from 'react-router-dom'
 
 const OrderResult = (props) => {
 	
+	// console.log(props.orderPage.preorder.dateFrom);
+	// console.log(new Date(props.orderPage.preorder.dateFrom));
+	// console.log(props.orderPage.preorder.dateTo);
+	// console.log(new Date(props.orderPage.preorder.dateTo));
+
 	let dateWith = new Date(props.orderPage.date.with)
 	let dateBy = new Date(props.orderPage.date.by)
 
@@ -64,7 +69,6 @@ const OrderResult = (props) => {
 			)
 		}
 	}
-	console.log(props);
 	
 	return (
 		<div className='order-page__result'>
@@ -77,8 +81,8 @@ const OrderResult = (props) => {
 					props.orderPage.cars.map(el => {
 						if (el.selected) {
 							return(
-								<div className='relust__item'>
-									<span>Модель</span><span>{el.model}</span>
+								<div key={el.model + 1} className='relust__item'>
+									<span>Модель</span><span>{el.name}</span>
 								</div>
 							)
 						}
@@ -92,7 +96,7 @@ const OrderResult = (props) => {
 					props.orderPage.colors.map(el => {
 						if (el.checked) {
 							return(
-								<div className='relust__item'>
+								<div key={el.title + 1} className='relust__item'>
 									<span>Цвет</span><span>{el.title}</span>
 								</div>
 							)
@@ -114,7 +118,7 @@ const OrderResult = (props) => {
 					props.orderPage.rate.map(el => {
 						if (el.checked) {
 							return(
-								<div className='relust__item'>
+								<div key={el.title + 1} className='relust__item'>
 									<span>Тариф</span><span>{el.title}</span>
 								</div>
 							)
@@ -128,7 +132,7 @@ const OrderResult = (props) => {
 					props.orderPage.services.map(el => {
 						if(el.checked) {
 							return(
-								<div className='relust__item'>
+								<div key={el.title + 1} className='relust__item'>
 									<span>{el.title}</span><span>Да</span>
 								</div>
 							)
