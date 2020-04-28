@@ -37,26 +37,16 @@ export const worsAPI = {
 	getCity() {
 		return instance.get('/db/city')
 	},
-	getPoints(){
+	getPoints() {
 		return instance.get('/db/point')
 	},
-	getRate(){
+	getRates() {
 		return instance.get('/db/rate')
+	},
+	getCategory() {
+		return instance.get('/db/category')
+	},
+	getOrderStatus () {
+		return instance.get('/db/orderStatus')
 	}
 }
-
-// connect.post('/auth/login', { username: 'intern', password: 'intern-S!' })
-// 	.then(response => BearerData = response.data)
-
-// instance.get('/db/car')
-// 	.then(function (response) {
-// 		console.log(response.data.data);
-// 	});
-// instance.get('/db/order')
-// 	.then(function (response) {
-// 		console.log(response.data);
-// 	});
-// instance.get('/db/point')
-// 	.then(function (response) {
-// 		console.log(response.data);
-// 	});

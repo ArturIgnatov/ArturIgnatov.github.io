@@ -1,43 +1,31 @@
 import { connect } from 'react-redux';
 import Location from './Location';
-import { changeTextValue, selectSity, clearInput, toggleCityBox, updateTextPoint, togglePointBox, clearInputPoint, selectPoint, loadCity, loadPoint } from '../../../../redux/orderpage-reducer';
+import {
+		selectCity, 
+		selectPoint, 
+		fetchCity, 
+		fetchPoint 
+	} from '../../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
-		location: state.orderPage.location
+		location: state.orderPage.location,
+		preorder: state.orderPage.preorder
 	}
 }
 let mapDispatchToProps = (dispatch) => {
 	return {
-		updateText: (newText) => {
-			dispatch(changeTextValue(newText))
-		},
-		updateTextPoint: (newText) =>{
-			dispatch(updateTextPoint(newText))
-		},
-		select: (sityName) => {
-			dispatch(selectSity(sityName))
+		selectCity: (cityName) => {
+			dispatch(selectCity(cityName))
 		},
 		selectPoint: (adress) => {
 			dispatch(selectPoint(adress))
 		},
-		clear: () => {
-			dispatch(clearInput())
+		fetchCity: () => { 
+			dispatch(fetchCity())
 		},
-		clearInputPoint: () => {
-			dispatch(clearInputPoint())
-		},
-		toggleCityBox: () => {
-			dispatch(toggleCityBox())
-		},
-		togglePointBox: () => {
-			dispatch(togglePointBox())
-		},
-		loadCity: () => { 
-			dispatch(loadCity())
-		},
-		loadPoint: () => {
-			dispatch(loadPoint())
+		fetchPoint: () => {
+			dispatch(fetchPoint())
 		}
 
 	}

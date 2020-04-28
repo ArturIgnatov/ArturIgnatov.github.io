@@ -17,7 +17,7 @@ const Dates = (props) => {
 		props.setDateFrom((new Date(dateFrom).getTime()))
 	}
 	const sendDateTo = () => {
-		props.setDateTo((new Date(dateFrom).getTime()))
+		props.setDateTo((new Date(dateTo).getTime()))
 	}
 	return(
 		<div className='more__date style-input'>

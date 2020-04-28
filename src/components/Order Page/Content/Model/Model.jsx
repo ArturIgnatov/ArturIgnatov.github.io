@@ -1,79 +1,45 @@
 import React from 'react'
 import './Model.sass'
-import { useState } from 'react'
 import { useEffect } from 'react'
+import FilterRadio from './FilterRadio'
 
 
 const Model = (props) => {
-
-	let [active, handlerActive] = useState('model__item')
-	
-	const selectCars = () => {
-		handlerActive('model__item active')
-	}
 	useEffect(()=> {
-		props.loadCars()
+		props.fetchCars()
 	}, [])
-// Тест рендер авто
-
-
-// Рендер радио
-	const radioFilterCarItem = props.filterCar.map((el) => {
-		if (el.checked) {
-			return(
-				<label key={el.id}>
-					<input className="check" type="radio" name="model" checked={el.checked} onChange={() => { props.handlerRadio(el.id) }} />
-					<span className="fakecheck"></span>
-					<span className='active'>{el.title}</span>
-				</label>
-			)
-		}
-		return (
-			<label key={el.id}>
-				<input className="check" type="radio" name="model" checked={el.checked} onChange={() => { props.handlerRadio(el.id) }} />
-				<span className="fakecheck"></span>
-				<span>{el.title}</span>
-			</label>
-		)
-	}) 
 
 // Рендер машин
-// Фильтрация моделей на основе этого массивы будет мапитсья другой 
-	// const filterCars = props.cars.filter((value, i) => {
-	// 	if (props.filterCar[1].checked) {
-	// 		return props.cars[i].price < 10000
-	// 	}
-	// 	else if (props.filterCar[2].checked) {
-	// 		return props.cars[i].price > 10000
-	// 	}
-	// 	return props.cars[i].price
-	// })
-	// Рендер отфильтрованных машин
-	
-	const carsItem = props.cars.map((el, i) => {
-		if (el.selected) {
-			return(
-				<div key={i} className='model__item active' onClick={() => { props.selectCars(el.id, el.model)}}>
-					<span>{el.name.slice(8)}</span>
-					<span>{el.priceMax}-{el.prixeMin}</span>
-					<img src={el.img} alt="" />
-				</div>
-			)
+	// Фильтрация моделей на основе этого массивы будет мапитсья другой 
+	const filterCars = props.cars.filter((value, i) => {
+		if (props.category[1].checked) {
+			return props.cars[i].categoryId.name === 'Эконом'
 		}
+		else if (props.category[2].checked) {
+			return props.cars[i].categoryId.name === 'Премиум'
+		}
+		return props.cars[i]
+	})
+	// Рендер отфильтрованных машин
+	const carsItem = filterCars.map((el, i) => {
 		return(
-			<div key={i} className='model__item ' onClick={() => { props.selectCars(el.id, el.model) }}>
+			<div 
+				key={i} 
+				className={el.selected ? 'model__item active' : 'model__item'} 
+				onClick={() => { props.selectCars(el.id) }}
+			>
 				<span>{el.name.slice(8)}</span>
-				<span>{el.priceMax}-{el.prixeMin}</span>
+				<span>{el.prixeMin}-{el.priceMax}</span>
 				<img src={el.thumbnail.originalname} alt="" />
 			</div>
 		)
 	})	
-	
 	return (
 		<div className='model'>
-			<div className='model__filter style-radio'>
-				{radioFilterCarItem}
-			</div>
+			<FilterRadio 
+				category={props.category}
+				handlerRadio={props.handlerRadio}
+			/>
 			<div className='model__view show'>
 				{carsItem}
 			</div>

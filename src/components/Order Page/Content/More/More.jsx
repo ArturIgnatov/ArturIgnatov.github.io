@@ -4,31 +4,9 @@ import { useState } from 'react'
 import ColorRadioButton from './ColorRadioButton'
 import Dates from './Dates'
 import Rate from './Rate'
+import Services from './Services'
 
 const More = (props) => {
-	
-	// // Рендер радиокнопок выбора тарифа
-	// const radioRateItem = props.rate.map(el => {
-	// 	return (
-	// 		<label key={el.id}>
-	// 			<input className="check" type="radio" name="rate" checked={el.checked} onChange={() => { props.selectRate(el.id) }} />
-	// 			<span className="fakecheck"></span>
-	// 			<span className={el.checked ? 'active': null}>{el.title}, {el.price} {el.unit} </span>
-	// 		</label>
-	// 	)
-
-	// })
-
-	const checkboxServicesItem = props.services.map(el => {
-		return (
-			<label key={el.id}>
-				<input type="checkbox" checked={el.checked} onChange={() => { props.checkedService(el.id) }} />
-				<span className="fake"></span>
-				<span className={el.checked ? 'active': null}>{el.title}, {el.price}р</span>
-			</label>
-		)
-	})
-
 	return (
 		<div className='more'>
 			<span>Цвет</span>
@@ -44,13 +22,15 @@ const More = (props) => {
 				/>
 			<span>Тариф</span>
 				<Rate 
-					rate={props.rate}
+					rates={props.rates}
+					fetchRates={props.fetchRates}
 					selectRate={props.selectRate}
 				/>
 			<span>Доп услуги</span>
-			<div className='more__services '>
-				{checkboxServicesItem}
-			</div>
+				<Services 
+					services={props.services}
+					checkedService={props.checkedService}
+				/>
 
 
 		</div>

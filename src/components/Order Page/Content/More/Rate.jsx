@@ -1,10 +1,16 @@
 import React from 'react'
+import { useEffect } from 'react'
 
 const Rate = (props) => {
+
+	useEffect(()=> {
+		props.fetchRates()
+	},[])
+
 	return(
 		<div className='more__rate style-radio'>
 			{
-				props.rate.map((el,i)=>{
+				props.rates.map((el,i)=>{
 					return(
 						<label key={i}>
 							<input 
@@ -15,7 +21,11 @@ const Rate = (props) => {
 								onChange={() => { props.selectRate(el.id) }} 
 							/>
 							<span className="fakecheck"></span>
-							<span className={el.checked ? 'active' : null}>{el.title}, {el.price} {el.unit} </span>
+							<span 
+								className={el.checked ? 'active' : null}
+							>
+								{el.rateTypeId.name}, {el.price} ₽/{el.rateTypeId.unit} 
+							</span>
 						</label>
 					)
 				})

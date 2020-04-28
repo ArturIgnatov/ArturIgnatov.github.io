@@ -21,6 +21,7 @@ const ColorRadioButton = (props) => {
 
 	const checkRadio = (event) => {
 		setOption(event.target.value)
+		props.selectColor(event.target.value)
 	}
 
 	return (
