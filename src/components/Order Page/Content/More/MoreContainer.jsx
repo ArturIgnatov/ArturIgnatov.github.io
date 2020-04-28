@@ -7,7 +7,7 @@ import {
 		updateTime, 
 		setDateFrom, 
 		setDateTo, 
-		fetchRates} from '../../../../redux/orderpage-reducer';
+} from '../../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
@@ -36,9 +36,6 @@ let mapDispatchToProps = (dispatch) => {
 		},
 		setDateTo: (newDate) => {
 			dispatch(setDateTo(newDate))
-		},
-		fetchRates: () => {
-			dispatch (fetchRates())
 		}
 	}
 }

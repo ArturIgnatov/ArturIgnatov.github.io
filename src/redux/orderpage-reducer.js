@@ -35,6 +35,7 @@ let SET_CITIES = 'SET_CITIES'
 let SET_POINTS =  'SET_POINTS'
 let SET_RATES = 'SET_RATES'
 let SET_CATEGORIES = 'SET_CATEGORIES'
+let SET_PRELODER = 'SET_PRELODER'
 // let newDate = moment().format().slice(0, 16)
 
 
@@ -71,10 +72,10 @@ let initialState = {
 		isNeedChildChair: false,
 		isRightWheel: false,
 	},
-	currentId: 0,
 	totalPrice: 0,
 	isModal: false,
 	step: 1,
+	isFetching: true,
 	order: ''
 }
 const OrderPageReducer = (state = initialState, action) => {
@@ -262,6 +263,12 @@ const OrderPageReducer = (state = initialState, action) => {
 				step: state.step - 1,
 				order: ''
 			}
+		case SET_PRELODER: {
+			return {
+				...state,
+				isFetching: action.isFetching
+			}
+		}
 		default:
 			return state
 	}
@@ -272,7 +279,7 @@ const setCity = (cityArray) => ({ type: SET_CITIES, cityArray })
 const setPoints = (pointArray) => ({ type: SET_POINTS, pointArray })
 const setRates = (ratesArray) => ({ type: SET_RATES, ratesArray})
 const setCategories = (payload) => ({ type: SET_CATEGORIES, payload}) 
-
+const setPreloader = (isFetching) => ({ type: SET_PRELODER, isFetching})
 // Диспачи для location
 export const selectCity = (cityName) => ({ type: SELECT_CITY, cityName })
 export const selectPoint = (pointName) => ({ type: SELECT_POINT, pointName })
@@ -306,71 +313,60 @@ export const replaceOrder = () => ({ type: RPLACE_ORDER})
 
 
 
-
-export const fetchCars = () => {
+export const fetchPayload = () => {
 	return (dispatch) => {
+		dispatch(setPreloader(true))
 		worsAPI.getCars().then(response => {
-			let arrayCars = response.data.data.map( key => {
-				return{
+			let arrayCars = response.data.data.map(key => {
+				return {
 					...key,
-					selected:false
+					selected: false
 				}
 			})
 			dispatch(setCars(arrayCars))
-		})
-		worsAPI.getCategory().then(response =>{
-			let arrayCategory = response.data.data.map( el => {
-				return {
-					id: el.id,
-					name: el.name,
-					checked: false
-				}
+			worsAPI.getCategory().then(response => {
+				let arrayCategory = response.data.data.map(el => {
+					return {
+						id: el.id,
+						name: el.name,
+						checked: false
+					}
+				})
+				arrayCategory.unshift({ id: '1', name: 'Все модели', checked: true })
+				dispatch(setCategories(arrayCategory))
+				worsAPI.getCity().then(response => {
+					let arrayCity = response.data.data.map(el => {
+						return {
+							id: el.id,
+							name: el.name
+						}
+					})
+					dispatch(setCity(arrayCity))
+					worsAPI.getPoints().then(response => {
+						let pointArray = response.data.data.map(el => {
+							return {
+								id: el.id,
+								cityName: el.cityId.name,
+								address: el.address,
+								name: el.name,
+							}
+						})
+						dispatch(setPoints(pointArray))
+						worsAPI.getRates().then(response => {
+							let ratesArray = response.data.data.map(el => {
+								return {
+									id: el.id,
+									price: el.price,
+									rateTypeId: el.rateTypeId,
+									checked: false
+								}
+							})
+							dispatch(setRates(ratesArray))
+							dispatch(setPreloader(false))
+						})
+					})
+				})
 			})
-			arrayCategory.unshift({ id: '1', name: 'Все модели', checked: true })
-			dispatch(setCategories(arrayCategory))
-		})
-	}
-}
-export const fetchCity = () => {
-	return (dispatch) => {
-		worsAPI.getCity().then(response => {
-			let arrayCity = response.data.data.map( el => {
-				return{
-					id: el.id,
-					name: el.name
-				}
-			})
-			dispatch(setCity(arrayCity))
-		})
-	}
-}
-export const fetchPoint = () => {
-	return (dispatch) => {
-		worsAPI.getPoints().then(response => {
-			let pointArray = response.data.data.map(el => {
-				return {
-					id: el.id,
-					cityName: el.cityId.name,
-					address: el.address,
-					name: el.name,
-				}
-			})
-			dispatch(setPoints(pointArray))
-		})
-	}
-}
-export const fetchRates = () => {
-	return (dispatch) => {
-		worsAPI.getRates().then(response =>{
-			let ratesArray = response.data.data.map(el =>{
-				return{
-					id: el.id,
-					price: el.price,
-					rateTypeId: el.rateTypeId,
-					checked: false
-				}
-			})
-			dispatch(setRates(ratesArray))
 		})
 	}
 }

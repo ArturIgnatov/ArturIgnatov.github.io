@@ -3,8 +3,6 @@ import Location from './Location';
 import {
 		selectCity, 
 		selectPoint, 
-		fetchCity, 
-		fetchPoint 
 	} from '../../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
@@ -21,13 +19,6 @@ let mapDispatchToProps = (dispatch) => {
 		selectPoint: (adress) => {
 			dispatch(selectPoint(adress))
 		},
-		fetchCity: () => { 
-			dispatch(fetchCity())
-		},
-		fetchPoint: () => {
-			dispatch(fetchPoint())
-		}
-
 	}
 }
 

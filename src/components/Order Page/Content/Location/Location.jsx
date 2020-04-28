@@ -1,18 +1,10 @@
 import React from 'react'
 import './Location.sass'
-import { useEffect } from 'react';
 import InputsBox from './InputsBox';
 
 
 
 const Location = (props) => {
-	
-	useEffect(()=> {
-		props.fetchCity()
-		props.fetchPoint()
-	}, [])
-	
-
 	return (
 		<div className='location'>
 			<InputsBox

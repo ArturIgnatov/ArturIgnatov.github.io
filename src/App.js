@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import StartPageContainer from './components/Start Page/StartPageContainer';
 import PannelContainer from './components/Start Page/Pannel/PannelContainer';
 import OrderPageConteiner from './components/Order Page/OrderPageContainer';
 import AdminPage from './pages/admin-page/AdminPage';
 import Login from './pages/admin-page/Login/Login';
+import Preloader from './components/Preloader';
+import { connect } from 'react-redux';
+import { fetchPayload } from './redux/orderpage-reducer' 
 
-const App = () => {
+const App = (props) => {
+
+	useEffect(()=>{
+		props.fetchPayload()
+	}, [])
+
+	if (props.isFetching) {
+		return (
+			<div className='app'>
+				<Route path='/docs' component={PannelContainer} />
+				<Preloader/>
+			</div>
+		)
+	}
 	return (
 			<div className='app'>
 				<Route path='/docs' component={PannelContainer} />
@@ -20,4 +36,8 @@ const App = () => {
 	)
 }
 
-export default App;
+const mapDispatchToProps = (state) =>({
+	isFetching: state.orderPage.isFetching
+})
+
+export default connect(mapDispatchToProps, { fetchPayload })(App)

@@ -5,10 +5,6 @@ import FilterRadio from './FilterRadio'
 
 
 const Model = (props) => {
-	useEffect(()=> {
-		props.fetchCars()
-	}, [])
-
 // Рендер машин
 	// Фильтрация моделей на основе этого массивы будет мапитсья другой 
 	const filterCars = props.cars.filter((value, i) => {
