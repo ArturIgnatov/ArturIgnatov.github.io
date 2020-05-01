@@ -12,11 +12,11 @@ const OrderMenu = (props) => {
 		}
 		else if (!el.isActive){
 			return (
-				<NavLink onClick={() => { props.currentStep(i) }} className='disabled' key={i} to={el.path}>{el.title}</NavLink>
+				<NavLink onClick={() => { props.currentStep(i) }} exact className='disabled' key={i} to={el.path}>{el.title}</NavLink>
 			)
 		}
 		return(
-			<NavLink onClick={() => { props.currentStep(i) }} key={i} to={el.path}>{el.title}</NavLink>
+			<NavLink onClick={() => { props.currentStep(i) }} exact key={i} to={el.path}>{el.title}</NavLink>
 		)
 	}) 
 	

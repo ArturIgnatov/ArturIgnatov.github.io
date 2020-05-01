@@ -1,0 +1,100 @@
+.order-auto
+	display: flex
+	flex-direction: column
+	background: #fff
+	padding: 20px 0
+	box-shadow: 0px 7px 70px rgba(90, 97, 105, 0.1), 0px 10px 10px rgba(90, 97, 105, 0.06), 0px 4px 8px rgba(90, 97, 105, 0.12), 0px 2px 0px rgba(90, 97, 105, 0.11);
+	border-radius: 9px
+.order-auto__header
+	display: flex
+	padding: 0 20px 20px
+	select
+		margin-right: 15px
+	button
+		margin-right: 0
+		margin-left: auto
+.order-auto__content
+	width: 100%
+	height: 370px
+	border-top: 1px solid rgba(151, 151, 151, 0.3)
+	padding: 20px
+.order-auto__footer
+	margin-top: auto
+	border-top: 1px solid rgba(151, 151, 151, 0.3)
+	width: 100%
+	height: 50px
+.admin-select
+	height: 30px
+	width: 110px
+	border: 0
+	border: 1px solid #BECAD6
+	border-radius: 5px
+	background: #fff
+	padding: 0 10px
+	color: #495057
+	font-size: 12px
+	-webkit-appearance: none
+    -moz-appearance: none
+    -webkit-tap-highlight-color: transparent
+	background: url(../../../assets/images/svg/select.svg)  95% center no-repeat #fff
+	background-size: 10px
+	&:focus
+		outline: none
+
+// Order item
+.order-auto__item
+	display: flex
+	justify-content: space-between
+	margin-bottom: 20px
+	label
+		display: flex
+		align-items: center
+		margin-bottom: 9px
+		input
+			margin: 0 5px
+.order-auto__img
+	width: 15%
+	img
+		width: 138px
+.order-auto__description
+	width: 30%
+	font-size: 13px
+	div
+		margin-bottom: 5px
+.order-auto__services
+	width: 15%
+	font-size: 10px
+	display: flex
+	flex-direction: column
+.order-auto__price
+	align-self: center
+	width: 10%
+	font-size: 24px
+//Кнопки Редактирование заказа
+.button-group
+	align-self: center
+	button
+		border: 0
+		border: 1px solid #BECAD6
+		background: #fff
+		font-size: 11px
+		color: #5A6169
+		width: 72px
+		height: 24px
+		font-family: Helvetica
+		&:focus
+			outline: none
+		&:hover
+			box-shadow: inset 0px 0px 85px rgba(0,0,0,0.08)
+		&:nth-child(1)
+			border-radius: 6px 0 0 6px
+			background: url(../../../assets/images/svg/ok.svg)  9% center no-repeat #fff
+			background-size: 15px
+		&:nth-child(2)
+			background: url(../../../assets/images/svg/delete.svg)  5% center no-repeat #fff
+			background-size: 14px
+		&:nth-child(3)
+			border-radius: 0 6px 6px 0
+			background: url(../../../assets/images/svg/change.svg)  -1% center no-repeat #fff
+			background-size: 15px
+			

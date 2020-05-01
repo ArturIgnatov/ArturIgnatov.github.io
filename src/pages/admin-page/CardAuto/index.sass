@@ -1,0 +1,260 @@
+@import ../../../variables
+
+.card-auto
+	display: flex
+	justify-content: space-between
+.card-auto__sittings
+	display: flex
+	flex-direction: column
+	padding: 19px
+	height: 600px
+	width: 70%
+	background: #fff
+	box-shadow: 0px 2px 4px rgba(90, 97, 105, 0.12);
+	border-radius: 9px
+	h3
+		color: #3D5170
+		font-size: 17.5px
+		font-family: Helvetica
+		margin-bottom: 38px
+	label
+		display: flex
+		flex-direction: column
+		font-family: Helvetica
+		span 
+			margin-bottom: 10px
+			font-size: 10.5px
+			font-family: Helvetica
+.sittings-car
+	display: flex
+	justify-content: space-between
+	margin-bottom: 28px
+	label
+		width: 48%
+.sittings-color
+	width: 48%
+	display: inline-block	
+	.admin-input-wrapper
+		display: flex
+		justify-content: space-between
+		input[type="text"]
+			width: 90%
+			margin: 0 0 15px
+		button
+			height: 30px
+			width: 30px
+			font-size: 11px
+			border: 1.4px solid #BECAD6
+			border-radius: 5px
+			background: #fff
+			position: relative
+			transition: .2s linear
+			&:hover
+				background: #007BFF
+				border: 1px solid transparrent
+				&::before + &::after
+					background: #fff
+					
+			&:focus
+				outline: none
+			&::before
+				content: ''
+				position: absolute
+				width: 17px
+				top: 50%
+				left: 50%
+				transform: translate( -50%, -50%)
+				height: 2px
+				background: #BECAD6
+			&::after
+				content: ''
+				position: absolute
+				width: 17px
+				top: 48%
+				left: 20%
+				transform: rotate(-90deg)
+				// transform: translate( -50%, -50%)
+				height: 2px
+				background: #BECAD6
+
+
+.admin-checkbox
+	width: 100px
+	div
+		display: flex
+		align-items: center
+		padding: 5px 0
+		input
+			margin: 0 5px 0 0
+		span
+			margin-bottom: 0
+			color: #495057
+			font-size: 11px
+			letter-spacing: 0.5px
+.admin-input
+	height: 30px
+	padding: 0 10px
+	font-size: 11px
+	border: 1.4px solid #BECAD6
+	border-radius: 5px
+
+// Левая колонка
+.card-auto__vision
+	display: flex
+	width: 28%
+	height: 500px
+	flex-direction: column
+	background: #fff
+	box-shadow: 0px 2px 4px rgba(90, 97, 105, 0.12);
+	border-radius: 9px
+.card-auto__item
+	img
+		width: 260px
+	input[type="file"]
+		border: 1px solid red
+.top
+	text-align: center
+	padding: 40px 40px 10px 40px
+.center
+	border-top: 1px solid rgba(151, 151, 151, 0.3);
+	border-bottom: 1px solid rgba(151, 151, 151, 0.3);
+	padding: 20px 20px
+	display: flex
+	justify-content: space-between
+	flex-wrap: wrap
+	div
+		margin-top: 5px
+		width: 100%
+		height: 5px
+		box-shadow: inset 0px 0.5px 4px rgba(0, 0, 0, 0.25)
+		border-radius: 4px
+		div
+			margin-top: 0
+			background:  #007BFF
+			width: 74%
+			height: 5px
+			border-radius: 4px
+	span
+		color: #868E96
+		font-size: 13px
+		font-family: Helvetica
+.bottom
+	padding: 20px
+	span
+		font-size: 13px
+		color: #868E96
+		font-weight: 500
+	div
+		margin-top: 10px
+		font-size: 13.5px
+		color: #5A6169
+
+
+.card-aut__car-name
+	color: #3D5170
+	font-family: Helvetica
+	font-size: 24px
+.card-aut__car-type
+	color: #818EA3
+	font-family: Helvetica
+	font-size: 12px
+	margin: 10px 0
+
+
+// Стилиация type file
+.card-auto__vision
+	label
+		font-size: 12px
+		color: #495057
+		border-radius: 5px
+		display: flex
+		justify-content: space-between
+		border: 1px solid #BECAD6
+		span
+			font-weight: 400
+		div
+			padding: 10px
+			&:last-child
+				background: #E9ECEF
+				padding: 0 20px
+				display: flex
+				flex-direction: column
+				justify-content: center
+				border-left: 1px solid #BECAD6
+				transition: .2s linear
+				cursor: pointer
+				&:hover
+					background: #cbd2da
+.invisible-input
+	opacity: 0
+	width: 0.1px
+	height:  0.1px
+	overflow: hidden
+	position: absolute
+	z-index: -1
+
+// Стили дял чекбокса
+.admin-checkbox
+	input
+		display: none
+		&:checked + .fake-admin::before
+			opacity: 1
+		&:checked + .fake-admin
+			background: #007BFF
+			border: 1px solid transparent
+	.fake-admin
+		width: 15px
+		height: 15px
+		border: 1px solid #BECAD6
+		border-radius: 2px
+		margin-right: 10px
+		position: relative
+		z-index: 100
+		&.active
+			color: $GRAY
+	.fake-admin::before
+		content: " "
+		position: absolute
+		top: 2px
+		left: 2px
+		display: block
+		width: 17px
+		height: 13px
+		background: url(../../../assets/images/svg/checkwhite.svg)
+		background-size: 10px
+		background-repeat: no-repeat
+		opacity: 0
+		transition: all linear .1s
+// Кнопки админ панели
+.control-button
+	display: flex
+	margin-top: auto
+.admin-btn
+	font-size: 11.5px
+	font-family: Helvetica
+	width: 110px
+	height: 30px
+	padding: 10px
+	text-align: center
+	border: 0
+	border-radius: 4px
+	cursor: pointer
+	transition: .2s linear
+	letter-spacing: 0.9px
+	&:focus
+		outline: none
+	&:hover
+		box-shadow: inset 0px 0px 85px rgba(0,0,0,0.2)  
+	&:nth-child(3)
+ 		margin-left: auto
+.blue
+	margin-right: 15px
+	background: #007BFF
+	color: #fff
+.red
+	background: #CB3656
+	color: #fff
+.gray
+	color: #3D5170
+	background: #E9ECEF
+		

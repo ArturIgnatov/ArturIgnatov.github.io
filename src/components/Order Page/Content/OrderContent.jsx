@@ -6,7 +6,7 @@ import LocationContainer from './Location/LocationContainer'
 import MoreContainer from './More/MoreContainer'
 import TotalContainer from './Total/TotalContainer'
 
-const OrderContent = () => {
+const OrderContent = (props) => {
 	return (
 		<div className='order-page__content'>
 			<Switch>

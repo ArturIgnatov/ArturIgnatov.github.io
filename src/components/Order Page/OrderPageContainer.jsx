@@ -4,7 +4,7 @@ import { currentStep, closeModal, confirmOrder } from '../../redux/orderpage-red
 
 let mapStateToProps = (state) => {
 	return{
-		orderPage: state.orderPage
+		orderPage: state.orderPage,
 	}
 }
 let mapDispatchToProps = (dispatch) => {

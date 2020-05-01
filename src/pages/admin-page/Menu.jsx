@@ -20,14 +20,14 @@ const Menu = (props) => {
 				</NavLink>
 
 
-				<NavLink className='link' exact to='adminpage/listcar'>
+				<NavLink className='link' exact to='/adminpage/listcar'>
 					<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path  d="M2.5 3.5V4.85714H7.83333V3.5H2.5ZM7.83333 7.57142H2.5V6.21428H7.83333V7.57142ZM2.5 10.2857H7.83333V8.92857H2.5V10.2857ZM2.5 13H7.83333V11.6429H2.5V13ZM14.5 3.5H9.16663V13H14.5V3.5Z" />
 					</svg>
 					Список авто
 				</NavLink>
 
-				<NavLink className='link' exact to='adminpage/orders'>
+				<NavLink className='link' exact to='/adminpage/orders'>
 					<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M7.5 1H3.5C2.95 1 2.505 1.45 2.505 2L2.5 10C2.5 10.55 2.945 11 3.495 11H9.5C10.05 11 10.5 10.55 10.5 10V4L7.5 1ZM8.5 8H7V9.5H6V8H4.5V7H6V5.5H7V7H8.5V8ZM7 1.75V4.5H9.75L7 1.75Z" />
 					</svg>

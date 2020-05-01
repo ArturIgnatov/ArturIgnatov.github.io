@@ -7,7 +7,6 @@ import OrderResultContainer from './Result/OrderResultContainer'
 import Modal from './Modal'
 
 const OrderPage = (props) => {
-
 	return (
 		<div className='order-page'>
 			{
@@ -17,9 +16,13 @@ const OrderPage = (props) => {
 					null
 			}
 			<HeaderContent />
-			<OrderMenu menu={props.orderPage.menu} order={props.orderPage.order} currentStep={props.currentStep}/>
+			<OrderMenu 
+				menu={props.orderPage.menu} 
+				order={props.orderPage.order} 
+				currentStep={props.currentStep}
+			/>
 			<div className='order-page__mein'>
-				<OrderContent />
+				<OrderContent step={props.step}/>
 				<OrderResultContainer />
 			</div>
 		</div>

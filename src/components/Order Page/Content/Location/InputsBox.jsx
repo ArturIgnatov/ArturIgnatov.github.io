@@ -8,10 +8,9 @@ const InputsBox = (props) => {
 
 	let [pointInput, handelrPointInput] = useState(props.preorder.pointId.address || '')
 	let [pointBox, handlerPointBox] = useState(false)
-
+	
 	let updateCityInput = (e) => {
 		handelrCityInput(e.target.value)
-		props.selectCity(e.target.value)
 		handlerCityBox(true)
 	}
 	let selectCity = (name) => {
@@ -24,13 +23,12 @@ const InputsBox = (props) => {
 	}
 	let clickCityInput = () => {
 		handlerCityBox(!cityBox)
-		handlerPointBox(false)
-		handelrPointInput('')
+		// handlerPointBox(false)
+		// handelrPointInput('')
 	}
 	// Point
 	let updatePointInput = (e) => {
 		handelrPointInput(e.target.value)
-		props.selectPoint(e.target.value)
 		handlerPointBox(true)
 	}
 	let selectPoint = (name) => {

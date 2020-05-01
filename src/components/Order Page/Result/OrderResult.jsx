@@ -1,6 +1,7 @@
 import React from 'react'
 import './OrderResult.sass'
 import { NavLink } from 'react-router-dom'
+import * as axios from 'axios'
 
 const OrderResult = (props) => {
 	let {step} = props.orderPage
@@ -13,13 +14,7 @@ const OrderResult = (props) => {
 		dateTo,
 		rateId,
 	} = props.orderPage.preorder
-	// console.log(props.orderPage.preorder.dateFrom);
-	// console.log(new Date(props.orderPage.preorder.dateFrom));
-	// console.log(props.orderPage.preorder.dateTo);
-	// console.log(new Date(props.orderPage.preorder.dateTo));
 
-	// let dateFrom = new Date(props.orderPage.date.with)
-	// let dateTo = new Date(props.orderPage.date.by)
 	let start = new Date(dateFrom)
 	let finish = new Date(dateTo)
 	let mill = finish - start
@@ -35,8 +30,39 @@ const OrderResult = (props) => {
 	let min2 = Math.floor(min) - min1
 
 	let result = Math.floor(day) + 'д' + hr2 + 'ч' + min2 + 'м'
-	console.log(result);
-	
+
+	let appSecret = '4cbcea96de'
+	let random = '1t23tst3'
+	let appId = '5e25c641099b810b946c5d5b'
+	let rrr = random + ':' + appSecret
+	let authToken = btoa(rrr)
+	let sendOrder = () => {
+		axios.post('http://api-factory.simbirsoft1.com/api/auth/login',
+			{ username: 'intern', password: 'intern-S!' },
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Api-Factory-Application-Id': appId,
+					Authorization: 'Basic ' + authToken
+				}
+			}
+		).then(function (response) {
+			console.log(response.data);
+			axios.post('http://api-factory.simbirsoft1.com/api/db/order',
+			{ ...props.orderPage.preorder},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Api-Factory-Application-Id': appId,
+					Authorization: 'Bearer ' + response.data.access_token
+				}
+				}).then(function (response) {
+					console.log(response.data);
+					
+				})
+		})
+	}
+
 	function renderBtn () {
 		if (step === 1) {
 			return (
@@ -74,10 +100,9 @@ const OrderResult = (props) => {
 				<button disabled className='disabled-btn'>Итого</button>
 			)
 		}
-		
 		else if (step === 4) {
 			return (
-				<button onClick={() => { props.toOrder() }}>Заказать</button>
+				<button onClick={sendOrder}>Заказать</button>
 			)
 		}
 		else if (step === 5 ) {

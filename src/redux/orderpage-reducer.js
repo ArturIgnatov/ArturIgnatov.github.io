@@ -3,7 +3,7 @@
 // import creta from '../assets/images/car/creta.png';
 // import sonata from '../assets/images/car/sonata.png';
 import moment from 'moment'
-import { worsAPI } from '../api/api';
+import { worsAPI, orderAPI } from '../api/api';
 
 // Type for location
 let SELECT_CITY = 'SELECT_CITY'
@@ -53,20 +53,21 @@ let initialState = {
 	},
 	cars: [],
 	category: [],
-	rates:[],
+	rates: [],
 	services:[
 		{ id: 1, title: 'Полный бак', price: 500, checked: false },
 		{ id: 2, title: 'Детское кресло', price: 200, checked: false },
 		{ id: 3, title: 'Правый руль', price: 1600, checked: false }
 	],
 	preorder:{
-		orderStatusId: '',
+		orderStatusId: { id: '5e26a191099b810b946c5d89', name: 'new'},
 		cityId: '',
 		pointId: '', 
 		carId: '',
 		color: '',
 		dateFrom: '',
 		dateTo: '',
+		price: 4300,
 		rateId: '',
 		ifFullTank: false,
 		isNeedChildChair: false,
@@ -153,13 +154,12 @@ const OrderPageReducer = (state = initialState, action) => {
 		case SELECT_COLOR:
 			return{
 				...state,
-				colors: state.colors,
 				preorder: { ...state.preorder, color:  action.name}
 			}
 		case SET_DATE_FROM:
 			return {
 				...state,
-				preorder: { ...state.preorder, dateFrom: action.newDate }
+				preorder: { ...state.preorder, dateFrom: action.newDate}
 			}
 		case SET_DATE_TO:
 			return {
@@ -236,8 +236,6 @@ const OrderPageReducer = (state = initialState, action) => {
 					cityId: state.preorder.cityId,
 					pointId: state.preorder.pointId,
 					carId: state.preorder.carId
-				} : action.number + 1 === 2 ? {
-					
 				} : { ...state.preorder },
 			}
 		case TO_ORDER:
@@ -280,6 +278,7 @@ const setPoints = (pointArray) => ({ type: SET_POINTS, pointArray })
 const setRates = (ratesArray) => ({ type: SET_RATES, ratesArray})
 const setCategories = (payload) => ({ type: SET_CATEGORIES, payload}) 
 const setPreloader = (isFetching) => ({ type: SET_PRELODER, isFetching})
+
 // Диспачи для location
 export const selectCity = (cityName) => ({ type: SELECT_CITY, cityName })
 export const selectPoint = (pointName) => ({ type: SELECT_POINT, pointName })
@@ -311,6 +310,14 @@ export const closeModal = () => ({ type: CLOSE_MODAL })
 export const confirmOrder = () => ({ type: CONFIRM_ORDER})
 export const replaceOrder = () => ({ type: RPLACE_ORDER})
 
+
+export const sendOrder = (order) => {
+	return ( dispatch) => {
+		orderAPI.sendOrder(order).then(response =>{
+			console.log(response.data);
+		})
+	}
+}
 
 
 export const fetchPayload = () => {
@@ -370,5 +377,6 @@ export const fetchPayload = () => {
 		})
 	}
 }
+
 
 export default OrderPageReducer;

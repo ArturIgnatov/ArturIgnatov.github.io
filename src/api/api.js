@@ -6,7 +6,6 @@ let appId = '5e25c641099b810b946c5d5b'
 let rrr = random + ':' + appSecret
 let authToken = btoa(rrr)
 let BearerData = {}
-
 const connect = axios.create({
 	baseURL: 'http://api-factory.simbirsoft1.com/api',
 	headers: {
@@ -48,5 +47,14 @@ export const worsAPI = {
 	},
 	getOrderStatus () {
 		return instance.get('/db/orderStatus')
+	},
+}
+
+export const orderAPI = {
+	updateOrder (id, status) {
+		return instance.put(`/db/order/${id}`, {status})
+	},
+	sendOrder(order) {
+		return instance.post('/db/order', {...order})
 	}
 }

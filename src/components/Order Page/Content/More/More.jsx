@@ -1,6 +1,5 @@
 import React from 'react'
 import './More.sass'
-import { useState } from 'react'
 import ColorRadioButton from './ColorRadioButton'
 import Dates from './Dates'
 import Rate from './Rate'

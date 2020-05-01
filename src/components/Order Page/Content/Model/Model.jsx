@@ -1,6 +1,5 @@
 import React from 'react'
 import './Model.sass'
-import { useEffect } from 'react'
 import FilterRadio from './FilterRadio'
 
 
@@ -26,7 +25,7 @@ const Model = (props) => {
 			>
 				<span>{el.name.slice(8)}</span>
 				<span>{el.prixeMin}-{el.priceMax}</span>
-				<img src={el.thumbnail.originalname} alt="" />
+				<img src={'http://api-factory.simbirsoft1.com/' + el.thumbnail.path} alt="" />
 			</div>
 		)
 	})	
