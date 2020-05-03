@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunkMiddleware from 'redux-thunk'
 import StartPageReducer from "./startpage-reducer";
 import OrderPageReducer from "./orderpage-reducer";
+import AdminPageReducer from "./admin-page";
 
 
 let reducers = combineReducers ({
 	startPage: StartPageReducer,
-	orderPage: OrderPageReducer
+	orderPage: OrderPageReducer,
+	adminPage: AdminPageReducer
 });
 
 

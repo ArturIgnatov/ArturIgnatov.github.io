@@ -8,7 +8,7 @@ const Total = (props) => {
 		return(
 			<>
 				{
-					props.preoprder.ifFullTank
+					props.preoprder.isFullTank
 						? <div>Топливо <span>100%</span></div>
 						: null
 				}

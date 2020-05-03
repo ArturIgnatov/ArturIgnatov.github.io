@@ -5,7 +5,7 @@ let random = '1t23tst3'
 let appId = '5e25c641099b810b946c5d5b'
 let rrr = random + ':' + appSecret
 let authToken = btoa(rrr)
-let BearerData = {}
+
 const connect = axios.create({
 	baseURL: 'http://api-factory.simbirsoft1.com/api',
 	headers: {
@@ -20,15 +20,16 @@ const instance = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
 		'X-Api-Factory-Application-Id': appId,
-		Authorization: 'Bearer ' + BearerData
+		Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
 	}
 })
 
 
 export const worsAPI = {
 	authApp () {
-		return connect.post('/auth/login', { username: 'intern', password: 'intern-S!' })
-			.then(response => BearerData = response.data)	
+		return connect.post('/auth/login', { username: 'intern', password: 'intern-S!' }).then(response => {
+			localStorage.setItem('token', JSON.stringify(response.data.access_token))
+		})	
 	},
 	getCars() {
 		return instance.get('/db/car')
@@ -56,5 +57,11 @@ export const orderAPI = {
 	},
 	sendOrder(order) {
 		return instance.post('/db/order', {...order})
+	},
+	getOrder(page = 1, limit = 4){
+		return instance.get(`/db/order/?page=${page - 1}&limit=${limit}`)
+	},
+	deleteOrder(orderId){
+		return instance.delete(`/db/order/${orderId}`)
 	}
 }

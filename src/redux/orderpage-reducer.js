@@ -69,7 +69,7 @@ let initialState = {
 		dateTo: '',
 		price: 4300,
 		rateId: '',
-		ifFullTank: false,
+		isFullTank: false,
 		isNeedChildChair: false,
 		isRightWheel: false,
 	},
@@ -196,7 +196,7 @@ const OrderPageReducer = (state = initialState, action) => {
 				}),
 				preorder:{
 					...state.preorder,
-					ifFullTank: action.id === 1 ? !state.preorder.ifFullTank : state.preorder.ifFullTank,
+					isFullTank: action.id === 1 ? !state.preorder.isFullTank : state.preorder.isFullTank,
 					isNeedChildChair: action.id === 2 ? !state.preorder.isNeedChildChair : state.preorder.isNeedChildChair,
 					isRightWheel: action.id === 3 ? !state.preorder.isRightWheel : state.preorder.isRightWheel
 				}
@@ -370,6 +370,7 @@ export const fetchPayload = () => {
 							})
 							dispatch(setRates(ratesArray))
 							dispatch(setPreloader(false))
+							worsAPI.authApp()
 						})
 					})
 				})
