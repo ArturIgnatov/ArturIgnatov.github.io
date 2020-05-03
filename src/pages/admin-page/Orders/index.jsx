@@ -12,6 +12,13 @@ const Car = [
 	{ id: 3, img: creta },
 	{ id: 4, img: elantra },
 ]
+let pagesCount = Math.ceil(26 / 4)
+let activePage = 1
+let pages = []
+for (let i = 1; i <= pagesCount; i++) {
+	pages.push(i)
+}
+
 
 const Orders = () => {
 	return(
@@ -20,21 +27,26 @@ const Orders = () => {
 		<div className='order-auto'>
 			<div className='order-auto__header'>
 				<select className='admin-select' name="" id="">
-					<option value="Пункт 1">За неделю</option>
-					<option value="Пункт 2">За день</option>
-					<option value="Пункт 3">За месяц</option>
+					<option>Не выбранно</option>
+					<option value="За месяц">За месяц</option>
+					<option value="За неделю">За неделю</option>
+					<option value="За день">За день</option>
 				</select>
 				<select className='admin-select' name="" id="">
-					<option value="Пункт 1">Elantra</option>
-					<option value="Пункт 2">i 30N</option>
-					<option value="Пункт 3">Sonata</option>
+					<option>Не выбранно</option>
+					<option value="Elantra">Elantra</option>
+					<option value="i 30N">i 30N</option>
+					<option value="Sonata">Sonata</option>
+					<option value="Creta">Creta</option>
 				</select>
 				<select className='admin-select' name="" id="">
+					<option>Не выбранно</option>
 					<option value="Ульяновск">Ульяновск</option>
 					<option value="Саранск">Саранск</option>
 					<option value="Казань">Казань</option>
 				</select>
 				<select className='admin-select' name="" id="">
+					<option>Не выбранно</option>
 					<option value="В процессе">В процессе</option>
 					<option value="Отменен">Отменен</option>
 					<option value="Исполнен">Исполнен</option>
@@ -50,22 +62,25 @@ const Orders = () => {
 										<img src={el.img} alt="" />
 									</div>
 									<div className='order-auto__description'>
-										<div>ELANTRA в Ульяновск, Нариманова 42</div>
+										<div><span>ELANTRA </span>в <span>Ульяновск</span>, Нариманова 42</div>
 										<div>12.06.2019 12:00 — 13.06.2019 12:00</div>
-										<div>Цвет: Голубой</div>
+										<div>Цвет: <span>Голубой</span></div>
 									</div>
 									<div className='order-auto__services'>
 										<label>
-											<input type="checkbox" />
-											Полный бак
+											<input type='checkbox' defaultChecked={true}/>
+											<span className='fake'></span>
+											<span className='active'>Полный бак</span>
 										</label>
 										<label>
-											<input type="checkbox" />
-											Детское кресло
+											<input type='checkbox' />
+											<span className='fake'></span>
+											<span >Детское кресло</span>		
 										</label>
 										<label>
-											<input type="checkbox" />
-											Правый руль
+											<input type='checkbox' />
+											<span className='fake'></span>
+											<span >Правый руль</span>
 										</label>
 									</div>
 									<div className='order-auto__price'>
@@ -83,7 +98,17 @@ const Orders = () => {
 			</div>
 			
 			<div className='order-auto__footer'>
-
+					{
+						pages.map((el) => {
+							return (
+								<span
+									key={el}
+									className={activePage === el ? 'active' : null}
+								>{el}
+								</span>
+							)
+						})
+					}
 			</div>
 		</div>
 		</>

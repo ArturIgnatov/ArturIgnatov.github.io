@@ -1,0 +1,60 @@
+.order-table
+	display: flex
+	flex-direction: column
+	background: #fff
+	padding: 20px 20px
+	box-shadow: 0px 7px 70px rgba(90, 97, 105, 0.1), 0px 10px 10px rgba(90, 97, 105, 0.06), 0px 4px 8px rgba(90, 97, 105, 0.12), 0px 2px 0px rgba(90, 97, 105, 0.11);
+	border-radius: 9px
+.order-table__header
+	display: flex
+	padding: 0 0 20px
+	select
+		margin-right: 15px
+	div
+		margin-right: 0
+		margin-left: auto
+		button
+			&:first-child
+				margin-right: 15px
+.order-table__content
+	padding-bottom: 20px
+	table
+		width: 80%
+	thead
+		font-size: 14px
+		color: #3D5170
+		font-family: Helvetica
+		th
+			font-weight: 500
+			height: 50px
+			&:first-child
+				text-align: left
+			&:last-child
+				width: 50%
+	tbody
+		font-family: Helvetica
+		font-size: 12px
+		color: #818EA3
+		th
+			height: 35px
+			&:first-child
+				text-align: left
+				color: #3D5170
+.order-table__footer
+	font-family: Helvetica
+	margin-top: auto
+	border-top: 1px solid rgba(151, 151, 151, 0.3)
+	width: 100%
+	padding: 20px
+	text-align: center
+	color: #007BFF
+	font-size: 15px
+	height: 50px
+	span
+		margin: 3px
+		cursor: pointer
+		&.active
+			padding: 2.5px 7px
+			color: #fff
+			border-radius: 50%
+			background: #007BFF

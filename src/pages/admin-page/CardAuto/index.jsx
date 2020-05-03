@@ -3,32 +3,45 @@ import './index.sass'
 import car from '../../../assets/images/car/i30n.png'
 import InputGroup from './InputGroup'
 import { useState } from 'react'
+import Alert from './Alert'
 
 const CardAuto = () => {
-	let [imgValue, handlerVlue] = useState({ file: false, imagePreviewUrl: false})
+	const [imgValue, handlerVlue] = useState({ file: false, imagePreviewUrl: false})
 	let change = (e) => {
 		e.preventDefault();
 		let reader = new FileReader()
 		let file = e.target.files[0]
-		
 		reader.onloadend = () => {
 			handlerVlue({
 				file: file,
 				imagePreviewUrl: reader.result
 			});
-			console.log(imgValue);
-			
 		}
 		reader.readAsDataURL(file)
 	}
+	const [alert, showAlert] = useState(false)
+
+	const saveAuto = () => {
+		showAlert(true)
+	}
+	const closeAlert = () => {
+		showAlert(false)
+	}
+
+
 	return(
-		<>	
+		<>
+		{
+			alert 
+			? <Alert closeAlert={closeAlert}/>
+			: null
+		}
 		<h2>Карточка автомобиля</h2>
 		<div className='card-auto'>
 			<div className='card-auto__vision'>
 				<div className='card-auto__item top'>
 					<img src={imgValue.imagePreviewUrl !== false ? imgValue.imagePreviewUrl : car} alt="" />
-					<div className='card-aut__car-name'>Hyndai, i30 N</div>
+					<div className='card-aut__car-name'>Hyundai, i30 N</div>
 					<div className='card-aut__car-type'>Компакт-кар</div>
 					<input
 							type='file'
@@ -66,7 +79,7 @@ const CardAuto = () => {
 				<h3>Настройки автомобиля</h3>
 				<InputGroup/>
 				<div className='control-button'>
-					<button className='admin-btn blue'>Сохранить</button>
+					<button onClick={saveAuto} className='admin-btn blue'>Сохранить</button>
 					<button className='admin-btn gray'>Отменить</button>
 					<button className='admin-btn red'>Удалить</button>
 				</div>

@@ -257,4 +257,42 @@
 .gray
 	color: #3D5170
 	background: #E9ECEF
-		
+.mix
+	padding: 5px
+	background: #C4183C
+	border: 1px solid #007BFF
+	color: #fff
+
+.alert
+	position: absolute
+	top: 0
+	left: 0
+	background: $GREEN
+	height: 42px
+	width: 100%
+	color: #ffffff
+	font-size: 13px
+	font-family: Helvetica
+	letter-spacing: -0.325px
+	padding: 0 20px
+	display: flex
+	align-items: center
+	animation: showalert 300ms ease-in alternate-reverse
+	span
+		font-weight: 300
+	div
+		margin-left: auto
+		padding: 7px 0 7px 7px
+		cursor: pointer
+	svg
+		&:first-child
+			margin-right: 10px
+
+@keyframes showalert
+	0%
+		transform: translateY(0)
+	30%
+		opacity: .5
+	100%
+		opacity: .0
+		transform: translateX(-70px)
