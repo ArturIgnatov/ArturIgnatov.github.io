@@ -29,6 +29,7 @@
 	display: flex
 	justify-content: space-between
 	margin-bottom: 28px
+	position: relative
 	label
 		width: 48%
 .sittings-color
@@ -97,6 +98,8 @@
 	font-size: 11px
 	border: 1.4px solid #BECAD6
 	border-radius: 5px
+	&.error
+		border: 1.4px solid #C4183C
 
 // Левая колонка
 .card-auto__vision
@@ -109,7 +112,8 @@
 	border-radius: 9px
 .card-auto__item
 	img
-		width: 260px
+		max-width: 260px
+		max-height: 150px
 	input[type="file"]
 		border: 1px solid red
 .top
@@ -287,6 +291,14 @@
 	svg
 		&:first-child
 			margin-right: 10px
+.error-message
+	color: #C4183C
+	bottom: -30px
+	left: 52%
+	position: absolute
+	padding: 10px 0 0 5px
+
+
 
 @keyframes showalert
 	0%

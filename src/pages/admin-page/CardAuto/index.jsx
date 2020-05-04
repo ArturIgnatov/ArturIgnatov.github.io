@@ -1,11 +1,13 @@
 import React from 'react'
 import './index.sass'
-import car from '../../../assets/images/car/i30n.png'
+import noneimg from '../../../assets/images/car/no_image.png'
 import InputGroup from './InputGroup'
 import { useState } from 'react'
 import Alert from './Alert'
+import { connect } from 'react-redux'
+import { setNewChangedCar } from '../../../redux/admin-page'
 
-const CardAuto = () => {
+const CardAuto = (props) => {
 	const [imgValue, handlerVlue] = useState({ file: false, imagePreviewUrl: false})
 	let change = (e) => {
 		e.preventDefault();
@@ -19,6 +21,7 @@ const CardAuto = () => {
 		}
 		reader.readAsDataURL(file)
 	}
+	console.log(imgValue.file);
 	const [alert, showAlert] = useState(false)
 
 	const saveAuto = () => {
@@ -28,6 +31,13 @@ const CardAuto = () => {
 		showAlert(false)
 	}
 
+	let carimg = ''
+	if (props.car) {
+		carimg = 'http://api-factory.simbirsoft1.com/' + props.car.thumbnail.path
+	} else
+		carimg = noneimg
+	console.log(carimg);
+	
 
 	return(
 		<>
@@ -40,11 +50,11 @@ const CardAuto = () => {
 		<div className='card-auto'>
 			<div className='card-auto__vision'>
 				<div className='card-auto__item top'>
-					<img src={imgValue.imagePreviewUrl !== false ? imgValue.imagePreviewUrl : car} alt="" />
-					<div className='card-aut__car-name'>Hyundai, i30 N</div>
-					<div className='card-aut__car-type'>Компакт-кар</div>
+						<img src={imgValue.imagePreviewUrl !== false ? imgValue.imagePreviewUrl : carimg} alt="" />
+					<div className='card-aut__car-name'>{props.car ? props.car.name: 'Нет данных'}</div>
+					<div className='card-aut__car-type'>{props.car ? props.car.categoryId.name : 'Нет данных'}</div>
 					<input
-							type='file'
+						type='file'
 						onChange={change}
 						name='file'
 						id='file'
@@ -77,16 +87,22 @@ const CardAuto = () => {
 			</div>
 			<div className='card-auto__sittings'>
 				<h3>Настройки автомобиля</h3>
-				<InputGroup/>
-				<div className='control-button'>
-					<button onClick={saveAuto} className='admin-btn blue'>Сохранить</button>
-					<button className='admin-btn gray'>Отменить</button>
-					<button className='admin-btn red'>Удалить</button>
-				</div>
+				<InputGroup 
+					car={props.car}
+					setNewChangedCar={props.setNewChangedCar}
+					saveAuto={saveAuto}
+					category={props.category}
+					imagePreviewUrl={imgValue.imagePreviewUrl}
+					file={imgValue.file}
+				/>
 			</div>
 		</div>
 		</>
 	)
 }
 
-export default CardAuto
+const mapStateToProps = (state) => ({
+	car: state.adminPage.car,
+	category: state.adminPage.category
+})
+export default connect(mapStateToProps, { setNewChangedCar })(CardAuto)
