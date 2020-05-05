@@ -21,7 +21,7 @@ const OrderItem = (props) => {
 							<label>
 								<input
 									type='checkbox'
-									checked={el.isFullTank}
+									defaultChecked={el.isFullTank}
 								/>
 								<span className='fake'></span>
 								<span className={el.isFullTank ? 'active' : null}>Полный бак</span>
@@ -29,7 +29,7 @@ const OrderItem = (props) => {
 							<label>
 								<input
 									type='checkbox'
-									checked={el.isNeedChildChair}
+									defaultChecked={el.isNeedChildChair}
 								/>
 								<span className='fake'></span>
 								<span className={el.isNeedChildChair ? 'active' : null}>Детское кресло</span>
@@ -37,7 +37,7 @@ const OrderItem = (props) => {
 							<label>
 								<input
 									type='checkbox'
-									checked={el.isRightWheel}
+									defaultChecked={el.isRightWheel}
 								/>
 								<span className='fake'></span>
 								<span className={el.isRightWheel ? 'active' : null}>Правый руль</span>

@@ -8,7 +8,7 @@ const InputGroup = (props) => {
 	const [typeInput, handlerTypeInput] = useState(!props.car ? '' : props.car.categoryId.name)
 	const [error, handlerError] = useState(false)
 
-	const validModel = new RegExp(/^[A-Z]{1}[a-z]{1,10}, [A-Z]{1}[a-zA-Z0-9]{1,10}$/).test(modelInput)
+	const validModel = new RegExp(/^[A-Z]{1}[a-z]{1,10}, [a-zA-Z0-9 ]{1,15}$/).test(modelInput)
 	
 	const setTextColorsValue = (e) => {
 		handlerColorInput(e.target.value)
