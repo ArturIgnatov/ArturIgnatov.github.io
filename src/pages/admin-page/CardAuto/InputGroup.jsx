@@ -6,8 +6,9 @@ const InputGroup = (props) => {
 	const [colors, handlerColors] = useState(!props.car ? ['Тест', 'Тест 1', 'Тест 2'] : props.car.colors)
 	const [modelInput, handlerModelInput] = useState(!props.car ? '' : props.car.name)
 	const [typeInput, handlerTypeInput] = useState(!props.car ? '' : props.car.categoryId.name)
-	const [error, hanlerError] = useState(false)
-	
+	const [error, handlerError] = useState(false)
+
+	const validModel = new RegExp(/^[A-Z]{1}[a-z]{1,10}, [A-Z]{1}[a-zA-Z0-9]{1,10}$/).test(modelInput)
 	
 	const setTextColorsValue = (e) => {
 		handlerColorInput(e.target.value)
@@ -17,14 +18,15 @@ const InputGroup = (props) => {
 	}
 	const changeTypeInput = (e) => {
 		handlerTypeInput(e.target.value)
-		if (typeInput === props.category[0].name & typeInput === props.category[1].name) {
-			hanlerError(false)
-			console.log('Равно');
-		} 
-		else
-			hanlerError(true)
-			console.log('не равно');
 	}
+	const validateTypeInput = () => {
+		if (typeInput === props.category[0].name || typeInput === props.category[1].name) {
+			handlerError(false)
+		}
+		else
+			handlerError(true)
+	}
+
 	const pushNewColor = () => {
 		if (colorsInput !== '' & colorsInput.length < 10) {
 			handlerColors([
@@ -44,7 +46,7 @@ const InputGroup = (props) => {
 		}
 	}
 	const setChangedCar = () => {
-		if (props.car) {
+		if (props.car && !error && validModel) {
 			props.setNewChangedCar(modelInput, typeInput, colors)
 			props.saveAuto()	
 		}
@@ -54,6 +56,7 @@ const InputGroup = (props) => {
 		handlerColorInput('')
 		handlerModelInput(props.car.name)
 		handlerTypeInput(props.car.categoryId.name)
+		handlerError(false)
 	}
 	const deleteCar = () => {
 
@@ -66,12 +69,20 @@ const InputGroup = (props) => {
 				<label>
 					<span>Модель автомобиля</span>
 					<input 
-						className='admin-input'
-						placeholder='Машина не выбрана' 
+						className={!validModel ? 'admin-input error' :'admin-input'}
+						placeholder='Машина не выбрана'
 						type='text'
 						onChange={changeModelInput}
 						value={modelInput} 
 					/>
+					{
+						!validModel 
+						?
+								<span className='error-message models'>
+									Ошибка! Пример заполнения:'Hyundai, Elantra'
+								</span>
+						: null
+					}
 				</label>
 				<label>
 					<span>Тип автомобиля</span>
@@ -79,6 +90,7 @@ const InputGroup = (props) => {
 						className={error ? 'admin-input error' : 'admin-input'}
 						placeholder='Машина не выбрана' 
 						type='text'
+						onKeyUp={validateTypeInput}
 						onChange={changeTypeInput}
 						value={typeInput}
 					/>
