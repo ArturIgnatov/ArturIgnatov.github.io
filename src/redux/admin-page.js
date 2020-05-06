@@ -6,6 +6,7 @@ const SET_CURRENT_ORDER_PAGE = 'SET_CURRENT_ORDER_PAGE'
 const SET_CURRENT_CARS_PAGE = 'SET_CURRENT_CARS_PAGE'
 const SET_PRELOADER ='SET_PRELOADER'
 const SET_CATEGORY = 'SET_CATEGORY'
+const SET_SITIES = 'SET_SITIES'
 const DELETE_ORDER = 'DELETE_ORDER'
 const CHANGE_CAR = 'CHANGE_CAR'
 const SET_ORDER_CARS = 'SET_ORDER_CARS'
@@ -16,6 +17,7 @@ let initialState = {
 	cars: [],
 	order: {},
 	orders:[],
+	cities: [],
 	userid: null,
 	initialazedApp: false,
 	isPreloader: false,
@@ -53,6 +55,11 @@ const AdminPageReducer = (state = initialState, action) => {
 				...state,
 				orders: action.payload.data,
 				totalOrderCount: action.payload.count
+			}
+		case SET_SITIES:
+			return{
+				...state,
+				cities: action.payload
 			}
 		case SET_CURRENT_ORDER_PAGE: 
 			return{
@@ -100,6 +107,7 @@ export const initialazeApp = (userid) => ({ type: INITIAL_APP, userid })
 const setOrders = (payload) => ({type: SET_ORDERS, payload})
 const setCars = (payload) => ({type: SET_ORDER_CARS, payload})
 const setCategory = (payload) => ({ type: SET_CATEGORY, payload })
+const setCities = (payload) => ({type: SET_SITIES, payload})
 // Пагинация на страничке заказов
 export const setCurrentOrderPage = (page) => ({ type: SET_CURRENT_ORDER_PAGE, page })
 export const setCurrentCarsPage = (page) => ({ type: SET_CURRENT_CARS_PAGE, page })
@@ -117,15 +125,18 @@ export const loadCars = () => {
 			dispatch(setCars(response.data.data))
 			worsAPI.getCategory().then( response => {
 				dispatch(setCategory(response.data.data))
+				worsAPI.getCity().then(response => {
+					dispatch(setCities(response.data.data))
+				})
 			})
 		})
 	}
 }
 	
-export const loadOrders = (page, limit) => {
+export const loadOrders = (period, car, city, page, limit) => {
 	return (dispatch) => {
 		dispatch(setPreloader(true))
-		orderAPI.getOrder(page, limit).then(response => {
+		orderAPI.getOrder(period, car, city, page, limit).then(response => {
 			dispatch(setOrders(response.data))
 			dispatch(setPreloader(false))
 		})

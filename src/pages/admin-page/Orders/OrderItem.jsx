@@ -16,6 +16,7 @@ const OrderItem = (props) => {
 							<div><span>{el.carId.name} </span>в <span>{el.cityId.name}</span>, {el.pointId.address}</div>
 							<div>{dateFrom} — {dateTo}</div>
 							<div>Цвет: <span>{el.color}</span></div>
+							<div>Дата создания заказа: <span>{new Date(el.createdAt).toLocaleString()}</span></div>
 						</div>
 						<div className='order-auto__services'>
 							<label>
@@ -58,4 +59,5 @@ const OrderItem = (props) => {
 		</>
 	)
 }
+
 export default OrderItem

@@ -58,8 +58,19 @@ export const orderAPI = {
 	sendOrder(order) {
 		return instance.post('/db/order', {...order})
 	},
-	getOrder(page = 1, limit = 4){
-		return instance.get(`/db/order/?page=${page - 1}&limit=${limit}`)
+	getOrder(period, car, city, page = 1, limit = 4){
+		let {pagE, citY, caR, dateFrom, dateTo, result} = ''
+		page > 1 ? pagE = `page=${page - 1}` : pagE = `page=0`
+		city === '' ? citY = '' : citY = '&cityId[id]=' + city
+		car === '' ? caR = '' : caR = '&carId[id]=' + car
+		if (period !== '') {
+			dateTo = new Date().getTime()
+			dateFrom = new Date(dateTo - 86400000 * period)
+			result = '&createdAt[$gt]=' + dateFrom + '&createdAt[$lt]=' + dateTo
+		}
+		else
+			result= ''
+		return instance.get(`/db/order/?sort[createdAt]=-1${result}${caR}${citY}&${pagE}&limit=${limit}`)
 	},
 	deleteOrder(orderId){
 		return instance.delete(`/db/order/${orderId}`)

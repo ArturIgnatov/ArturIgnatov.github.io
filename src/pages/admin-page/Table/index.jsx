@@ -14,10 +14,12 @@ const Tables = (props) => {
 	const applayFilter = () => {
 		handlerApplay(true)
 	}
+	// Конпка сброса фильтров
 	const resetFilter = () => {
 		handlerCategory('')
 		handelrMark('')
 		handelrColors('')
+		handlerApplay(false)
 	}
 	// Select категории
 	const changeCategorySelect = (e)=> {
@@ -195,11 +197,7 @@ const Tables = (props) => {
 					</thead>
 					<tbody>
 						{
-							props.cars
-							.filter(el => el.categoryId.name.includes(applay ? category : ''))
-							.filter(el => el.name.includes(applay ? mark : ''))
-							.filter(filterColorsLength)
-							.map((el, i)=>{
+							props.cars.map((el, i)=>{
 								return(
 									<tr 
 										key={i}
