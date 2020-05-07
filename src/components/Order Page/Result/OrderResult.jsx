@@ -117,7 +117,7 @@ const OrderResult = (props) => {
 			<h2>Ваш заказ:</h2>
 			<div>
 				<div className='relust__item'>
-					<span>Пункт выдачи</span><span>{cityId.name} {pointId.address }</span>
+					<span>Пункт выдачи</span> <span>{cityId.name} {pointId.address }</span>
 				</div>
 				{
 					carId 

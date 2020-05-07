@@ -51,6 +51,34 @@ export const worsAPI = {
 	},
 }
 
+export const carsAPI = {
+	getCars() {
+		return instance.get('/db/car')
+	},
+	setCar(newCar) {
+		const { name, categoryId, colors, priceMin, priceMax, thumbnail} = newCar
+		const formData = new FormData()
+		formData.append('name', name)
+		formData.append('categoryId', categoryId)
+		colors.forEach( el => formData.append('colors', el))
+		formData.append('priceMin', priceMin)
+		formData.append('priceMax', priceMax)
+		formData.append('thumbnail', thumbnail)
+		return instance.post('/db/car', formData, {
+			headers:{
+				'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+				'Accept': '*/*',
+			}
+		})
+	},
+	updateCars(car, id) {
+		return instance.put('/db/car/' + id, {...car})
+	},
+	deleteCar(carId) {
+		return instance.delete('/db/car' + carId)
+	}
+}
+
 export const orderAPI = {
 	updateOrder (id, status) {
 		return instance.put(`/db/order/${id}`, {status})

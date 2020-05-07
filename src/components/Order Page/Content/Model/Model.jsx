@@ -23,8 +23,8 @@ const Model = (props) => {
 				className={el.selected ? 'model__item active' : 'model__item'} 
 				onClick={() => { props.selectCars(el.id) }}
 			>
-				<span>{el.name.slice(8)}</span>
-				<span>{el.prixeMin}-{el.priceMax}</span>
+				<span>{el.name.match(/(?<=,\s).*/)[0]}</span>
+				<span>{el.priceMin}-{el.priceMax}</span>
 				<img src={'http://api-factory.simbirsoft1.com/' + el.thumbnail.path} alt="" />
 			</div>
 		)

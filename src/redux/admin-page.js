@@ -1,4 +1,4 @@
-import { worsAPI, orderAPI } from "../api/api";
+import { worsAPI, orderAPI, carsAPI } from "../api/api";
 
 const INITIAL_APP = 'INITIAL_APP'
 const SET_ORDERS ='SET_ORDERS'
@@ -87,14 +87,18 @@ const AdminPageReducer = (state = initialState, action) => {
 				car: state.cars.find(el => el.id === action.carId)
 			}
 		case SET_CHANGED_CAR:
+			debugger
 			return{
 				...state,
-				car:{
-					...state.car,
-					name: action.newModel,
-					categoryId: { ...state.car.categoryId, name: action.newType },
-					colors: action.newColors,
-				}
+				car: action.newCar
+				// car:{
+				// 	...state.car,
+				// 	name: action.newModel,
+				// 	categoryId: state.category.find(el => el.name === action.typeCar),
+				// 	colors: action.colors,
+				// 	priceMin: action.priceMin,
+				// 	priceMax: action.priceMax
+				// }
 			}
 		default:
 			return state;
@@ -116,7 +120,7 @@ const delOrder = (orderId) => ({type: DELETE_ORDER, orderId})
 
 // Редактирвование авто
 export const changeCar = (carId) => ({type: CHANGE_CAR, carId})
-export const setNewChangedCar = (newModel, newType, newColors, newImg) => ({type: SET_CHANGED_CAR, newModel, newType, newColors, newImg })
+export const setNewChangedCar = (newCar) => ({ type: SET_CHANGED_CAR, newCar })
 
 
 export const loadCars = () => {
@@ -150,5 +154,26 @@ export const deleteOrder = (orderId) => {
 		})
 	}
 }
+export const setNewCar = (newCar) => {
+	return (dispatch) => {
+		carsAPI.setCar(newCar).then(response => {
+			dispatch(setNewChangedCar(response.data.data))
+		})
+	}
+}
 
+export const setUpdateCar = (car, id) =>{
+	return (dispatch) => {
+		carsAPI.updateCars(car, id).then(response => {
+			dispatch(setNewChangedCar(response.data.data))
+		})
+	}
+}
+export const deleteCar = (id) => {
+	return (dispatch)=> {
+		carsAPI.deleteCar(id).then(response => {
+			dispatch(setNewChangedCar(undefined))
+		})
+	}
+}
 export default AdminPageReducer;

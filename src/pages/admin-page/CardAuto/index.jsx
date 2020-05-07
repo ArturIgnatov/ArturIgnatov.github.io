@@ -1,11 +1,11 @@
 import React from 'react'
 import './index.sass'
-import noneimg from '../../../assets/images/car/no_image.png'
+import noneimg from '../../../assets/images/car/noimage.jpg'
 import InputGroup from './InputGroup'
 import { useState } from 'react'
 import Alert from './Alert'
 import { connect } from 'react-redux'
-import { setNewChangedCar } from '../../../redux/admin-page'
+import { setNewChangedCar, setNewCar, setUpdateCar } from '../../../redux/admin-page'
 
 const CardAuto = (props) => {
 	const [imgValue, handlerVlue] = useState({ file: false, imagePreviewUrl: false})
@@ -21,7 +21,6 @@ const CardAuto = (props) => {
 		}
 		reader.readAsDataURL(file)
 	}
-	console.log(imgValue.file);
 	const [alert, showAlert] = useState(false)
 
 	const saveAuto = () => {
@@ -36,8 +35,6 @@ const CardAuto = (props) => {
 		carimg = 'http://api-factory.simbirsoft1.com/' + props.car.thumbnail.path
 	} else
 		carimg = noneimg
-	console.log(carimg);
-	
 
 	return(
 		<>
@@ -94,6 +91,8 @@ const CardAuto = (props) => {
 					category={props.category}
 					imagePreviewUrl={imgValue.imagePreviewUrl}
 					file={imgValue.file}
+					setNewCar={props.setNewCar}
+					setUpdateCar={props.setUpdateCar}
 				/>
 			</div>
 		</div>
@@ -105,4 +104,4 @@ const mapStateToProps = (state) => ({
 	car: state.adminPage.car,
 	category: state.adminPage.category
 })
-export default connect(mapStateToProps, { setNewChangedCar })(CardAuto)
+export default connect(mapStateToProps, { setNewChangedCar, setNewCar, setUpdateCar })(CardAuto)
