@@ -23,7 +23,7 @@ let initialState = {
 	isPreloader: false,
 
 	totalCarsCount: 104,
-	carsPageSize: 4,
+	carsPageSize: 8,
 	currentCarsPage: 1,
 
 	totalOrderCount: null,
@@ -43,7 +43,8 @@ const AdminPageReducer = (state = initialState, action) => {
 		case SET_ORDER_CARS:
 			return{
 				...state,
-				cars: action.payload
+				cars: action.payload.data,
+				totalCarsCount: action.payload.count
 			}
 		case SET_CATEGORY:
 			return{
@@ -91,14 +92,6 @@ const AdminPageReducer = (state = initialState, action) => {
 			return{
 				...state,
 				car: action.newCar
-				// car:{
-				// 	...state.car,
-				// 	name: action.newModel,
-				// 	categoryId: state.category.find(el => el.name === action.typeCar),
-				// 	colors: action.colors,
-				// 	priceMin: action.priceMin,
-				// 	priceMax: action.priceMax
-				// }
 			}
 		default:
 			return state;
@@ -122,21 +115,16 @@ const delOrder = (orderId) => ({type: DELETE_ORDER, orderId})
 export const changeCar = (carId) => ({type: CHANGE_CAR, carId})
 export const setNewChangedCar = (newCar) => ({ type: SET_CHANGED_CAR, newCar })
 
-
-export const loadCars = () => {
-	return(dispatch) => { 
-		worsAPI.getCars().then(response => {
-			dispatch(setCars(response.data.data))
-			worsAPI.getCategory().then( response => {
+export const loadCity = () => {
+	return (dispatch) => {
+		worsAPI.getCity().then(response => {
+			dispatch(setCities(response.data.data))
+			worsAPI.getCategory().then(response => {
 				dispatch(setCategory(response.data.data))
-				worsAPI.getCity().then(response => {
-					dispatch(setCities(response.data.data))
-				})
 			})
 		})
 	}
-}
-	
+}	
 export const loadOrders = (period, car, city, page, limit) => {
 	return (dispatch) => {
 		dispatch(setPreloader(true))
@@ -154,6 +142,16 @@ export const deleteOrder = (orderId) => {
 		})
 	}
 }
+export const loadCars = (page, limit, sort, category) =>{
+	return (dispatch) => {
+		dispatch(setPreloader(true))
+		carsAPI.getCars(page, limit, sort, category).then(response => {
+			dispatch(setCars(response.data))
+			dispatch(setPreloader(false))
+		})
+	}
+}
+
 export const setNewCar = (newCar) => {
 	return (dispatch) => {
 		carsAPI.setCar(newCar).then(response => {

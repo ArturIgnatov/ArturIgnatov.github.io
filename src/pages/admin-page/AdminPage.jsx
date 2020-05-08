@@ -6,12 +6,13 @@ import Content from './Content/Content'
 import Footer from './Footer'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loadCars } from '../../redux/admin-page'
+import { loadCity } from '../../redux/admin-page'
 
 const AdminPage = (props) => {
 
 	useEffect(()=>{
-		props.loadCars()
+		props.loadCity()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
@@ -26,4 +27,4 @@ const AdminPage = (props) => {
 	)
 }
 
-export default connect(null, { loadCars })(AdminPage);
+export default connect(null, { loadCity })(AdminPage);

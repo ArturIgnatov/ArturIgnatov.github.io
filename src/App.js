@@ -13,6 +13,7 @@ const App = (props) => {
 
 	useEffect(()=>{
 		props.fetchPayload()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	if (props.isFetching) {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import Colors from './Colors'
 
 const InputGroup = (props) => {
 	const [colorsInput, handlerColorInput] = useState('')
@@ -11,7 +12,7 @@ const InputGroup = (props) => {
 	const [error, handlerError] = useState(false)
 
 	const validModel = new RegExp(/[A-Z]\w+, [\w][\S\s]+/).test(modelInput)
-
+	const validColor = new RegExp(/^[a-zа-яЁё]+$/).test(colorsInput)
 	const changePriceMin = (e) => {
 		handlerPriceMin(e.target.value)
 	}
@@ -36,7 +37,7 @@ const InputGroup = (props) => {
 	}
 
 	const pushNewColor = () => {
-		if (colorsInput !== '' & colorsInput.length < 10) {
+		if (colorsInput !== '' && validColor) {
 			handlerColors([
 				...colors,
 				colorsInput
@@ -45,7 +46,7 @@ const InputGroup = (props) => {
 		}
 	}
 	const pushOnEnter = (e) => {
-		if (e.key === 'Enter' & colorsInput !== '' & colorsInput.length < 10) {
+		if (e.key === 'Enter' && colorsInput !== '' && validColor) {
 			handlerColors([
 				...colors,
 				colorsInput
@@ -53,8 +54,10 @@ const InputGroup = (props) => {
 			handlerColorInput('')
 		}
 	}
+	console.log(validColor);
+	
 	const sendCar = () => {
-		if (!error && validModel) {
+		if (!error && validModel && !validColor && priceMin !== '' && priceMax !== '') {
 			const newCar = {
 				name: modelInput,
 				categoryId: props.category.find(el => el.name === typeInput).id,
@@ -65,6 +68,11 @@ const InputGroup = (props) => {
 			}
 			props.car ? props.setUpdateCar(newCar, props.car.id) : props.setNewCar(newCar)
 			props.saveAuto()
+			props.setMessage({ text: 'Успех! Машина сохранена', class: 'success' })
+		}
+		else {
+			props.saveAuto()
+			props.setMessage({ text: 'Ошибка! Небхожимо заполнить все поля и без ошибок', class: 'error' })
 		}
 	}	
 	const resetChanged = () => {
@@ -72,15 +80,11 @@ const InputGroup = (props) => {
 		handlerColors(props.car ? props.car.colors: [])
 		handlerModelInput(props.car ? props.car.name : '')
 		handlerPriceMin(props.car ?  props.car.priceMin : '')
+		handlerColorInput('')
 		handlerPriceMax(props.car ? props.car.priceMax : '')
 		handlerTypeInput(props.car ? props.car.categoryId.name : '')
 		handlerError(false)
 	}
-	const deleteCar = () => {
-
-	}
-
-
 	return (
 		<>
 		<div>
@@ -88,7 +92,7 @@ const InputGroup = (props) => {
 				<label>
 					<span>Модель автомобиля</span>
 					<input 
-							className={!validModel && modelInput? 'admin-input error' :'admin-input'}
+						className={!validModel && modelInput? 'admin-input error' :'admin-input'}
 						placeholder='Введите модель'
 						type='text'
 						onChange={changeModelInput}
@@ -150,7 +154,7 @@ const InputGroup = (props) => {
 					<span>Доступные цвета</span>
 					<div className='admin-input-wrapper'>
 						<input
-							className='admin-input'
+							className={!validColor && colorsInput ? 'admin-input error' : 'admin-input'}
 							type='text'
 							placeholder='Введите название цвета'
 							value={colorsInput}
@@ -159,27 +163,17 @@ const InputGroup = (props) => {
 						/>
 						<button onClick={pushNewColor}></button>
 					</div>
+						{
+							!validColor && colorsInput
+								?
+									<span className='error-message colors'>
+										Ошибка! Возможен ввод только текста со строчной буквы
+									</span>
+								: 	null
+						}
 				</label>
 				{
-					colors.map(el => {
-						return (
-							<label 
-								key={el} 
-								className='admin-checkbox'
-							>
-								<div>
-									<input
-										type='checkbox'
-										value={el}
-										defaultChecked={el}
-										// onChange={() => selectColors(el)}
-									/>
-									<span className='fake-admin'></span>
-									<span>{el}</span>
-								</div>
-							</label>
-						)
-					})
+					colors.map(el => <Colors key={el} el={el}/> )
 				}
 			</div>
 		</div>

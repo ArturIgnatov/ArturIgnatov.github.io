@@ -20,7 +20,8 @@ const Orders = (props) => {
 	useEffect(() => {
 		props.history.push('/adminpage/orders/page=' + currentOrderPage + '&limit=' + ordersPageSize)
 		props.loadOrders(period, car, city, currentOrderPage, ordersPageSize)
-	}, [props.currentOrderPage])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentOrderPage])
 
 	const setSelectDate = (e)=>{
 		setFilterDate(e.target.value)
@@ -132,7 +133,7 @@ const Orders = (props) => {
 
 const mapStateToProps = (state)=> ({
 	orders: state.adminPage.orders,
-	cars: state.adminPage.cars,
+	cars: state.orderPage.cars,
 	totalOrderCount: state.adminPage.totalOrderCount,
 	currentOrderPage: state.adminPage.currentOrderPage,
 	ordersPageSize: state.adminPage.ordersPageSize,

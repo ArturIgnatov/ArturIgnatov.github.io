@@ -1,27 +1,35 @@
 import React, { useState } from 'react'
 import './index.sass'
 import { connect } from 'react-redux'
-import { changeCar, setCurrentCarsPage } from '../../../redux/admin-page'
-import Option from '../Orders/Option'
+import { changeCar, setCurrentCarsPage, loadCars } from '../../../redux/admin-page'
 import OptionMark from './OptionMark'
 import RowCar from './RowCar'
 import Pagination from './Pagination'
+import { useEffect } from 'react'
+import OptionCategory from './OptionCategory'
 
 const Tables = (props) => {
-	// totalCarsCount: 102
-	// carsPageSize: 4
 	const [category, handlerCategory] = useState('')
 	const [colors, handelrColors] = useState('')
 	const [mark, handelrMark] = useState('')
+	const [sort, setSort] = useState(undefined)
+	let { currentCarsPage, carsPageSize } = props
 	// Кнопка Apply
+	useEffect(()=>{
+		props.loadCars(currentCarsPage, carsPageSize, sort, category)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentCarsPage])
+
 	const applayFilter = () => {
-		
+		props.loadCars(currentCarsPage, carsPageSize, sort, category)
 	}
 	// Конпка сброса фильтров
 	const resetFilter = () => {
 		handlerCategory('')
 		handelrMark('')
 		handelrColors('')
+		setSort(undefined)
+		props.loadCars(currentCarsPage, carsPageSize, undefined, '')
 	}
 	// Select категории
 	const changeCategorySelect = (e)=> {
@@ -48,59 +56,34 @@ const Tables = (props) => {
 	}
 	// Сортировка моделей по алфавиту и наоборот
 	const [countModelClick, setCountClick] = useState(1)
-	const sortTabelObject = (obj1, obj2) => {
+	const sortByModel = () => {
 		if (countModelClick === 1) {
 			setCountClick(2)
-			// 
+			setSort({ field: 'name', value: 1 })
+			props.loadCars(currentCarsPage, carsPageSize, { field: 'name', value: 1 }, category)
 		}
-		else if (countModelClick === 2) {
+		else if (countModelClick === 2){
 			setCountClick(1)
-			// 
+			setSort({ field: 'name', value: -1 })
+			props.loadCars(currentCarsPage, carsPageSize, { field: 'name', value: -1 }, category)
 		}
 	}
-	const sortedModel = () => {
-		props.cars.sort(sortTabelObject)
-	}
-
-	// Сортировка цветов  от меньшего к большему и наоборот
-	const [countColorClick, setColorCountClick] = useState(1)
-	const sortedColorLength = () => {
-		if (countColorClick === 1) {
-			setColorCountClick(2)
-		}
-		else if (countColorClick === 2) {
-			setColorCountClick(1)
-		}
-	}
+	// Сортировка поля категория
 	const [countCategoryClick, setCategoryCountClick] = useState(1)
 	const sortedCategory = () => {
-		props.cars.sort((a, b) => {
-			if (countCategoryClick === 1) {
-				setCategoryCountClick(2)
-				if (a.categoryId.name < b.categoryId.name) {
-					return -1
-				}
-				if (a.categoryId.name > b.categoryId.name) {
-					return 1
-				}
-				return 0
-			}
-			else if (countCategoryClick === 2) {
-				setCategoryCountClick(1)
-				if (a.categoryId.name < b.categoryId.name) {
-					return 1
-				}
-				if (a.categoryId.name > b.categoryId.name) {
-					return -1
-				}
-				return 0
-			}
-			return 0
-		})
+		if (countCategoryClick === 1) {
+			setCategoryCountClick(2)
+			setSort({ field: 'categoryId', value: -1 })
+			props.loadCars(currentCarsPage, carsPageSize, { field: 'categoryId', value: -1 }, category)
+		}
+		else if (countCategoryClick === 2) {
+			setCategoryCountClick(1)
+			setSort({ field: 'categoryId', value: 1 })
+			props.loadCars(currentCarsPage, carsPageSize, { field: 'categoryId', value: 1 }, category)
+		}
 	}
 	
-	let marksArray = Array.from(new Set(props.cars.map(el => el.name.match(/^[^,]*/)[0])))
-
+	let marksArray = Array.from(new Set(props.cars.map(el => el.name.match(/^[^,]*/)[0])))	
 	return(
 		<>
 		<h2>Список авто</h2>
@@ -133,8 +116,9 @@ const Tables = (props) => {
 					className='admin-select'
 				>
 					<option value=''>По категории</option>
-					<option value="Премиум">Премиум</option>
-					<option value="Эконом">Эконом</option>
+					{
+						props.category.map((el,i) => <OptionCategory key={i} {...el}/>)
+					}
 				</select>
 				<select className='admin-select' name="" id="">
 					<option>Нет фильтра</option>
@@ -148,11 +132,11 @@ const Tables = (props) => {
 				<table>
 					<thead>
 						<tr>
-							<th onClick={sortedModel}>Модель</th>
-							<th>Марка</th>
+							<th onClick={sortByModel}>Модель</th>
+							<th onClick={sortByModel}>Марка</th>
 							<th>Цена от</th>
 							<th>Цена до</th>
-							<th onClick={sortedColorLength} >Цвета</th>
+							<th>Цвета</th>
 							<th onClick={sortedCategory}>Категория</th>
 						</tr>
 					</thead>
@@ -185,8 +169,9 @@ const mapStateToProps = (state)=> ({
 	cars: state.adminPage.cars,
 	currentCarsPage: state.adminPage.currentCarsPage,
 	carsPageSize: state.adminPage.carsPageSize,
-	totalCarsCount: state.adminPage.totalCarsCount
+	totalCarsCount: state.adminPage.totalCarsCount,
+	category: state.adminPage.category
 })
 
 
-export default connect(mapStateToProps, { changeCar, setCurrentCarsPage })(Tables)
+export default connect(mapStateToProps, { changeCar, setCurrentCarsPage, loadCars })(Tables)

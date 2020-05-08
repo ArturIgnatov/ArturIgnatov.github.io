@@ -22,6 +22,7 @@ const CardAuto = (props) => {
 		reader.readAsDataURL(file)
 	}
 	const [alert, showAlert] = useState(false)
+	const [message, setMessage] = useState('')
 
 	const saveAuto = () => {
 		showAlert(true)
@@ -40,8 +41,11 @@ const CardAuto = (props) => {
 		<>
 		{
 			alert 
-			? <Alert closeAlert={closeAlert}/>
-			: null
+			? 	<Alert 
+					closeAlert={closeAlert} 
+					message={message}
+				/>
+			: 	null
 		}
 		<h2>Карточка автомобиля</h2>
 		<div className='card-auto'>
@@ -84,7 +88,7 @@ const CardAuto = (props) => {
 			</div>
 			<div className='card-auto__sittings'>
 				<h3>Настройки автомобиля</h3>
-				<InputGroup 
+				<InputGroup
 					car={props.car}
 					setNewChangedCar={props.setNewChangedCar}
 					saveAuto={saveAuto}
@@ -93,6 +97,7 @@ const CardAuto = (props) => {
 					file={imgValue.file}
 					setNewCar={props.setNewCar}
 					setUpdateCar={props.setUpdateCar}
+					setMessage={setMessage}
 				/>
 			</div>
 		</div>

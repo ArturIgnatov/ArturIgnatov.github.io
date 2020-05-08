@@ -1,8 +1,8 @@
 import React from 'react'
 
-const RowCar = ({id, name, priceMin, priceMax, colors, categoryId, changeCar}) => {	
+const RowCar = ({ id, name, priceMin, priceMax, colors, categoryId, changeCar}) => {	
 	return(
-		<>
+		<>	
 			<tr
 				onClick={() => changeCar(id)}
 			>

@@ -52,8 +52,16 @@ export const worsAPI = {
 }
 
 export const carsAPI = {
-	getCars() {
-		return instance.get('/db/car')
+	getCars(page, limit, sort, category) {
+		let { pagE, sortM, categorY } = ''
+		page > 1 ? pagE = `page=${page - 1}` : pagE = `page=0`
+		!sort ? sortM = '' : sortM = `sort[${sort.field}]=` + sort.value 
+		category === '' ? categorY = '' : categorY = `categoryId=` + category
+		// categoryId=5e25c98d099b810b946c5d62
+		return instance.get(`/db/car/?${categorY}&${sortM}&${pagE}&limit=${limit}`)
+	},
+	getAllCars(){
+		return instance.get('/db/cars')
 	},
 	setCar(newCar) {
 		const { name, categoryId, colors, priceMin, priceMax, thumbnail} = newCar
