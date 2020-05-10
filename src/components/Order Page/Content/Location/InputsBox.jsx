@@ -19,12 +19,14 @@ const InputsBox = (props) => {
 	}
 	let clearCityInput = () => {
 		handelrCityInput('')
+		handelrPointInput('')
+		selectCity('')
+		selectPoint('')
 		handlerCityBox(!cityBox)
 	}
 	let clickCityInput = () => {
 		handlerCityBox(!cityBox)
-		// handlerPointBox(false)
-		// handelrPointInput('')
+		handlerPointBox(false)
 	}
 	// Point
 	let updatePointInput = (e) => {
@@ -37,20 +39,48 @@ const InputsBox = (props) => {
 	}
 	let clearPointInput = () => {
 		handelrPointInput('')
+		selectPoint('')
 		handlerPointBox(!pointBox)
 	}
+	const selectOnEnter = (event,el) => {
+		if (event.key === 'Enter') {
+			handelrCityInput(el.name)
+			handlerCityBox(!cityBox)
+			console.log(el)
+		}
+	}
 	// Рендер списка городов с фильтром
-	const citiName = props.cityId.map((el) => {
+	const citiName = props.cityId.map((el, i) => {
 		let cityName = cityInput.toUpperCase()
 		if (el.name.toUpperCase().indexOf(cityName) !== -1) {
 			return (
-				<li key={el.id} onClick={() => selectCity(el.name)}>{el.name}</li>
+				<li 
+					tabIndex={i + 1} 
+					onKeyUp={(event) => selectOnEnter(event, el)} 
+					key={el.id} 
+					onClick={() => selectCity(el.name)}
+				>
+					{el.name}
+				</li>
 			)
 		}
 		return (
 			null
 		)
 	})
+	// const nextCity = (e) => {
+	// 	if (e.keyCode === 40) {
+	// 		console.log('вниз');
+	// 		// citiName[0]._owner.return.pendingProps.className='active'
+	// 	}
+	// 	else if (e.keyCode === 38){
+	// 		console.log('вверх');
+	// 	}
+	// }
+	// влево: #37
+	// вверх: #38
+	// вправо: #39
+	// вниз: #40
 	// Рендер пунктов выдачи
 	const pointsName = props.pointId.filter(point => point.cityName === cityInput)
 
@@ -74,6 +104,7 @@ const InputsBox = (props) => {
 					type="text"
 					value={cityInput}
 					onChange={updateCityInput}
+					// onKeyUp={nextCity}
 					onClick={clickCityInput}
 					placeholder='Выбирите город...'
 				/>
@@ -104,6 +135,7 @@ const InputsBox = (props) => {
 					type="text"
 					value={pointInput}
 					onChange={updatePointInput}
+					// onFocus={() => handlerPointBox(!pointBox)}
 					onClick={() => handlerPointBox(!pointBox)}
 					placeholder='Начните вводить пункт...'
 				/>

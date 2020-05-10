@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import './index.sass'
 import { connect } from 'react-redux'
-import { loadOrders, setCurrentOrderPage, deleteOrder } from '../../../redux/admin-page'
+import { loadOrders, setCurrentOrderPage, deleteOrder, changeStatusOrder } from '../../../redux/admin-page'
 import OrderItem from './OrderItem'
 import AdminPreloader from '../AdminPreloader'
 import Option from './Option'
+import Pagination from '../Table/Pagination'
 
 const Orders = (props) => {
-	let pagesCount = Math.ceil(props.totalOrderCount / props.ordersPageSize)
+	let { currentOrderPage, ordersPageSize, totalOrderCount} = props
+	let pagesCount = Math.ceil(totalOrderCount / ordersPageSize)
 	let pages = []
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i)
 	}
-	let { currentOrderPage, ordersPageSize} = props
 	// Состояние для select 
 	const [period, setFilterDate] = useState('')
 	const [car, setFilterCar]= useState('')
 	const [city, setFilterCity] = useState('')
+	const [status, setFilterStatus] = useState('')
+
 	useEffect(() => {
 		props.history.push('/adminpage/orders/page=' + currentOrderPage + '&limit=' + ordersPageSize)
-		props.loadOrders(period, car, city, currentOrderPage, ordersPageSize)
+		props.loadOrders(period, car, city, status, currentOrderPage, ordersPageSize)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentOrderPage])
 
@@ -32,17 +35,22 @@ const Orders = (props) => {
 	const setSelectCity = (e) => {
 		setFilterCity(e.target.value)
 	}
+	const setSelectStatus = (e) => {
+		setFilterStatus(e.target.value)
+	}
 	// Фильтрация по городу
 	const applyFilters = () => {
 		console.log(city);
-		props.loadOrders(period, car, city, currentOrderPage, ordersPageSize)
+		props.loadOrders(period, car, city, status, currentOrderPage, ordersPageSize)
 	}
 	const resetFilters = () => {
 		setFilterDate('')
 		setFilterCar('')
 		setFilterCity('')
-		props.loadOrders('', '', '', currentOrderPage, ordersPageSize)
+		setFilterStatus('')
+		props.loadOrders('', '', '', '', currentOrderPage, ordersPageSize)
 	}
+
 	return(
 		<>
 		<h2>Заказы</h2>
@@ -90,11 +98,21 @@ const Orders = (props) => {
 						))
 					}
 				</select>
-				<select className='admin-select' name="" id="">
+				<select
+					className='admin-select' 
+					value={status}
+					onChange={setSelectStatus}
+				>
 					<option value=''>Статус</option>
-					<option value="В процессе">В процессе</option>
-					<option value="Отменен">Отменен</option>
-					<option value="Исполнен">Исполнен</option>
+					{
+						props.orderStatus.map( el => (
+							<Option
+								key={el.id}
+								id={el.id}
+								name={el.name}
+							/>
+						))
+					}
 				</select>
 				<div>
 					<button onClick ={resetFilters} className='admin-btn mix'>Reset</button>
@@ -108,23 +126,32 @@ const Orders = (props) => {
 						: 	<OrderItem 
 								orders={props.orders} 
 								deleteOrder={props.deleteOrder}
+								changeStatusOrder={props.changeStatusOrder}
 							/>
 				}
 			</div>
 			
 			<div className='order-auto__footer'>
-					{
-						pages.map((el) => {
-							return (
-								<span
-									onClick={() => props.setCurrentOrderPage(el)}
-									key={el}
-									className={props.currentOrderPage === el ? 'active' : null}
-								>{el}
-								</span>
-							)
-						})
-					}
+					<Pagination
+						pages={pages}
+						pagesCount={pagesCount}
+						setPage={props.setCurrentOrderPage}
+						currentPage={props.currentOrderPage}
+					/>
+					<div className='order-info'>
+						<div className='order-status__wrapper'>
+							<div className='order-status new'></div>
+							<span>Новые заказы</span>
+						</div>
+						<div className='order-status__wrapper'>
+							<div className='order-status confirmed'></div>
+							<span>Подтвержденные</span>
+						</div>
+						<div className='order-status__wrapper'>
+							<div className='order-status cancelled'></div>
+							<span>Отмененные заказы</span>
+						</div>
+					</div>
 			</div>
 		</div>
 		</>
@@ -138,7 +165,8 @@ const mapStateToProps = (state)=> ({
 	currentOrderPage: state.adminPage.currentOrderPage,
 	ordersPageSize: state.adminPage.ordersPageSize,
 	isPreloader: state.adminPage.isPreloader,
-	cities: state.adminPage.cities
+	cities: state.adminPage.cities,
+	orderStatus: state.adminPage.orderStatus
 })
 
-export default connect(mapStateToProps, { loadOrders, setCurrentOrderPage, deleteOrder })(Orders)
+export default connect(mapStateToProps, { loadOrders, setCurrentOrderPage, deleteOrder, changeStatusOrder })(Orders)

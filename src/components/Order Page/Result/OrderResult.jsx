@@ -102,12 +102,12 @@ const OrderResult = (props) => {
 		}
 		else if (step === 4) {
 			return (
-				<button onClick={sendOrder}>Заказать</button>
+				<button onClick={() => props.toOrder()}>Заказать</button>
 			)
 		}
 		else if (step === 5 ) {
 			return(
-				<button className='red' onClick={() => { props.replaceOrder() }}>Отменить</button>
+				<button className='red' onClick={() => { props.changeStatusOrder(props.order.id, { orderStatusId: '5e26a1f5099b810b946c5d8c'}) }}>Отменить</button>
 			)
 		}
 	}

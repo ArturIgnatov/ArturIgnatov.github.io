@@ -11,7 +11,12 @@ const OrderPage = (props) => {
 		<div className='order-page'>
 			{
 				props.orderPage.isModal ?
-					<Modal closeModal={props.closeModal} confirmOrder={props.confirmOrder}/>
+					<Modal 
+						closeModal={props.closeModal} 
+						confirmOrder={props.confirmOrder}
+						sendOrder={props.sendOrder}
+						preorder={props.preorder}
+					/>
 					:
 					null
 			}

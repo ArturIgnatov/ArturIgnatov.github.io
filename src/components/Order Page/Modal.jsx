@@ -7,8 +7,13 @@ const Modal = (props) => {
 			<div className='modal-order__item'>
 				<span>Подтвердить заказ</span>
 				<div>
-					<button onClick={() => { props.confirmOrder()}}>Подтвердть</button>
-					<button className='red' onClick={() => { props.closeModal()}}>Вернуться</button>
+					<button onClick={() => { props.sendOrder(props.preorder)}}>Подтвердть</button>
+					<button 
+						className='red' 
+						onClick={() => { props.closeModal()}}
+					>
+						Вернуться
+					</button>
 				</div>
 			</div>
 		</div>

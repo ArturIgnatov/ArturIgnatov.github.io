@@ -156,8 +156,8 @@ const Tables = (props) => {
 				<Pagination
 					pages={pages}
 					pagesCount={pagesCount}
-					setCurrentCarsPage={props.setCurrentCarsPage}
-					currentCarsPage={props.currentCarsPage}
+					setPage={props.setCurrentCarsPage}
+					currentPage={props.currentCarsPage}
 				/>
 			</div>
 		</div>

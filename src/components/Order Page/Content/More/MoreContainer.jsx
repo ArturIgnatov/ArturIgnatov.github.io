@@ -14,7 +14,8 @@ let mapStateToProps = (state) => {
 		cars: state.orderPage.cars,
 		colors: state.orderPage.colors,
 		rates: state.orderPage.rates,
-		services: state.orderPage.services
+		services: state.orderPage.services,
+		dateTo: state.orderPage.preorder.dateTo
 	}
 }
 let mapDispatchToProps = (dispatch) => {

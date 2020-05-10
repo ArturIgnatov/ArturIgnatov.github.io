@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import OrderResult from './OrderResult';
-import { changeStep, toOrder, replaceOrder, sendOrder } from '../../../redux/orderpage-reducer';
+import { changeStep, toOrder, replaceOrder, sendOrder, cancelOrder } from '../../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return {
-		orderPage: state.orderPage
+		orderPage: state.orderPage,
+		order: state.orderPage.order
 	}
 }
 let mapDispatchToProps = (dispatch) => {
@@ -15,11 +16,14 @@ let mapDispatchToProps = (dispatch) => {
 		toOrder: () => {
 			dispatch(toOrder())
 		},
-		replaceOrder: () => {
-			dispatch(replaceOrder())
-		},
-		sendOrder: (order) => {
-			dispatch(sendOrder(order))
+		// replaceOrder: () => {
+		// 	dispatch(replaceOrder())
+		// },
+		// sendOrder: (order) => {
+		// 	dispatch(sendOrder(order))
+		// },
+		cancelOrder: (id, status) => {
+			dispatch(cancelOrder(id, status))
 		}
 	}
 }

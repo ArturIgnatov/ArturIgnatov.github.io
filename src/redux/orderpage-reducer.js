@@ -35,6 +35,8 @@ let SET_CITIES = 'SET_CITIES'
 let SET_POINTS =  'SET_POINTS'
 let SET_RATES = 'SET_RATES'
 let SET_CATEGORIES = 'SET_CATEGORIES'
+let SET_ORDER_STATUS = 'SET_ORDER_STATUS'
+let SET_ORDER = 'SET_ORDER'
 let SET_PRELODER = 'SET_PRELODER'
 // let newDate = moment().format().slice(0, 16)
 
@@ -54,6 +56,7 @@ let initialState = {
 	cars: [],
 	category: [],
 	rates: [],
+	orderStatus:[],
 	services:[
 		{ id: 1, title: 'Полный бак', price: 500, checked: false },
 		{ id: 2, title: 'Детское кресло', price: 200, checked: false },
@@ -106,28 +109,36 @@ const OrderPageReducer = (state = initialState, action) => {
 				...state,
 				category: action.payload
 			}
+		case SET_ORDER_STATUS:
+			return{
+				...state,
+				orderStatus: action.payload
+			}
 		case SELECT_CITY:
 			return {
 				...state,
-				preorder: { ...state.preorder, cityId: state.location.cityId.find(el => el.name === action.cityName)}
+				preorder: { 
+					...state.preorder, 
+					cityId: action.cityName === ''? '' : state.location.cityId.find(el => el.name === action.cityName)
+				}
 			}
 		case SELECT_POINT:
-			let foundPoint = state.location.pointId.find(el => el.address === action.pointName)
-			// Порввить делит
+			// let foundPoint = state.location.pointId.find(el => el.address === action.pointName)
+			// // Порввить делит
 			return{
 				...state,
 				preorder: { 
 					...state.preorder, 
-					pointId: foundPoint
+					pointId: action.pointName === '' ? '' : state.location.pointId.find(el => el.address === action.pointName)
 				}
 			}
 		case SELECT_CARS:
 			let foundCar = state.cars.find(el => el.id === action.id)
-			let foundCarChanged = {...foundCar}
-			delete foundCarChanged.selected
-			delete foundCarChanged.createdAt
-			delete foundCarChanged.updatedAt
-			delete foundCarChanged.colors
+			// let foundCarChanged = {...foundCar}
+			// delete foundCarChanged.selected
+			// delete foundCarChanged.createdAt
+			// delete foundCarChanged.updatedAt
+			// delete foundCarChanged.colors
 			return {
 				...state,
 				cars: state.cars.map(car => {
@@ -138,7 +149,7 @@ const OrderPageReducer = (state = initialState, action) => {
 				}),
 				preorder: { 
 					...state.preorder, 
-					carId: foundCarChanged
+					carId: foundCar.id === state.preorder.carId.id ? '' : foundCar
 				} 
 			}
 		case FILTER_CAR:
@@ -227,6 +238,15 @@ const OrderPageReducer = (state = initialState, action) => {
 					}
 					return { ...el}
 				}),
+				cars: action.number + 1 === 1 ? state.cars.map( el => {
+					return {...el, selected: false}
+				}) : state.cars, 
+				rates: action.number + 1 === 2 ? state.rates.map(el => {
+					return {...el, checked: false}
+				}) : state.rates,
+				services: action.number + 1 === 2 ? state.services.map( el => {
+					return {...el, checked: false}
+				}) : state.services,
 				preorder: action.number + 1 === 1 ? {
 					cityId: state.preorder.cityId,
 					pointId: state.preorder.pointId,
@@ -253,7 +273,6 @@ const OrderPageReducer = (state = initialState, action) => {
 				...state,
 				isModal: false,
 				step: state.step + 1,
-				order: {...state.preorder}
 			}
 		case RPLACE_ORDER:
 			return{
@@ -267,6 +286,12 @@ const OrderPageReducer = (state = initialState, action) => {
 				isFetching: action.isFetching
 			}
 		}
+		case SET_ORDER : {
+			return {
+				...state,
+				order: action.payload
+			}
+		}
 		default:
 			return state
 	}
@@ -276,9 +301,10 @@ const setCars = (carsArray) => ({ type: SET_CARS, carsArray})
 const setCity = (cityArray) => ({ type: SET_CITIES, cityArray })
 const setPoints = (pointArray) => ({ type: SET_POINTS, pointArray })
 const setRates = (ratesArray) => ({ type: SET_RATES, ratesArray})
-const setCategories = (payload) => ({ type: SET_CATEGORIES, payload}) 
+const setCategories = (payload) => ({ type: SET_CATEGORIES, payload})
+const setOrderStatus = (payload) => ({type: SET_ORDER_STATUS, payload}) 
 const setPreloader = (isFetching) => ({ type: SET_PRELODER, isFetching})
-
+const setOrder = (payload) => ({type: SET_ORDER, payload})
 // Диспачи для location
 export const selectCity = (cityName) => ({ type: SELECT_CITY, cityName })
 export const selectPoint = (pointName) => ({ type: SELECT_POINT, pointName })
@@ -312,9 +338,19 @@ export const replaceOrder = () => ({ type: RPLACE_ORDER})
 
 
 export const sendOrder = (order) => {
-	return ( dispatch) => {
+	return (dispatch) => {
 		orderAPI.sendOrder(order).then(response =>{
-			console.log(response.data);
+			dispatch(setOrder(response.data.data))
+			dispatch(confirmOrder())
+		})
+	}
+}
+
+export const cancelOrder = (id, status) => {
+	return ( dispatch ) => {
+		orderAPI.updateOrder(id, status).then(response => {
+			dispatch(setOrder(response.data.data))
+			dispatch(replaceOrder())
 		})
 	}
 }
@@ -369,8 +405,10 @@ export const fetchPayload = () => {
 								}
 							})
 							dispatch(setRates(ratesArray))
-							dispatch(setPreloader(false))
-							worsAPI.authApp()
+							worsAPI.getOrderStatus().then(response => {
+								dispatch(setOrderStatus(response.data.data))
+								dispatch(setPreloader(false))
+							})
 						})
 					})
 				})

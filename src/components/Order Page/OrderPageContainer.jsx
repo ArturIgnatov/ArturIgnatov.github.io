@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import OrderPage from './OrderPage';
-import { currentStep, closeModal, confirmOrder } from '../../redux/orderpage-reducer';
+import { currentStep, closeModal, confirmOrder, sendOrder } from '../../redux/orderpage-reducer';
 
 let mapStateToProps = (state) => {
 	return{
 		orderPage: state.orderPage,
+		preorder: state.orderPage.preorder
 	}
 }
 let mapDispatchToProps = (dispatch) => {
@@ -17,6 +18,9 @@ let mapDispatchToProps = (dispatch) => {
 		},
 		confirmOrder: () => {
 			dispatch(confirmOrder())
+		},
+		sendOrder: (order) => {
+			dispatch(sendOrder(order))
 		}
 	}
 }	

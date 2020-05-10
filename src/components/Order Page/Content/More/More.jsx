@@ -18,6 +18,7 @@ const More = (props) => {
 				<Dates 
 					setDateFrom={props.setDateFrom}
 					setDateTo={props.setDateTo}
+					dateTo={props.dateTo}
 				/>
 			<span>Тариф</span>
 				<Rate 

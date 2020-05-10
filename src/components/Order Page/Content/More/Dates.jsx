@@ -1,12 +1,16 @@
 import React from 'react'
 import moment from 'moment'
 import { useState } from 'react'
+import { useEffect } from 'react'
 
 const Dates = (props) => {
 	
 	let [dateFrom, handlerDateFrom] = useState(moment().format().slice(0, 16))
 	let [dateTo, handlerDateTo] = useState('')
-
+	
+	useEffect(()=>{
+		props.setDateFrom((new Date(dateFrom).getTime()))
+	}, [])
 	const setDateFrom = (e) => {
 		handlerDateFrom(e.currentTarget.value)
 	}

@@ -53,9 +53,7 @@ const InputGroup = (props) => {
 			])
 			handlerColorInput('')
 		}
-	}
-	console.log(validColor);
-	
+	}	
 	const sendCar = () => {
 		if (!error && validModel && !validColor && priceMin !== '' && priceMax !== '') {
 			const newCar = {
@@ -183,6 +181,7 @@ const InputGroup = (props) => {
 					: <button onClick={sendCar} className='admin-btn blue'>Создать</button>
 			}
 			<button onClick={resetChanged} className='admin-btn gray'>Отменить</button>
+			<button onClick={resetChanged} className='admin-btn gray'>Сбросить</button>
 			<button className='admin-btn red'>Удалить</button>
 		</div>
 		</>

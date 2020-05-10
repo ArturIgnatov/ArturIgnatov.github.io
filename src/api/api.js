@@ -24,12 +24,26 @@ const instance = axios.create({
 	}
 })
 
+export const authAPI ={
+	login (user) {
+		return connect.post('/auth/login', user)
+	},
+	logout (userId) {
+		return connect.post('/auth/logout', userId)
+	},
+	check () {
+		return connect.get('/auth/check')
+	}
+}
 
 export const worsAPI = {
 	authApp () {
 		return connect.post('/auth/login', { username: 'intern', password: 'intern-S!' }).then(response => {
 			localStorage.setItem('token', JSON.stringify(response.data.access_token))
 		})	
+	},
+	isAuth (user) {
+		return connect.post('/auth/login', user)
 	},
 	getCars() {
 		return instance.get('/db/car')
@@ -89,16 +103,17 @@ export const carsAPI = {
 
 export const orderAPI = {
 	updateOrder (id, status) {
-		return instance.put(`/db/order/${id}`, {status})
+		return instance.put(`/db/order/${id}`, status)
 	},
 	sendOrder(order) {
 		return instance.post('/db/order', {...order})
 	},
-	getOrder(period, car, city, page = 1, limit = 4){
-		let {pagE, citY, caR, dateFrom, dateTo, result} = ''
+	getOrder(period, car, city, status, page = 1, limit = 4){
+		let {pagE, citY, caR, statuS, dateFrom, dateTo, result} = ''
 		page > 1 ? pagE = `page=${page - 1}` : pagE = `page=0`
 		city === '' ? citY = '' : citY = '&cityId[id]=' + city
 		car === '' ? caR = '' : caR = '&carId[id]=' + car
+		status === '' ? statuS = '' : statuS = '&orderStatusId[id]=' + status
 		if (period !== '') {
 			dateTo = new Date().getTime()
 			dateFrom = new Date(dateTo - 86400000 * period)
@@ -106,7 +121,7 @@ export const orderAPI = {
 		}
 		else
 			result= ''
-		return instance.get(`/db/order/?sort[createdAt]=-1${result}${caR}${citY}&${pagE}&limit=${limit}`)
+		return instance.get(`/db/order/?sort[createdAt]=-1${result}${caR}${citY}${statuS}&${pagE}&limit=${limit}`)
 	},
 	deleteOrder(orderId){
 		return instance.delete(`/db/order/${orderId}`)

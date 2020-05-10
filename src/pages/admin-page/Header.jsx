@@ -2,8 +2,12 @@ import React from 'react'
 import './Header.sass'
 import dropdown from '../../assets/images/svg/dropdown.svg'
 import userimg from '../../assets/images/svg/user-avatar.png'
+import { useState } from 'react'
 
 const Header = (props) => {
+	const [adminBoxVisible, setAdminBoxVisible]= useState(false)
+
+	
 
 	return (
 		<div className='admin-page__header'>
@@ -15,11 +19,18 @@ const Header = (props) => {
 			</div>
 			<div className='users-menu'>
 				<div className='users-menu__item'>
-					<img src={userimg} alt="" />
+					<img onClick={() => setAdminBoxVisible(!adminBoxVisible)} src={userimg} alt="" />
 					<span>Admin</span>
 				</div>
 				<img src={dropdown} alt=""/>
 			</div>
+			{
+				adminBoxVisible
+					? 	<div className='users-submenu'>
+							<button>Выйти</button>
+						</div>
+					: null
+			}
 		</div>
 	)
 }

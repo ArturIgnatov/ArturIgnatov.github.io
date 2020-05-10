@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import Page from './Page'
 
-const Pagination = ({ pages, pagesCount, currentCarsPage, setCurrentCarsPage}) => {
+const Pagination = ({ pages, pagesCount, currentPage, setPage}) => {
 
 	// Создание порций и определение границ количества старниц в пагинации
 	let [portionNumber, setPortionNumber] = useState(1)
@@ -12,12 +12,12 @@ const Pagination = ({ pages, pagesCount, currentCarsPage, setCurrentCarsPage}) =
 	let rightPortionBorder = portionNumber * 3
 	// Вернуться в начало страниц (пагинация)
 	const returnToStartPage = () => {
-		setCurrentCarsPage(pages[0])
+		setPage(pages[0])
 		setPortionNumber(1)
 	}
 	// Вернуться в конец страниц (пагинация)
 	const goToEndPage = () => {
-		setCurrentCarsPage(pages[pages.length - 1])
+		setPage(pages[pages.length - 1])
 		setPortionNumber(portionCount)
 	}
 
@@ -46,8 +46,8 @@ const Pagination = ({ pages, pagesCount, currentCarsPage, setCurrentCarsPage}) =
 						<Page 
 							key={el} 
 							el={el} 
-							setCurrentCarsPage={setCurrentCarsPage} 
-							currentCarsPage={currentCarsPage} 
+							setCurrentCarsPage={setPage} 
+							currentCarsPage={currentPage} 
 						/>
 					)
 			}
