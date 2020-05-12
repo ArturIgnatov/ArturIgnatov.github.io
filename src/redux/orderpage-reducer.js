@@ -70,7 +70,7 @@ let initialState = {
 		color: '',
 		dateFrom: '',
 		dateTo: '',
-		price: 4300,
+		price: 0,
 		rateId: '',
 		isFullTank: false,
 		isNeedChildChair: false,
@@ -261,7 +261,11 @@ const OrderPageReducer = (state = initialState, action) => {
 		case TO_ORDER:
 			return{
 				...state,
-				isModal: !state.isModal
+				isModal: !state.isModal,
+				preorder: {
+					...state.preorder,
+					price: action.price
+				}
 			}
 		case CLOSE_MODAL:
 			return{
@@ -331,7 +335,7 @@ export const changeStep = (idBtn) => ({ type: CHANGE_STEP, id: idBtn })
 export const updateTime = (newTime) => ({type: UPDATE_TIME})
 
 // Управление заказом
-export const toOrder = () => ({ type: TO_ORDER })
+export const toOrder = (price) => ({ type: TO_ORDER, price })
 export const closeModal = () => ({ type: CLOSE_MODAL })
 export const confirmOrder = () => ({ type: CONFIRM_ORDER})
 export const replaceOrder = () => ({ type: RPLACE_ORDER})
@@ -351,10 +355,9 @@ export const cancelOrder = (id, status) => {
 		orderAPI.updateOrder(id, status).then(response => {
 			dispatch(setOrder(response.data.data))
 			dispatch(replaceOrder())
-		})
+		}).catch()
 	}
 }
-
 
 export const fetchPayload = () => {
 	return (dispatch) => {

@@ -125,7 +125,6 @@ const Orders = (props) => {
 						? 	<AdminPreloader />
 						: 	<OrderItem 
 								orders={props.orders} 
-								deleteOrder={props.deleteOrder}
 								changeStatusOrder={props.changeStatusOrder}
 							/>
 				}

@@ -10,6 +10,7 @@ const Dates = (props) => {
 	
 	useEffect(()=>{
 		props.setDateFrom((new Date(dateFrom).getTime()))
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	const setDateFrom = (e) => {
 		handlerDateFrom(e.currentTarget.value)

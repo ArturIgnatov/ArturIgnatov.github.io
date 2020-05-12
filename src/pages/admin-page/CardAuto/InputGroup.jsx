@@ -74,7 +74,6 @@ const InputGroup = (props) => {
 		}
 	}	
 	const resetChanged = () => {
-		handlerColors(props.car ? props.car.colors : '')
 		handlerColors(props.car ? props.car.colors: [])
 		handlerModelInput(props.car ? props.car.name : '')
 		handlerPriceMin(props.car ?  props.car.priceMin : '')
@@ -82,6 +81,15 @@ const InputGroup = (props) => {
 		handlerPriceMax(props.car ? props.car.priceMax : '')
 		handlerTypeInput(props.car ? props.car.categoryId.name : '')
 		handlerError(false)
+	}
+	const clearCar = () => {
+		props.setNewChangedCar(undefined)
+		handlerColors([])
+		handlerModelInput('')
+		handlerPriceMin('')
+		handlerPriceMax('')
+		handlerColorInput('')
+		handlerTypeInput('')
 	}
 	return (
 		<>
@@ -181,7 +189,7 @@ const InputGroup = (props) => {
 					: <button onClick={sendCar} className='admin-btn blue'>Создать</button>
 			}
 			<button onClick={resetChanged} className='admin-btn gray'>Отменить</button>
-			<button onClick={resetChanged} className='admin-btn gray'>Сбросить</button>
+				<button onClick={clearCar} className='admin-btn gray'>Сбросить</button>
 			<button className='admin-btn red'>Удалить</button>
 		</div>
 		</>

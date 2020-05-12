@@ -23,7 +23,7 @@ let initialState = {
 	cities: [],
 	orderStatus:[],
 	userid: null,
-	isAuth: true,
+	isAuth: false,
 	isPreloader: true,
 
 	totalCarsCount: 104,

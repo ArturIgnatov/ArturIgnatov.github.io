@@ -24,7 +24,7 @@ const Model = (props) => {
 				onClick={() => { props.selectCars(el.id) }}
 			>
 				<span>{el.name.match(/(?<=,\s).*/)[0]}</span>
-				<span>{el.priceMin}-{el.priceMax}</span>
+				<span>{String(el.priceMin).replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ')} - {String(el.priceMax).replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ')} ₽</span>
 				<img src={'http://api-factory.simbirsoft1.com/' + el.thumbnail.path} alt="" />
 			</div>
 		)

@@ -2,8 +2,6 @@ import React from 'react'
 import './Modal.sass'
 
 const Modal = (props) => {
-	console.log(props)
-
 	const navItem = props.startPage.menu.map((el, i)=>{
 		if (el.id === props.startPage.currentId) {
 			return (

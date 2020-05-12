@@ -20,8 +20,6 @@ const OrderMenu = (props) => {
 		)
 	}) 
 	
-	
-
 	return (
 		<div className='order-page__menu'>
 			<nav>
@@ -31,7 +29,6 @@ const OrderMenu = (props) => {
 					:
 					<span>Номер заказа: {orderNumber}</span>
 				}
-
 			</nav>
 		</div>
 	)

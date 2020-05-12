@@ -1,5 +1,6 @@
 import * as axios from 'axios'
 
+
 let appSecret = '4cbcea96de'
 let random = '1t23tst3'
 let appId = '5e25c641099b810b946c5d5b'
@@ -24,7 +25,7 @@ const instance = axios.create({
 	}
 })
 
-export const authAPI ={
+export const authAPI = {
 	login (user) {
 		return connect.post('/auth/login', user)
 	},

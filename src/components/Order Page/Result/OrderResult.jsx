@@ -1,7 +1,6 @@
 import React from 'react'
 import './OrderResult.sass'
 import { NavLink } from 'react-router-dom'
-import * as axios from 'axios'
 
 const OrderResult = (props) => {
 	let {step} = props.orderPage
@@ -13,8 +12,12 @@ const OrderResult = (props) => {
 		dateFrom,
 		dateTo,
 		rateId,
-	} = props.orderPage.preorder
+		isFullTank,
+		isNeedChildChair,
+		isRightWheel
 
+	} = props.orderPage.preorder
+	
 	let start = new Date(dateFrom)
 	let finish = new Date(dateTo)
 	let mill = finish - start
@@ -22,46 +25,47 @@ const OrderResult = (props) => {
 	let min = sec / 60
 	let hour = min / 60
 	let day = hour / 24 
-
 	let hr1 = Math.floor(day) * 24
 	let hr2 =  Math.floor(hour) - hr1
-
 	let min1 = Math.floor(Math.floor(hour) * 60)
 	let min2 = Math.floor(min) - min1
-
 	let result = Math.floor(day) + 'д' + hr2 + 'ч' + min2 + 'м'
-
-	let appSecret = '4cbcea96de'
-	let random = '1t23tst3'
-	let appId = '5e25c641099b810b946c5d5b'
-	let rrr = random + ':' + appSecret
-	let authToken = btoa(rrr)
-	let sendOrder = () => {
-		axios.post('http://api-factory.simbirsoft1.com/api/auth/login',
-			{ username: 'intern', password: 'intern-S!' },
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					'X-Api-Factory-Application-Id': appId,
-					Authorization: 'Basic ' + authToken
-				}
-			}
-		).then(function (response) {
-			console.log(response.data);
-			axios.post('http://api-factory.simbirsoft1.com/api/db/order',
-			{ ...props.orderPage.preorder},
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					'X-Api-Factory-Application-Id': appId,
-					Authorization: 'Bearer ' + response.data.access_token
-				}
-				}).then(function (response) {
-					console.log(response.data);
-					
-				})
-		})
+	// Подсчет цены
+	let totalPrice = 0
+	let kof = 1
+	let days = Math.floor(day)
+	let FullTank = 0
+	let ChildChair = 0
+	let RightWheel = 0
+	isFullTank ? FullTank = 500 : FullTank = 0
+	isNeedChildChair ? ChildChair = 200 : ChildChair = 0
+	isRightWheel ? RightWheel = 1600 : RightWheel = 0
+	if (carId) {
+		if (carId.categoryId.name === 'Премиум') {
+			kof = 1.2
+		}	
 	}
+	if (rateId) {
+		if (rateId.name === 7) {
+			totalPrice = (days * 1440 + hr2 * 60 + min2) * rateId.name * kof + FullTank + ChildChair + RightWheel
+		}
+		else {
+			if (days === 0 && hr2 === 0 && min2 === 0) {
+				 totalPrice = 0
+			}
+			else if (days === 0 && (hr2 > 0 || min2 > 0)) {
+				totalPrice = rateId.name * 1 * kof + FullTank + ChildChair + RightWheel
+			}
+			else if (days > 0 && (hr2 === 0 && min2 === 0)){
+				totalPrice = days * rateId.name * kof + FullTank + ChildChair + RightWheel
+			}
+			else if (days > 0 && (hr2 >= 0 && min2 >= 0)) {
+				totalPrice = (rateId.name * days + rateId.name) * kof + FullTank + ChildChair + RightWheel
+			}
+		}
+	}
+
+
 
 	function renderBtn () {
 		if (step === 1) {
@@ -102,12 +106,12 @@ const OrderResult = (props) => {
 		}
 		else if (step === 4) {
 			return (
-				<button onClick={() => props.toOrder()}>Заказать</button>
+				<button onClick={() => props.toOrder(totalPrice)}>Заказать</button>
 			)
 		}
 		else if (step === 5 ) {
 			return(
-				<button className='red' onClick={() => { props.changeStatusOrder(props.order.id, { orderStatusId: '5e26a1f5099b810b946c5d8c'}) }}>Отменить</button>
+				<button className='red' onClick={() => { props.cancelOrder(props.order.id, { orderStatusId: '5e26a1f5099b810b946c5d8c'}) }}>Отменить</button>
 			)
 		}
 	}
@@ -133,7 +137,6 @@ const OrderResult = (props) => {
 							</div>
 						: null
 				}
-
 				{	
 					result !== 'NaNдNaNчNaNм' ?
 					<div className='relust__item'>
@@ -163,7 +166,7 @@ const OrderResult = (props) => {
 						)
 					})
 				}
-				<p>Цена <span>16 000₽</span></p>
+				<p>Цена <span>{String(Math.ceil(totalPrice)).replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ')} ₽</span></p>
 				{renderBtn()}
 			</div>
 		</div>

@@ -1,10 +1,12 @@
 import React from 'react'
 import './Location.sass'
 import InputsBox from './InputsBox';
-
-
+import  Maps from './Map';
+import { useState } from 'react';
 
 const Location = (props) => {
+
+	const [center, setCenter] = useState({ lat: 54.3186575, lng: 48.397776 })
 	return (
 		<div className='location'>
 			<InputsBox
@@ -16,7 +18,13 @@ const Location = (props) => {
 			/>
 			<div className='location__map'>
 				<span>Выбрать на карте: </span>
-				{/* <iframe SameSite='None' src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae92ada9517e069849f6cc37eb1fbf4d9062ec5bafc6a6f8cdf7e61b99b32655f&amp;source=constructor" width="100%" height="352" frameborder="0"></iframe> */}
+				<Maps
+					preorder={props.preorder}
+					point={props.location.pointId}
+					center={center}
+					setCenter={setCenter}
+				/>
+				<button onClick={() => setCenter({ lat: 54.2000477, lng: 45.1745115 })}>Нев</button>
 			</div>
 		</div>
 	)

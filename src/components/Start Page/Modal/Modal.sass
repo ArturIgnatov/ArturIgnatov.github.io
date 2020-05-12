@@ -66,3 +66,16 @@
 		transform: rotate3d(90,0,0,90deg);
 	100%
 		opacity: 1
+@media screen and ( max-width:768px  )
+	.modal__item
+		&:nth-child(2)
+			width: 100%
+		&:nth-child(3)
+			display: none
+@media screen and ( max-width:572px )
+	.modal__item
+		&:nth-child(1)
+			height: 100vh
+		&:nth-child(2)
+			height: 100vh
+			padding: 0

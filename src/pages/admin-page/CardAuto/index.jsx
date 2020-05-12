@@ -109,4 +109,6 @@ const mapStateToProps = (state) => ({
 	car: state.adminPage.car,
 	category: state.adminPage.category
 })
+
+
 export default connect(mapStateToProps, { setNewChangedCar, setNewCar, setUpdateCar })(CardAuto)

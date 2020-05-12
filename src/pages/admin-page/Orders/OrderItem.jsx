@@ -48,8 +48,15 @@ const OrderItem = (props) => {
 						</div>
 						<div className={el.orderStatusId.name === 'new' ? 'order-status new' : el.orderStatusId.name === 'cancelled' ? 'order-status cancelled' : 'order-status confirmed'}></div>
 						<div className='button-group'>
-							<button onClick={() => props.changeStatusOrder(el.id, { name: 'confirmed', orderStatusId: '5e26a1f0099b810b946c5d8b' })}>Готово</button>
-							<button onClick={() => props.deleteOrder(el.id)}>Отмена</button>
+							<button 
+								onClick={() => props.changeStatusOrder(el.id, { name: 'confirmed', orderStatusId: '5e26a1f0099b810b946c5d8b' })}
+							>
+								Готово</button>
+							<button 
+								onClick={() => props.changeStatusOrder(el.id, { name: 'cancelled', orderStatusId: '5e26a1f5099b810b946c5d8c' })}
+							>
+								Отмена
+							</button>
 							<button>Изменить</button>
 						</div>
 					</div>
