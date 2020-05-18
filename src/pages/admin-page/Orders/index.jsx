@@ -8,7 +8,7 @@ import Option from './Option'
 import Pagination from '../Table/Pagination'
 
 const Orders = (props) => {
-	let { currentOrderPage, ordersPageSize, totalOrderCount} = props
+	let { currentOrderPage, ordersPageSize, totalOrderCount, error} = props
 	let pagesCount = Math.ceil(totalOrderCount / ordersPageSize)
 	let pages = []
 	for (let i = 1; i <= pagesCount; i++) {
@@ -26,6 +26,9 @@ const Orders = (props) => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentOrderPage])
 
+	if (props.error !== undefined) {
+		props.loadOrders(period, car, city, status, currentOrderPage, ordersPageSize)
+	}
 	const setSelectDate = (e)=>{
 		setFilterDate(e.target.value)
 	}
@@ -165,7 +168,8 @@ const mapStateToProps = (state)=> ({
 	ordersPageSize: state.adminPage.ordersPageSize,
 	isPreloader: state.adminPage.isPreloader,
 	cities: state.adminPage.cities,
-	orderStatus: state.adminPage.orderStatus
+	orderStatus: state.adminPage.orderStatus,
+	error: state.adminPage.error
 })
 
 export default connect(mapStateToProps, { loadOrders, setCurrentOrderPage, deleteOrder, changeStatusOrder })(Orders)

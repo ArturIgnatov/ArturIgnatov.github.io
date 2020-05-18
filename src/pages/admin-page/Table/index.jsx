@@ -14,6 +14,7 @@ const Tables = (props) => {
 	const [mark, handelrMark] = useState('')
 	const [sort, setSort] = useState(undefined)
 	let { currentCarsPage, carsPageSize } = props
+	
 	// Кнопка Apply
 	useEffect(()=>{
 		props.loadCars(currentCarsPage, carsPageSize, sort, category)

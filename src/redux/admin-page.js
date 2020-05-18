@@ -1,4 +1,4 @@
-import { worsAPI, orderAPI, carsAPI } from "../api/api";
+import { worsAPI, orderAPI, carsAPI, authAPI } from "../api/api";
 
 const INITIAL_APP = 'INITIAL_APP'
 const SET_ORDERS ='SET_ORDERS'
@@ -8,6 +8,7 @@ const SET_PRELOADER ='SET_PRELOADER'
 const SET_CATEGORY = 'SET_CATEGORY'
 const SET_SITIES = 'SET_SITIES'
 const SET_USER = 'SET_USER'
+const SET_ERROR = 'SET_ERROR'
 const DELETE_ORDER = 'DELETE_ORDER'
 const ADD_ORDER ='ADD_ORDER'
 const CHANGE_CAR = 'CHANGE_CAR'
@@ -25,15 +26,16 @@ let initialState = {
 	userid: null,
 	isAuth: false,
 	isPreloader: true,
+	isRefresh: false,
+	error: undefined,
 
-	totalCarsCount: 104,
+	totalCarsCount: null,
 	carsPageSize: 8,
 	currentCarsPage: 1,
 
 	totalOrderCount: null,
 	ordersPageSize: 4,
 	currentOrderPage: 1
-
 }
 
 const AdminPageReducer = (state = initialState, action) => {
@@ -41,8 +43,8 @@ const AdminPageReducer = (state = initialState, action) => {
 		case SET_USER:
 			return {
 				...state,
-				userid: action.payload,
-				isAuth: true
+				isAuth: action.payload,
+				error: undefined
 			}
 		case SET_ORDER_CARS:
 			return{
@@ -59,7 +61,8 @@ const AdminPageReducer = (state = initialState, action) => {
 			return{
 				...state,
 				orders: action.payload.data,
-				totalOrderCount: action.payload.count
+				totalOrderCount: action.payload.count,
+				error: undefined
 			}
 		case SET_SITIES:
 			return{
@@ -85,6 +88,11 @@ const AdminPageReducer = (state = initialState, action) => {
 			return{
 				...state,
 				isPreloader: action.isPreloader
+			}
+		case SET_ERROR:
+			return {
+				...state,
+				error: action.error
 			}
 		case DELETE_ORDER:
 			return{
@@ -125,8 +133,9 @@ const setOrders = (payload) => ({type: SET_ORDERS, payload})
 const setCars = (payload) => ({type: SET_ORDER_CARS, payload})
 const setCategory = (payload) => ({ type: SET_CATEGORY, payload })
 const setCities = (payload) => ({type: SET_SITIES, payload})
-const setUser = (payload) => ({type: SET_USER, payload})
+export const auth = (payload) => ({type: SET_USER, payload})
 const setOrderStatus = (payload) => ({type: SET_OREDRS_STATUS, payload})
+export const setError = (error) => ({type: SET_ERROR, error})
 // Пагинация
 export const setCurrentOrderPage = (page) => ({ type: SET_CURRENT_ORDER_PAGE, page })
 export const setCurrentCarsPage = (page) => ({ type: SET_CURRENT_CARS_PAGE, page })
@@ -139,10 +148,15 @@ export const setNewChangedCar = (newCar) => ({ type: SET_CHANGED_CAR, newCar })
 
 export const login = (user) => {
 	return (dispatch) => {
-		worsAPI.isAuth(user).then(response => {
-			localStorage.setItem('token', JSON.stringify(response.data.access_token))
-			dispatch(setUser(response.data.user_id))
+		worsAPI.isAuth(user)
+		.then(response => {
+			localStorage.setItem('token', JSON.stringify(response.data))
+			localStorage.setItem('active', JSON.stringify(true))
+			dispatch(auth(true))
 		})
+		.catch(error => 
+			dispatch(setError(error))
+		)
 	}
 }
 
@@ -159,13 +173,21 @@ export const loadCity = () => {
 		})
 	}
 }	
-export const loadOrders = (period, car, city, page, limit) => {
+export const loadOrders = (period, car, city, status, page, limit) => {
 	return (dispatch) => {
 		dispatch(setPreloader(true))
-		orderAPI.getOrder(period, car, city, page, limit).then(response => {
+		let refresh_token = JSON.parse(localStorage.getItem('token')).refresh_token
+		let accesstoken = JSON.parse(localStorage.getItem('token')).access_token
+		orderAPI.getOrder(period, car, city, status, page, limit, accesstoken)
+		.then(response => {
 			dispatch(setOrders(response.data))
 			dispatch(setPreloader(false))
-		})
+		}).catch( error =>
+			authAPI.refreshToken(refresh_token).then( response => {
+				localStorage.setItem('token', JSON.stringify(response.data))
+				dispatch(setError(error))
+			}) 
+		)
 	}
 }
 export const deleteOrder = (orderId) => {

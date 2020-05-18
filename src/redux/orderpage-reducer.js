@@ -8,7 +8,7 @@ import { worsAPI, orderAPI } from '../api/api';
 // Type for location
 let SELECT_CITY = 'SELECT_CITY'
 let SELECT_POINT ='SELECT_POINT'
-
+let SET_POP_UP = 'SET_POP_UP'
 // Type for car
 let SELECT_CARS = 'SELECT_CARS'
 let FILTER_CAR = 'FILTER_CAR'
@@ -64,7 +64,7 @@ let initialState = {
 	],
 	preorder:{
 		orderStatusId: { id: '5e26a191099b810b946c5d89', name: 'new'},
-		cityId: '',
+		cityId: { id: '5e26a128099b810b946c5d87', name: 'Ульяновск' },
 		pointId: '', 
 		carId: '',
 		color: '',
@@ -76,6 +76,7 @@ let initialState = {
 		isNeedChildChair: false,
 		isRightWheel: false,
 	},
+	homePopUp: true,
 	totalPrice: 0,
 	isModal: false,
 	step: 1,
@@ -121,6 +122,11 @@ const OrderPageReducer = (state = initialState, action) => {
 					...state.preorder, 
 					cityId: action.cityName === ''? '' : state.location.cityId.find(el => el.name === action.cityName)
 				}
+			}
+		case SET_POP_UP: 
+			return {
+				...state,
+				homePopUp: false
 			}
 		case SELECT_POINT:
 			// let foundPoint = state.location.pointId.find(el => el.address === action.pointName)
@@ -311,8 +317,8 @@ const setPreloader = (isFetching) => ({ type: SET_PRELODER, isFetching})
 const setOrder = (payload) => ({type: SET_ORDER, payload})
 // Диспачи для location
 export const selectCity = (cityName) => ({ type: SELECT_CITY, cityName })
+export const setHomePopUp = () => ({ type: SET_POP_UP})
 export const selectPoint = (pointName) => ({ type: SELECT_POINT, pointName })
-
 
 // Диспатчи для models
 export const selectCars = (carId, carModel) => ({ type: SELECT_CARS, id: carId, model: carModel })

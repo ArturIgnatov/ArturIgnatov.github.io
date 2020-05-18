@@ -4,7 +4,7 @@ import logo from '../../../assets/images/svg/logo.svg'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useState } from 'react'
-import { login } from '../../../redux/admin-page'
+import { login, setError } from '../../../redux/admin-page'
 
 const Login = (props) => {
 	const [login, setLogin] = useState('')
@@ -12,23 +12,21 @@ const Login = (props) => {
 
 	const onChangeLogin = (e) => {
 		setLogin(e.target.value)
+		props.setError(undefined)
 	}
 
 	const onChangePassword = (e) => {
 		setPassword(e.target.value)
+		props.setError(undefined)
 	}
 	const inlogin = (e)=> {
 		e.preventDefault()
 		props.login({ username: login, password: password })
-		setLogin('')
-		setPassword('')
-		console.log(login, password);
 	}
-
-	if (props.isAuth) {
+	
+	if (props.isAuth === true) {
 		return <Redirect to={'/adminpage'}/>
 	}
-
 	return (
 		<div className='login-page'>
 			<div className='auth'>
@@ -38,7 +36,12 @@ const Login = (props) => {
 				</div>
 				<div className='auth__form'>
 					<span>Вход</span>
-					<form action="">
+					<form>
+						{
+							props.error
+								? <span className='login-error'>Ошибка! Неверный логин или пароль</span>
+								: null
+						}
 						<div className='loginpage__item'>
 							<label>Логин</label>
 							<input 
@@ -73,7 +76,8 @@ const Login = (props) => {
 	)
 }
 const mapStateToProps = (state) => ({
-	isAuth: state.adminPage.isAuth
+	isAuth: state.adminPage.isAuth,
+	error: state.adminPage.error
 })
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { login, setError })(Login)

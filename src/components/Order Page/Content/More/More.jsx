@@ -13,7 +13,6 @@ const More = (props) => {
 					cars={props.cars}
 					selectColor={props.selectColor}
 				/>
-
 			<span>Дата аренды</span>
 				<Dates 
 					setDateFrom={props.setDateFrom}

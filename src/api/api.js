@@ -1,5 +1,5 @@
 import * as axios from 'axios'
-
+import Geocode from 'react-geocode';
 
 let appSecret = '4cbcea96de'
 let random = '1t23tst3'
@@ -15,15 +15,41 @@ const connect = axios.create({
 		Authorization: 'Basic ' + authToken
 	}
 })
-
 const instance = axios.create({
 	baseURL: 'http://api-factory.simbirsoft1.com/api',
 	headers: {
 		'Content-Type': 'application/json',
 		'X-Api-Factory-Application-Id': appId,
-		Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
 	}
 })
+
+
+// connect.interceptors.response.use( 
+// 	function (response) {
+// 		instance.defaults.headers.common['Authorization'] = 'Bearer 3bf30b17e8fcb41d00c204e5acb78a11a044cf9b'
+// 		localStorage.setItem('access_token', JSON.stringify(response.data.access_token))
+// 		localStorage.setItem('refresh_token', JSON.stringify(response.data.refresh_token))
+// 		return response	
+// 	},
+// 	function (error) {
+// 		return Promise.reject(error)
+// 	}
+// )
+// instance.interceptors.response.use(
+// 	function (response) {
+// 		return response
+// 	},
+// 	function (error) {
+// 		let refresh_token = JSON.parse(localStorage.getItem('refresh_token'))
+// 		authAPI.refreshToken(refresh_token).then( response => {
+// 			instance.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token
+// 			localStorage.setItem('access_token', JSON.stringify(response.data.access_token))
+// 			localStorage.setItem('refresh_token', JSON.stringify(response.data.refresh_token))
+			
+// 		})
+// 		return Promise.reject(error)
+// 	}
+// )
 
 export const authAPI = {
 	login (user) {
@@ -31,6 +57,9 @@ export const authAPI = {
 	},
 	logout (userId) {
 		return connect.post('/auth/logout', userId)
+	},
+	refreshToken (token) {
+		return connect.post('/auth/refresh', {refresh_token: token})
 	},
 	check () {
 		return connect.get('/auth/check')
@@ -40,7 +69,8 @@ export const authAPI = {
 export const worsAPI = {
 	authApp () {
 		return connect.post('/auth/login', { username: 'intern', password: 'intern-S!' }).then(response => {
-			localStorage.setItem('token', JSON.stringify(response.data.access_token))
+			localStorage.setItem('access_token', JSON.stringify(response.data.access_token))
+			localStorage.setItem('access_token', JSON.stringify(response.data.refresh_token))
 		})	
 	},
 	isAuth (user) {
@@ -109,7 +139,7 @@ export const orderAPI = {
 	sendOrder(order) {
 		return instance.post('/db/order', {...order})
 	},
-	getOrder(period, car, city, status, page = 1, limit = 4){
+	getOrder(period, car, city, status, page = 1, limit = 4, token) {
 		let {pagE, citY, caR, statuS, dateFrom, dateTo, result} = ''
 		page > 1 ? pagE = `page=${page - 1}` : pagE = `page=0`
 		city === '' ? citY = '' : citY = '&cityId[id]=' + city
@@ -122,9 +152,28 @@ export const orderAPI = {
 		}
 		else
 			result= ''
-		return instance.get(`/db/order/?sort[createdAt]=-1${result}${caR}${citY}${statuS}&${pagE}&limit=${limit}`)
+		return instance.get(`/db/order/?sort[createdAt]=-1${result}${caR}${citY}${statuS}&${pagE}&limit=${limit}`, {
+			headers: {
+				Authorization: 'Bearer ' + token
+			}
+		})
+		
 	},
 	deleteOrder(orderId){
 		return instance.delete(`/db/order/${orderId}`)
+	}
+}
+
+Geocode.setApiKey('AIzaSyBzbzAyOD0N9TQYwKwahgQXE_4awH2G3T8')
+Geocode.setLanguage('ru')
+Geocode.setRegion('ru')
+export const geoAPI = {
+	getCity(city){
+		return Geocode.fromAddress(city)
+	},
+	getPoint(city, point){
+		let ul = city + ' ' + point
+		console.log(ul);
+		return Geocode.fromAddress(ul)
 	}
 }

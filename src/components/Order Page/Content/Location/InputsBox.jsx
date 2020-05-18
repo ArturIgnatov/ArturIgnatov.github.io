@@ -1,14 +1,21 @@
 import React from 'react'
 import { useState } from 'react'
+import { useEffect } from 'react'
 
 const InputsBox = (props) => {
-
 	let [cityInput, handelrCityInput] = useState(props.preorder.cityId.name || '')
 	let [cityBox, handlerCityBox] = useState(false)
 
-	let [pointInput, handelrPointInput] = useState(props.preorder.pointId.address || '')
+	// let [pointInput, handelrPointInput] = useState(props.preorder.pointId.address || '')
 	let [pointBox, handlerPointBox] = useState(false)
-	
+
+	useEffect(()=>{
+		// props.pointId.forEach((el, i, arr) => {
+		// 	props.setGeoPoint(el.cityName, el.address, el.name, arr)			
+		// });
+		props.setGeoCity(props.preorder.cityId.name)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [] )
 	let updateCityInput = (e) => {
 		handelrCityInput(e.target.value)
 		handlerCityBox(true)
@@ -16,10 +23,13 @@ const InputsBox = (props) => {
 	let selectCity = (name) => {
 		handelrCityInput(name)
 		props.selectCity(name)
-	}
+		if (name) {
+			props.setGeoCity(name)	
+		}
+	}	
 	let clearCityInput = () => {
 		handelrCityInput('')
-		handelrPointInput('')
+		props.handelrPointInput('')
 		selectCity('')
 		selectPoint('')
 		handlerCityBox(!cityBox)
@@ -30,15 +40,15 @@ const InputsBox = (props) => {
 	}
 	// Point
 	let updatePointInput = (e) => {
-		handelrPointInput(e.target.value)
+		props.handelrPointInput(e.target.value)
 		handlerPointBox(true)
 	}
 	let selectPoint = (name) => {
-		handelrPointInput(name)
+		props.handelrPointInput(name)
 		props.selectPoint(name)
 	}
 	let clearPointInput = () => {
-		handelrPointInput('')
+		props.handelrPointInput('')
 		selectPoint('')
 		handlerPointBox(!pointBox)
 	}
@@ -48,7 +58,7 @@ const InputsBox = (props) => {
 			handlerCityBox(!cityBox)
 			console.log(el)
 		}
-	}
+	}	
 	// Рендер списка городов с фильтром
 	const citiName = props.cityId.map((el, i) => {
 		let cityName = cityInput.toUpperCase()
@@ -85,7 +95,7 @@ const InputsBox = (props) => {
 	const pointsName = props.pointId.filter(point => point.cityName === cityInput)
 
 	const pointNameItem = pointsName.map(el => {
-		let pontName = pointInput.toUpperCase()
+		let pontName = props.pointInput.toUpperCase()
 		if (el.address.toUpperCase().indexOf(pontName) !== -1) {
 			return (
 				<li key={el.id} onClick={() => selectPoint(el.address)}> {el.address} </li>
@@ -100,11 +110,10 @@ const InputsBox = (props) => {
 		<div className='location__info style-input'>
 			<label className='location__city'>
 				Город
-			<input
-					type="text"
-					value={cityInput}
+				<input 
+					type="text" 
+					value={cityInput} 
 					onChange={updateCityInput}
-					// onKeyUp={nextCity}
 					onClick={clickCityInput}
 					placeholder='Выбирите город...'
 				/>
@@ -133,14 +142,14 @@ const InputsBox = (props) => {
 				Пункт выдачи
 			<input
 					type="text"
-					value={pointInput}
+					value={props.pointInput}
 					onChange={updatePointInput}
 					// onFocus={() => handlerPointBox(!pointBox)}
 					onClick={() => handlerPointBox(!pointBox)}
 					placeholder='Начните вводить пункт...'
 				/>
 				{
-					pointInput !== '' ?
+					props.pointInput !== '' ?
 						<span className='svg__wrapper down' onClick={clearPointInput}>
 							<svg className='times' aria-hidden="true" data-icon="times" viewBox="0 0 352 512">
 								<path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>

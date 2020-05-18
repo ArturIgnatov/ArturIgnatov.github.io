@@ -4,11 +4,13 @@ import {
 		selectCity, 
 		selectPoint, 
 	} from '../../../../redux/orderpage-reducer';
+import { setGeoCity, setGeoPoint } from '../../../../redux/map-reducer';
 
 let mapStateToProps = (state) => {
 	return {
 		location: state.orderPage.location,
-		preorder: state.orderPage.preorder
+		preorder: state.orderPage.preorder,
+		map: state.map
 	}
 }
 let mapDispatchToProps = (dispatch) => {
@@ -19,6 +21,12 @@ let mapDispatchToProps = (dispatch) => {
 		selectPoint: (adress) => {
 			dispatch(selectPoint(adress))
 		},
+		setGeoCity: (city) => {
+			dispatch(setGeoCity(city))
+		},
+		setGeoPoint: (city, point, name, arr) => {
+			dispatch(setGeoPoint(city, point, name, arr))
+		}
 	}
 }
 

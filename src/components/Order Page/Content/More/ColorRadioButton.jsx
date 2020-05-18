@@ -23,7 +23,7 @@ const ColorRadioButton = (props) => {
 		setOption(event.target.value)
 		props.selectColor(event.target.value)
 	}
-
+	
 	return (
 		<div className='more__colors style-radio'>
 			{

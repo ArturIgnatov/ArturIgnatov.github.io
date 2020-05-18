@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { fetchPayload } from './redux/orderpage-reducer' 
 
 const App = (props) => {
-
 	useEffect(()=>{
 		props.fetchPayload()
 		// eslint-disable-next-line react-hooks/exhaustive-deps

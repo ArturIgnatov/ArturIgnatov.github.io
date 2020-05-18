@@ -4,7 +4,7 @@ const FilterRadio = (props) => {
 	return(
 		<div className='model__filter style-radio'>
 			{
-				props.category.map(el =>{
+				props.category.map(el => {
 					return(
 						<label key={el.id}>
 							<input

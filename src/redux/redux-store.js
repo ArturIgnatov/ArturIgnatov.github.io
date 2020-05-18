@@ -3,12 +3,14 @@ import thunkMiddleware from 'redux-thunk'
 import StartPageReducer from "./startpage-reducer";
 import OrderPageReducer from "./orderpage-reducer";
 import AdminPageReducer from "./admin-page";
+import mapReducer from "./map-reducer";
 
 
 let reducers = combineReducers ({
 	startPage: StartPageReducer,
 	orderPage: OrderPageReducer,
-	adminPage: AdminPageReducer
+	adminPage: AdminPageReducer,
+	map: mapReducer
 });
 
 

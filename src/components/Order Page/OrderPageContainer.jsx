@@ -5,7 +5,7 @@ import { currentStep, closeModal, confirmOrder, sendOrder } from '../../redux/or
 let mapStateToProps = (state) => {
 	return{
 		orderPage: state.orderPage,
-		preorder: state.orderPage.preorder
+		preorder: state.orderPage.preorder,
 	}
 }
 let mapDispatchToProps = (dispatch) => {
@@ -21,7 +21,7 @@ let mapDispatchToProps = (dispatch) => {
 		},
 		sendOrder: (order) => {
 			dispatch(sendOrder(order))
-		}
+		},
 	}
 }	
 

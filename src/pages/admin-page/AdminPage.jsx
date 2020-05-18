@@ -6,15 +6,20 @@ import Content from './Content/Content'
 import Footer from './Footer'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loadCity } from '../../redux/admin-page'
+import { loadCity, auth } from '../../redux/admin-page'
 import { Redirect } from 'react-router-dom'
 
 const AdminPage = (props) => {
 	useEffect(()=>{
-		props.loadCity()
+		let loginned = JSON.parse(localStorage.getItem('active'))
+		props.auth(loginned)
+		if (props.isAuth) {
+			props.loadCity()	
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	if (!props.isAuth) {
+	
+	if (props.isAuth === false) {
 		return <Redirect to={'/login'} />
 	}
 	return (
@@ -32,4 +37,4 @@ const AdminPage = (props) => {
 const mapStateToProps = (state) => ({
 	isAuth: state.adminPage.isAuth
 })
-export default connect(mapStateToProps, { loadCity })(AdminPage);
+export default connect(mapStateToProps, { loadCity, auth })(AdminPage);

@@ -16,6 +16,9 @@
 	flex-direction: column
 	align-items: flex-end
 	position: relative
+	input
+		&.error-input
+			border-bottom: 1.4px solid #C4183C
 .more__rate
 	padding: 20px 0 40px
 	display: inline-block
@@ -61,3 +64,16 @@
 		background-repeat: no-repeat
 		opacity: 0
 		transition: all linear .1s
+.react-datepicker-popper
+	width: 350px
+.react-datepicker__close-icon
+	&::after
+		background-color: none
+		background-color: $GREEN
+.error-message
+	&.order-error
+		left: 25px
+		width: 300px
+		height: 10px
+		font-weight: 400
+		top: -7px

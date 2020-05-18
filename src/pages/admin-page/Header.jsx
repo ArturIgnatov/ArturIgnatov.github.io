@@ -3,12 +3,22 @@ import './Header.sass'
 import dropdown from '../../assets/images/svg/dropdown.svg'
 import userimg from '../../assets/images/svg/user-avatar.png'
 import { useState } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { auth } from '../../redux/admin-page'
 
-const Header = (props) => {
+const Header = (props) => {	
 	const [adminBoxVisible, setAdminBoxVisible]= useState(false)
 
+	const closeSsesion = () => {
+		localStorage.setItem('active', JSON.stringify(false))
+		localStorage.removeItem('token')
+		props.auth(false)
+	}
 	
-
+	if (props.isAuth === false) {
+		return <Redirect to={'/login'}/>
+	}
 	return (
 		<div className='admin-page__header'>
 			<input type="search" placeholder='Поиск...'/>
@@ -27,12 +37,14 @@ const Header = (props) => {
 			{
 				adminBoxVisible
 					? 	<div className='users-submenu'>
-							<button>Выйти</button>
+						<button onClick={closeSsesion}>Выйти</button>
 						</div>
 					: null
 			}
 		</div>
 	)
 }
-
-export default Header;
+const mapStateToProps = (state) => ({
+	isAuth: state.adminPage.isAuth
+})
+export default connect(mapStateToProps, { auth })(Header);

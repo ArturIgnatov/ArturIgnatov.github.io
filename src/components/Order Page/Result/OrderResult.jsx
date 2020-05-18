@@ -27,7 +27,7 @@ const OrderResult = (props) => {
 	let day = hour / 24 
 	let hr1 = Math.floor(day) * 24
 	let hr2 =  Math.floor(hour) - hr1
-	let min1 = Math.floor(Math.floor(hour) * 60)
+	let min1 = Math.ceil(Math.floor(hour) * 60)
 	let min2 = Math.floor(min) - min1
 	let result = Math.floor(day) + 'д' + hr2 + 'ч' + min2 + 'м'
 	// Подсчет цены
@@ -51,7 +51,7 @@ const OrderResult = (props) => {
 		}
 		else {
 			if (days === 0 && hr2 === 0 && min2 === 0) {
-				 totalPrice = 0
+				totalPrice = 0
 			}
 			else if (days === 0 && (hr2 > 0 || min2 > 0)) {
 				totalPrice = rateId.name * 1 * kof + FullTank + ChildChair + RightWheel
