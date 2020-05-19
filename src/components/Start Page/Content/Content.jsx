@@ -12,6 +12,7 @@ const Content = (props) => {
 
 	useEffect(()=> {
 		i18n.changeLanguage(props.lang)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.lang])
 
 	return(

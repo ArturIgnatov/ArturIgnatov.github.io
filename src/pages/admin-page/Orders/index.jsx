@@ -26,7 +26,7 @@ const Orders = (props) => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentOrderPage])
 
-	if (props.error !== undefined) {
+	if (error !== undefined) {
 		props.loadOrders(period, car, city, status, currentOrderPage, ordersPageSize)
 	}
 	const setSelectDate = (e)=>{

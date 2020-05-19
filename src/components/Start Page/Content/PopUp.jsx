@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 const PopUp = (props) => {
 	const [sityBox, setCityBox] = useState(false)
-	const { t, i18n } = useTranslation()
+	const { t } = useTranslation()
 	return (
 		<div className={!sityBox ? 'popup' : 'popup active'}>
 			{

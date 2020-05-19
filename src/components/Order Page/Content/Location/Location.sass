@@ -51,9 +51,12 @@
 		font-weight: 300
 		list-style-type: none
 		color: $GRAY
+		cursor: pointer
 		&:hover
 			color: $GREEN
 		&:focus
+			color: $GREEN
+		&.in-box__ative
 			color: $GREEN
 .svg__wrapper
 	position: absolute
@@ -75,6 +78,8 @@
 		top: 5px
 	&.points
 		top: 40px
+
+
 ::-webkit-scrollbar-button 
 	background-repeat:no-repeat
 	width: 5px

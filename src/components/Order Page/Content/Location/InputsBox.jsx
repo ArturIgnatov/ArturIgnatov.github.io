@@ -5,7 +5,6 @@ import { useEffect } from 'react'
 const InputsBox = (props) => {
 	const [cityInput, handelrCityInput] = useState(props.preorder.cityId.name || '')
 	const [cityBox, handlerCityBox] = useState(false)
-	// let [pointInput, handelrPointInput] = useState(props.preorder.pointId.address || '')
 	const [pointBox, handlerPointBox] = useState(false)
 	const [error, setError] = useState({ text: '', style: '', visible: false})
 
@@ -36,6 +35,7 @@ const InputsBox = (props) => {
 		selectPoint('')
 		handlerCityBox(!cityBox)
 		setError({ text: '', style: '', visible: false })
+		setCityCount(1)
 	}
 	let clickCityInput = () => {
 		handlerCityBox(!cityBox)
@@ -56,55 +56,62 @@ const InputsBox = (props) => {
 		selectPoint('')
 		handlerPointBox(!pointBox)
 		setError({ text: '', style: '', visible: false })
+		setPointCount(1)
 	}
-	const selectOnEnter = (event,el) => {
-		if (event.key === 'Enter') {
-			handelrCityInput(el.name)
+	const [countPoint, setPointCount] = useState(1)
+	const [countCity, setCityCount] = useState(1)
+	
+	const sities = props.cityId.filter(el => el.name.toUpperCase().indexOf(cityInput.toUpperCase()) !== -1)
+
+	const points = props.pointId
+	.filter( el => el.cityName === cityInput)
+	.filter( (el, i) => el.address.toUpperCase().indexOf(props.pointInput.toUpperCase()) !== -1 )
+	
+
+	const checkCityError = (e) => {
+		if (e.keyCode !== 40 && e.keyCode !== 38 && e.key !== 'Enter') {
+			if (sities.filter(el => el !== null).length === 0) {
+				setError({ text: 'Неверный город', style: 'sities', visible: true })
+			}
+			else {
+				setError({ text: '', style: '', visible: false })
+			}	
+		}
+		if (e.keyCode === 38) {
+			countCity <= 1 ? setCityCount(sities.length) : setCityCount(countCity - 1)
+		}
+		else if (e.keyCode === 40) {
+			countCity === sities.length ? setCityCount(1) : setCityCount(countCity + 1)
+		}
+		else if (e.key === 'Enter') {
+			let name = sities[countCity - 1].name
+			selectCity(name)
 			handlerCityBox(!cityBox)
-			console.log(el)
+		}
+	}
+	const checkPointError = (e) => {
+		if (e.keyCode !== 40 && e.keyCode !== 38 && e.key !== 'Enter') {
+			if (points.filter(el => el !== null).length === 0) {
+				setError({ text: 'Точка не найдена', style: 'points', visible: true })
+			}
+			else {
+				setError({ text: '', style: '', visible: false })
+			}	
+		}
+		if (e.keyCode === 38) {
+			countPoint <= 1 ? setPointCount(points.length) : setPointCount(countPoint - 1)
+		}
+		else if (e.keyCode === 40) {
+			countPoint === points.length ? setPointCount(1) : setPointCount(countPoint + 1)
+		}
+		else if (e.key === 'Enter'){
+			let name = points[countPoint - 1].address 
+			props.handelrPointInput(name)
+			props.selectPoint(name)
+			handlerPointBox(!pointBox)
 		}
 	}
 
-	const sities = props.cityId.map(el =>
-		el.name.toUpperCase().indexOf(cityInput.toUpperCase()) !== -1
-			? <Item key={el.id} select={selectCity} text={el.name} />
-			: null
-	)
-	const points = props.pointId.filter(el => el.cityName === cityInput).map( el =>
-		el.address.toUpperCase().indexOf(props.pointInput.toUpperCase()) !== -1
-			? <Item key={el.id} select={selectPoint} text={el.address} />
-			: null
-	)
-	const checkCityError = () => {
-		if (sities.filter(el => el !== null).length === 0) {
-			setError({ text: 'Неверный город', style: 'sities', visible: true })
-		}
-		else {
-			setError({ text: '', style: '', visible: false })
-		}
-	}
-	const checkPointError = () => {
-		if (points.filter(el => el !== null).length === 0) {
-			setError({ text: 'Точка не найдена', style: 'points', visible: true })
-		}
-		else {
-			setError({ text: '', style: '', visible: false })
-		}
-	}
-	// const nextCity = (e) => {
-	// 	if (e.keyCode === 40) {
-	// 		console.log('вниз');
-	// 		// citiName[0]._owner.return.pendingProps.className='active'
-	// 	}
-	// 	else if (e.keyCode === 38){
-	// 		console.log('вверх');
-	// 	}
-	// }
-	// влево: #37
-	// вверх: #38
-	// вправо: #39
-	// вниз: #40
-	// Рендер пунктов выдачи
 	return (
 		<div className='location__info style-input'>
 			<label className='location__city'>
@@ -127,7 +134,17 @@ const InputsBox = (props) => {
 					cityBox ?
 						<div className='location__city-list' >
 							<ul>
-								{sities}
+								{
+									sities.map((el,i)=>(
+										<Item
+											key={el.id}
+											index={i}
+											count={countCity}   
+											select={selectCity}
+											text={el.name}
+										/>
+									))
+								}
 							</ul>
 						</div>
 						:
@@ -141,7 +158,7 @@ const InputsBox = (props) => {
 			</label>
 			<label className='location__point input'>
 				Пункт выдачи
-			<input
+				<input
 					type="text"
 					value={props.pointInput}
 					onChange={updatePointInput}
@@ -159,7 +176,17 @@ const InputsBox = (props) => {
 					pointBox ?
 						<div className='location__city-list'>
 							<ul>
-								{points}
+								{
+									points.map((el,i) => (
+										<Item
+											key={el.id}
+											index={i}
+											count={countPoint}
+											select={selectPoint}
+											text={el.address}
+										/>
+									))
+								}
 							</ul>
 						</div>
 						:
@@ -170,8 +197,8 @@ const InputsBox = (props) => {
 	)
 }
 
-const Item = ({text, select}) => {
-	return <li onClick={() => select(text)}>{text}</li>
+const Item = ({ text, select, index, count, onenter}) => {
+	return <li className={index + 1 === count ? 'in-box__ative' : ''} onClick={() => select(text)}>{text}</li>
 }
 const TimesInput = ({ clear, styles}) => {
 	return (
