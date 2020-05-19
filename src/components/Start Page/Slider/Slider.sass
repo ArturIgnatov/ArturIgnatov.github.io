@@ -83,7 +83,6 @@
 	bottom: 20px
 	left: 50%
 	transform: translate(-50%, -50%)
-
 	.slider-dots__item
 		display: inline-block
 		border-radius: 50%
@@ -92,5 +91,14 @@
 		background: #ffffff
 		margin: 4px
 		cursor: pointer
+		position: relative
+		&::before
+			content: ''
+			position: absolute
+			width: 17px
+			height: 17px
+			top: -4px
+			left: -4px
+			background: transparent
 	.active, .slider-dots__item:hover
 		background-color: $GREEN

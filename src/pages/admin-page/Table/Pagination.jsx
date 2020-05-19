@@ -10,6 +10,10 @@ const Pagination = ({ pages, pagesCount, currentPage, setPage}) => {
 	let portionCount = Math.ceil(pagesCount / 3)
 	let leftPortionBorder = (portionNumber - 1) * 3 + 1
 	let rightPortionBorder = portionNumber * 3
+	console.log(leftPortionBorder);
+	console.log(rightPortionBorder);
+	
+	
 	// Вернуться в начало страниц (пагинация)
 	const returnToStartPage = () => {
 		setPage(pages[0])
@@ -30,7 +34,7 @@ const Pagination = ({ pages, pagesCount, currentPage, setPage}) => {
 						onClick={() => setPortionNumber(portionNumber - 1)}
 						className='pagination'>
 						«
-						</span>
+					</span>
 					<span
 						onClick={returnToStartPage}
 					>
@@ -60,7 +64,7 @@ const Pagination = ({ pages, pagesCount, currentPage, setPage}) => {
 						onClick={() => setPortionNumber(portionNumber + 1)}
 						className='pagination'>
 						»
-						</span>
+					</span>
 				</>
 			}
 		</>

@@ -53,13 +53,29 @@
 
 .modal__close
 	position: absolute
-	font-size: 30px
-	top: 30px
+	top: 35px
 	left: 11.5px
+	width: 30px
+	padding: 15px 0
 	cursor: pointer
 	animation-name: ttr
 	animation-duration: .9s
-
+.modal__times
+	width: 30px
+	border-radius: 3px
+	height: 4px
+	background: #fFF
+	transform: rotate(-45deg)
+	&::after
+		content: ''
+		position: absolute
+		background: #fff
+		top: 0
+		right: 0
+		width: 30px
+		border-radius: 3px
+		height: 4px
+		transform: rotate(90deg)
 @keyframes ttr
 	0%
 		opacity: .5

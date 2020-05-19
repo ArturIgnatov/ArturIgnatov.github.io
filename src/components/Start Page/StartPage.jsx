@@ -2,7 +2,6 @@ import React from 'react'
 import Content from './Content/Content';
 import Modal from './Modal/Modal';
 import Slider from './Slider/Slider';
-
 const StartPage = (props) => {
 
 	if (props.startPage.modalActive) {

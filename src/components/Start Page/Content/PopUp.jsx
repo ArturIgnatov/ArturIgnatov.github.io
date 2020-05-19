@@ -1,22 +1,24 @@
 import React from 'react'
 import { useState } from 'react'
-
+import { useTranslation } from "react-i18next";
 
 const PopUp = (props) => {
 	const [sityBox, setCityBox] = useState(false)
+	const { t, i18n } = useTranslation()
 	return (
 		<div className={!sityBox ? 'popup' : 'popup active'}>
 			{
 				!sityBox 
 					? 	<>
-							<span>Ваш город {props.city.name} ?</span>
+							<span>{t('city')} {props.city.name} ?</span>
 							<button
 								onClick={() => props.setHomePopUp()}
-							>Да
+							>{t('yes')}
 							</button>
 							<button
 								onClick={() => setCityBox(true)}
-							>Нет</button>
+							>{t('no')}
+							</button>
 						</>
 					: 	<CityBox 
 							setHomePopUp={props.setHomePopUp}

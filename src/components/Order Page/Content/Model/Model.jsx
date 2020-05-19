@@ -1,34 +1,12 @@
 import React from 'react'
 import './Model.sass'
 import FilterRadio from './FilterRadio'
+import CarItem from './CarItem'
 
 
 const Model = (props) => {
-// Рендер машин
-	// Фильтрация моделей на основе этого массивы будет мапитсья другой 
-	const filterCars = props.cars.filter((value, i) => {
-		if (props.category[1].checked) {
-			return props.cars[i].categoryId.name === 'Эконом'
-		}
-		else if (props.category[2].checked) {
-			return props.cars[i].categoryId.name === 'Премиум'
-		}
-		return props.cars[i]
-	})
-	// Рендер отфильтрованных машин
-	const carsItem = filterCars.map((el, i) => {
-		return(
-			<div 
-				key={i} 
-				className={el.selected ? 'model__item active' : 'model__item'} 
-				onClick={() => { props.selectCars(el.id) }}
-			>
-				<span>{el.name.match(/(?<=,\s).*/)[0]}</span>
-				<span>{String(el.priceMin).replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ')} - {String(el.priceMax).replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ')} ₽</span>
-				<img src={'http://api-factory.simbirsoft1.com/' + el.thumbnail.path} alt="" />
-			</div>
-		)
-	})	
+	// .filter(el => filters === 'Все модели' ? el : el.categoryId.name === filters)
+	let filters = props.category.find(el => el.checked).name 		
 	return (
 		<div className='model'>
 			<FilterRadio 
@@ -36,7 +14,22 @@ const Model = (props) => {
 				handlerRadio={props.handlerRadio}
 			/>
 			<div className='model__view show'>
-				{carsItem}
+				{
+					props.cars
+					.filter(el => filters === 'Все модели' ? el : el.categoryId.name === filters)
+					.map(el => (
+						<CarItem
+							key={el.id}
+							selected={el.selected}
+							selectCars={props.selectCars}
+							id={el.id}
+							name={el.name}
+							priceMax={el.priceMax}
+							priceMin={el.priceMin}
+							carimg={el.thumbnail.path}
+						/>
+					))
+				}
 			</div>
 		</div>
 	)

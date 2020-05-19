@@ -7,7 +7,7 @@ import AdminPage from './pages/admin-page/AdminPage';
 import Login from './pages/admin-page/Login/Login';
 import Preloader from './components/Preloader';
 import { connect } from 'react-redux';
-import { fetchPayload } from './redux/orderpage-reducer' 
+import { fetchPayload } from './redux/orderpage-reducer'
 
 const App = (props) => {
 	useEffect(()=>{

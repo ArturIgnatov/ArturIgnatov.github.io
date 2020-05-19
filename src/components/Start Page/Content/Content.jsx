@@ -4,16 +4,24 @@ import './Content.sass'
 import HeaderContent from './HeaderContent'
 import { connect } from 'react-redux'
 import { setHomePopUp} from '../../../redux/orderpage-reducer'
+import { useTranslation } from "react-i18next";
+import { useEffect } from 'react';
 
 const Content = (props) => {	
+	const { t, i18n} = useTranslation()
+
+	useEffect(()=> {
+		i18n.changeLanguage(props.lang)
+	}, [props.lang])
+
 	return(
 		<main className='content'>
 			<HeaderContent/>
 			<div className='content__desription'>
-				<h2>Каршеринг</h2>
+				<h2>{t('title')}</h2>
 				<h1>Need for Drive</h1>
-				<span>Поминутная аренда авто твоего города</span>
-				<NavLink to={props.step !== 5 ? '/docs/orderpage' : '/docs/orderpage/total'}><button onClick={() => props.setHomePopUp()}>Забронировать</button></NavLink>
+				<span>{t('subtitle')}</span>
+				<NavLink to={props.step !== 5 ? '/docs/orderpage' : '/docs/orderpage/total'}><button onClick={() => props.setHomePopUp()}>{t('reserve')}</button></NavLink>
 			</div>
 			<div className='content__footer'>
 				<span>© 2016-2020 «Need for drive»</span>
@@ -24,7 +32,8 @@ const Content = (props) => {
 }
 
 const mapStetToProps = (state) => ({
-	step: state.orderPage.step
+	step: state.orderPage.step,
+	lang: state.startPage.lang
 })
 
 export default connect(mapStetToProps, { setHomePopUp })(Content)

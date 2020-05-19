@@ -8,6 +8,7 @@ const PREV = 'PREV';
 const CURRENT = 'CURRENT'
 const OPEN_MODAL = 'OPEN_MODAL'
 const CLOSE_MODAL = 'CLOSE_MODAL'
+const SET_LANGUAGE = 'SET_LANGUAGE'
 
 let initialState = {
 	slides: [
@@ -29,6 +30,7 @@ let initialState = {
 		{ id: 3, title: 'Обслуживание' }
 	],
 	currentId: 0,
+	lang:'ru',
 	modalActive: false 
 }
 const StartPageReducer = (state = initialState, action) => {
@@ -66,16 +68,21 @@ const StartPageReducer = (state = initialState, action) => {
 				...state,
 				modalActive: false
 			}
+		case SET_LANGUAGE:
+			return {
+				...state,
+				lang: action.lang
+			}
 		default:
 			return state;
 	}
 };
 
-
 export const prevSlideAC = () => ({ type: PREV })
 export const nextSlideAC = () => ({ type: NEXT })
 export const openModal = () => ({ type: OPEN_MODAL })
 export const closeModal = () => ({ type: CLOSE_MODAL })
-export const currentSlideAC =(slideId) => ({ type: CURRENT, slideId })  
+export const currentSlideAC =(slideId) => ({ type: CURRENT, slideId })
+export const setLanguage = (lang) => ({type: SET_LANGUAGE, lang}) 
 
 export default StartPageReducer;

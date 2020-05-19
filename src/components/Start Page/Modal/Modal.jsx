@@ -15,7 +15,9 @@ const Modal = (props) => {
 	return (
 		<div className='modal'>
 			<div className='modal__item'>
-				<span className='modal__close' onClick={props.close}>✖</span>
+				<div className='modal__close' onClick={props.close}>
+					<div className='modal__times'></div>
+				</div>
 			</div>
 			<div className='modal__item'>
 				<nav className='nav'>
