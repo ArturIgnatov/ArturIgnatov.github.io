@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useRef } from 'react'
+
 
 const InputsBox = (props) => {
 	const [cityInput, handelrCityInput] = useState(props.preorder.cityId.name || '')
@@ -8,17 +10,31 @@ const InputsBox = (props) => {
 	const [pointBox, handlerPointBox] = useState(false)
 	const [error, setError] = useState({ text: '', style: '', visible: false})
 
-	useEffect(()=>{
+	const ref = useRef(null)
+
+	useEffect(() => {
 		// props.pointId.forEach((el, i, arr) => {
 		// 	props.setGeoPoint(el.cityName, el.address, el.name, arr)			
 		// });
 		props.setGeoCity(props.preorder.cityId.name)
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [] )
+
+		document.addEventListener('mousedown', clickOutside, false)
+		return () => {
+			document.removeEventListener('mousedown', clickOutside, false)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	
+	const clickOutside = (e) => {
+		if (ref.current && !ref.current.contains(e.target)) {
+			handlerPointBox(false)
+			handlerCityBox(false)
+		}
+	}
 	let updateCityInput = (e) => {
 		handelrCityInput(e.target.value)
 		handlerCityBox(true)
+		setCityCount(1)
 	}
 	let selectCity = (name) => {
 		handelrCityInput(name)
@@ -41,20 +57,26 @@ const InputsBox = (props) => {
 		handlerCityBox(!cityBox)
 		handlerPointBox(false)
 	}
+	let clickPointInput = () => {
+		handlerPointBox(!pointBox)
+	}
 	// Point
 	let updatePointInput = (e) => {
 		props.handelrPointInput(e.target.value)
 		handlerPointBox(true)
+		setPointCount(1)
 	}
 	let selectPoint = (name) => {
 		props.handelrPointInput(name)
 		props.selectPoint(name)
 		setError({ text: '', style: '', visible: false })
+
 	}
 	let clearPointInput = () => {
+		console.log('clear');
 		props.handelrPointInput('')
 		selectPoint('')
-		handlerPointBox(!pointBox)
+		// handlerPointBox(!pointBox)
 		setError({ text: '', style: '', visible: false })
 		setPointCount(1)
 	}
@@ -67,8 +89,7 @@ const InputsBox = (props) => {
 	.filter( el => el.cityName === cityInput)
 	.filter( (el, i) => el.address.toUpperCase().indexOf(props.pointInput.toUpperCase()) !== -1 )
 	
-
-	const checkCityError = (e) => {
+	const changeCityInput = (e) => {
 		if (e.keyCode !== 40 && e.keyCode !== 38 && e.key !== 'Enter') {
 			if (sities.filter(el => el !== null).length === 0) {
 				setError({ text: 'Неверный город', style: 'sities', visible: true })
@@ -89,7 +110,7 @@ const InputsBox = (props) => {
 			handlerCityBox(!cityBox)
 		}
 	}
-	const checkPointError = (e) => {
+	const changePointInput = (e) => {
 		if (e.keyCode !== 40 && e.keyCode !== 38 && e.key !== 'Enter') {
 			if (points.filter(el => el !== null).length === 0) {
 				setError({ text: 'Точка не найдена', style: 'points', visible: true })
@@ -106,12 +127,10 @@ const InputsBox = (props) => {
 		}
 		else if (e.key === 'Enter'){
 			let name = points[countPoint - 1].address 
-			props.handelrPointInput(name)
-			props.selectPoint(name)
-			handlerPointBox(!pointBox)
+			selectPoint(name)
+			handlerPointBox(false)
 		}
 	}
-
 	return (
 		<div className='location__info style-input'>
 			<label className='location__city'>
@@ -121,7 +140,7 @@ const InputsBox = (props) => {
 					value={cityInput}
 					onChange={updateCityInput}
 					onClick={clickCityInput}
-					onKeyUp={checkCityError}
+					onKeyUp={changeCityInput}
 					className={error.style === 'sities' ? 'error' : 'null'}
 					placeholder='Выбирите город...'
 				/>
@@ -132,7 +151,7 @@ const InputsBox = (props) => {
 				}
 				{
 					cityBox ?
-						<div className='location__city-list' >
+						<div className='location__city-list' ref={ref}>
 							<ul>
 								{
 									sities.map((el,i)=>(
@@ -163,8 +182,8 @@ const InputsBox = (props) => {
 					value={props.pointInput}
 					onChange={updatePointInput}
 					className={error.style === 'points' ? 'error' : null}
-					onClick={() => handlerPointBox(!pointBox)}
-					onKeyUp={checkPointError}
+					onClick={clickPointInput}
+					onKeyUp={changePointInput}
 					placeholder='Начните вводить пункт...'
 				/>
 				{
@@ -174,7 +193,7 @@ const InputsBox = (props) => {
 				}
 				{
 					pointBox ?
-						<div className='location__city-list'>
+						<div className='location__city-list' ref={ref}>
 							<ul>
 								{
 									points.map((el,i) => (

@@ -38,6 +38,7 @@ let SET_CATEGORIES = 'SET_CATEGORIES'
 let SET_ORDER_STATUS = 'SET_ORDER_STATUS'
 let SET_ORDER = 'SET_ORDER'
 let SET_PRELODER = 'SET_PRELODER'
+let SET_ERROR = 'SET_ERROR'
 // let newDate = moment().format().slice(0, 16)
 
 
@@ -81,7 +82,8 @@ let initialState = {
 	isModal: false,
 	step: 1,
 	isFetching: true,
-	order: ''
+	order: '',
+	error: undefined
 }
 const OrderPageReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -302,6 +304,11 @@ const OrderPageReducer = (state = initialState, action) => {
 				order: action.payload
 			}
 		}
+		case SET_ERROR :
+			return{
+				...state,
+				error: action.error.message
+			}
 		default:
 			return state
 	}
@@ -315,6 +322,7 @@ const setCategories = (payload) => ({ type: SET_CATEGORIES, payload})
 const setOrderStatus = (payload) => ({type: SET_ORDER_STATUS, payload}) 
 const setPreloader = (isFetching) => ({ type: SET_PRELODER, isFetching})
 const setOrder = (payload) => ({type: SET_ORDER, payload})
+const setError = (error) => ({type: SET_ERROR, error})
 // Диспачи для location
 export const selectCity = (cityName) => ({ type: SELECT_CITY, cityName })
 export const setHomePopUp = () => ({ type: SET_POP_UP})
@@ -422,6 +430,10 @@ export const fetchPayload = () => {
 					})
 				})
 			})
+		})
+		.catch(error =>{
+			dispatch(setError(error))
+			dispatch(setPreloader(false))
 		})
 	}
 }

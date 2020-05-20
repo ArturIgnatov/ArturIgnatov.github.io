@@ -14,12 +14,20 @@ const App = (props) => {
 		props.fetchPayload()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-
+	console.log(props);
+	
 	if (props.isFetching) {
 		return (
 			<div className='app'>
 				<Route path='/docs' component={PannelContainer} />
 				<Preloader/>
+			</div>
+		)
+	}
+	else if (props.error) {
+		return(
+			<div>
+				<span style={{color: 'red', display:'flex', justifyContent:'center', fontSize:'30px'}}>{props.error}</span>
 			</div>
 		)
 	}
@@ -37,7 +45,8 @@ const App = (props) => {
 }
 
 const mapDispatchToProps = (state) =>({
-	isFetching: state.orderPage.isFetching
+	isFetching: state.orderPage.isFetching,
+	error: state.orderPage.error
 })
 
 export default connect(mapDispatchToProps, { fetchPayload })(App)
