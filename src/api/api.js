@@ -15,8 +15,12 @@ const connect = axios.create({
 		Authorization: 'Basic ' + authToken
 	}
 })
+const https = require('https')
 const instance = axios.create({
 	baseURL: 'http://api-factory.simbirsoft1.com/api',
+	httpsAgent: new https.Agent({
+		rejectUnauthorized: false
+	}),
 	headers: {
 		'Content-Type': 'application/json',
 		'X-Api-Factory-Application-Id': appId,

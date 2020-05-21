@@ -36,7 +36,7 @@ const Total = (props) => {
 					<Services preoprder={props.preorder}/>
 					<div>Доступна с <span>{dateOrder}</span></div>
 				</div>
-				{/* <img src={props.preorder.car.img} alt="" /> */}
+				<img src={'http://api-factory.simbirsoft1.com' + props.preorder.carId.thumbnail.path} alt="" />
 			</div>
 		</div>
 	)

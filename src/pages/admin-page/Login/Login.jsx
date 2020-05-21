@@ -4,7 +4,8 @@ import logo from '../../../assets/images/svg/logo.svg'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useState } from 'react'
-import { login, setError } from '../../../redux/admin-page'
+import { login } from '../../../redux/thunk-admin'
+import { setError } from '../../../redux/action-admin'
 
 const Login = (props) => {
 	const [login, setLogin] = useState('')

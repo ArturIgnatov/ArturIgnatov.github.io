@@ -14,7 +14,9 @@ const Content = (props) => {
 		i18n.changeLanguage(props.lang)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.lang])
-
+	const a = require('https')
+	console.log(a);
+	
 	return(
 		<main className='content'>
 			<HeaderContent/>

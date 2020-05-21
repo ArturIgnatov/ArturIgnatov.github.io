@@ -5,7 +5,7 @@ import userimg from '../../assets/images/svg/user-avatar.png'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { auth } from '../../redux/admin-page'
+import { auth } from '../../redux/action-admin'
 
 const Header = (props) => {	
 	const [adminBoxVisible, setAdminBoxVisible]= useState(false)

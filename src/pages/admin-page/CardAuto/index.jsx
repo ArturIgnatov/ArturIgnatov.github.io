@@ -5,7 +5,8 @@ import InputGroup from './InputGroup'
 import { useState } from 'react'
 import Alert from './Alert'
 import { connect } from 'react-redux'
-import { setNewChangedCar, setNewCar, setUpdateCar } from '../../../redux/admin-page'
+import { setNewCar, setUpdateCar } from '../../../redux/thunk-admin'
+import { setNewChangedCar } from '../../../redux/action-admin'
 
 const CardAuto = (props) => {
 	const [imgValue, handlerVlue] = useState({ file: false, imagePreviewUrl: false})

@@ -11,7 +11,7 @@ const Content = (props) => {
 		<div className='admin-page__content'>
 			<Switch>
 				<Route exact path={'/adminpage'} component={CardAuto} />
-				<Route  path={'/adminpage/listcar'} component={Tables} />
+				<Route path={'/adminpage/listcar'} component={Tables} />
 				<Route path={'/adminpage/orders/:orderPage?'} component={Orders} />
 			</Switch>
 		</div>

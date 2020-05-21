@@ -5,8 +5,9 @@ import Header from './Header'
 import Content from './Content/Content'
 import Footer from './Footer'
 import { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { loadCity, auth } from '../../redux/admin-page'
+import { connect } from 'react-redux' 
+import { loadCity } from '../../redux/thunk-admin'
+import { auth } from '../../redux/action-admin'
 import { Redirect } from 'react-router-dom'
 
 const AdminPage = (props) => {
