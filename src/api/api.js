@@ -22,7 +22,7 @@ const connect = axios.create({
 
 
 const instance = axios.create({
-	baseURL: 'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api',
+	baseURL: 'http://api-factory.simbirsoft1.com/api',
 	headers: {
 		'Content-Type': 'application/json',
 		'X-Api-Factory-Application-Id': appId,
