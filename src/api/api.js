@@ -1,5 +1,6 @@
 import * as axios from 'axios'
 import Geocode from 'react-geocode';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 let appSecret = '4cbcea96de'
 let random = '1t23tst3'
@@ -8,26 +9,26 @@ let rrr = random + ':' + appSecret
 let authToken = btoa(rrr)
 
 const connect = axios.create({
-	baseURL: 'http://api-factory.simbirsoft1.com/api',
+	baseURL: '//api-factory.simbirsoft1.com/api',
 	headers: {
 		'Content-Type': 'application/json',
 		'X-Api-Factory-Application-Id': appId,
 		Authorization: 'Basic ' + authToken
 	}
 })
-const https = require('https')
+// const https = require('https')
+// const { createProxyMiddleware } = require('http-proxy-middleware');
+
+
+
 const instance = axios.create({
-	baseURL: 'http://api-factory.simbirsoft1.com/api',
-	httpsAgent: new https.Agent({
-		rejectUnauthorized: false
-	}),
+	baseURL: '//api-factory.simbirsoft1.com/api',
 	headers: {
 		'Content-Type': 'application/json',
+		'Access-Control-Allow-Origin': '*',
 		'X-Api-Factory-Application-Id': appId,
 	}
 })
-
-
 // connect.interceptors.response.use( 
 // 	function (response) {
 // 		instance.defaults.headers.common['Authorization'] = 'Bearer 3bf30b17e8fcb41d00c204e5acb78a11a044cf9b'

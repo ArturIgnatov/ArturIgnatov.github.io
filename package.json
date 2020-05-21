@@ -9,11 +9,12 @@
     "axios": "^0.19.2",
     "google-map-react": "^1.1.7",
     "google-maps-react": "^2.0.6",
+    "http-proxy-middleware": "^1.0.4",
     "https-agent": "^1.0.0",
     "i18next": "^19.4.4",
     "i18next-browser-languagedetector": "^4.1.1",
     "moment": "^2.24.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-datepicker": "^2.15.0",
     "react-dom": "^16.13.1",
@@ -32,6 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://vk.com/",
   "eslintConfig": {
     "extends": "react-app"
   },
